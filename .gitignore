@@ -144,3 +144,4 @@ out
 target
 .idea
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij
+/src/main/webapp/META-INF/
