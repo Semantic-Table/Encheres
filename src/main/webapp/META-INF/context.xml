@@ -2,10 +2,10 @@
 <Context>
     <Resource
             name="jdbc/encheres"
-    driverClassName="com.mysql.cj.jdbc.Driver"
-    type="javax.sql.DataSource"
-    url="jdbc:mysql://localhost:3306/encheres"
-    username="root"
-    password="root1"
+            driverClassName="com.mysql.cj.jdbc.Driver"
+            type="javax.sql.DataSource"
+            url="jdbc:mysql://localhost:3306/encheres"
+            username="root"
+            password="root1"
     />
 </Context>
