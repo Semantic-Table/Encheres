@@ -13,6 +13,7 @@
 </head>
 
 <body>
+<jsp:include page="menu.jsp"></jsp:include>
 <h1>coucou</h1>
 <c:forEach items="${utilisateurses}" var="utilisateurs">
     <p>${utilisateurs.telephone}</p>

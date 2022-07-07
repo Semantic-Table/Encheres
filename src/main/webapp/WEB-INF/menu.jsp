@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<c:if>
+<c:if test="${utilisateursCno_utilisateurs == null}">
     <header>
         <ul>
             <li><a href="SeConnecter"></a>S'inscrire</li>
@@ -15,7 +15,7 @@
     </header>
 </c:if>
 
-<c:if>
+<c:if test="${utilisateursCno_utilisateurs != null}">
     <header>
         <ul>
             <li><a href="#"></a>Enchères</li>
