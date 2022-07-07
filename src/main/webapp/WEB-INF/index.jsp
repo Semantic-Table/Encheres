@@ -29,29 +29,13 @@
                     <option value="4">Vêtement</option>
                     <option value="5">Sport & Loisirs</option>
                 </select>
-            </div>
-            <div>
                 <input type="submit" value="Rechercher">
             </div>
         </form>
-
-        <c:forEach items="${articlesVenduses}" var="articlesVendus">
-            <div>
-                <div>
-                    <img src="" alt="">
-                </div>
-                <div>
-                    <p>${articlesVendus.nom_article}</p>
-                    <p></p>
-                    <p></p>
-                    <c:forEach items="utilisateurses" var="utilisateurs">
-
-                    </c:forEach>
-                </div>
-
-            </div>
-
-        </c:forEach>
-
+        <main>
+            <c:forEach items="${articlesVenduses}" var="articlesVendus">
+                <p>Vendeur :  ${utilisateurs.pseudo}</p>
+            </c:forEach>
+        </main>
     </body>
 </html>
