@@ -39,7 +39,7 @@
             <c:forEach items="${articlesVenduses}" var="articlesVendus">
                 <div>
                     <div>
-                        <img src="" alt="">
+                        <img src="img/champi.png" alt="photo" id="photoProfil">
                     </div>
                     <div>
                         <p id="soulignage"><a href="AfficherArticle?no_article=${articlesVendus.no_article}">${articlesVendus.nom_article}</a></p>
