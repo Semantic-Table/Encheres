@@ -34,13 +34,24 @@
             </div>
         </form>
         <main>
-            <c:forEach items="${articlesVenduses}" var="articlesVendus">
-                <c:forEach items="${utilisateurses}" var="utilisateurs">
-                    <c:if test="${utilisateurs.no_utilisateur == articlesVendus.no_utilisateur}">
-                        <p>Vendeur :  ${utilisateurs.pseudo}</p>
-                    </c:if>
-                </c:forEach>
 
+            <%-- Affichage des Encheres en cours "articlesVenduses" et "utilisateurses"--%>
+            <c:forEach items="${articlesVenduses}" var="articlesVendus">
+                <div>
+                    <div>
+                        <img src="" alt="">
+                    </div>
+                    <div>
+                        <p id="soulignage">${articlesVendus.nom_article}</p>
+                        <p>Prix de vente: ${articlesVendus.prix_vente} €</p>
+                        <p>Fin de l'enchère: ${articlesVendus.date_fin_encheres}</p>
+                        <c:forEach items="${utilisateurses}" var="utilisateurs">
+                            <c:if test="${utilisateurs.no_utilisateur == articlesVendus.no_utilisateur}">
+                                <p>Vendeur :  ${utilisateurs.pseudo}</p>
+                             </c:if>
+                        </c:forEach>
+                    </div>
+                </div>
             </c:forEach>
         </main>
     </body>
