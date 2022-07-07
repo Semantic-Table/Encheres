@@ -24,8 +24,8 @@ public class Accueil extends HttpServlet {
             int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
             request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
         }
-/*
-        //Instance de classe (dal) base de données
+
+        //Instance de classe (dal) base de données pour les utiliser
         ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
         CategoriesSQL categoriesSQL = new CategoriesSQL();
@@ -33,19 +33,15 @@ public class Accueil extends HttpServlet {
         //Récupération des paramètres en insert. de la base SQL
         articlesVendusSQL.insert(new ArticlesVendus(request.getParameter("nom_article"), request.getParameter("description"), Date.valueOf(request.getParameter("date_debut_encheres")), Date.valueOf(request.getParameter("date_fin_encheres")), Integer.parseInt(request.getParameter("prix_initial")), Integer.parseInt(request.getParameter("prix_vente")), Integer.parseInt(request.getParameter("no_utilisateur")),Integer.parseInt(request.getParameter("no_categorie"))));
 
-        //Insertion des variables à partir des instances
-        ArticlesVendus articlesVendus = articlesVendusSQL.selectBylast();
-        Utilisateurs utilisateurs = utilisateursSQL.selectById(ArticlesVendus.getNo_utilisateur());
-        Utilisateurs utilisateursBis = utilisateursSQL.selectById(no_utilisateur());
-        Categories categories = categoriesSQL.selectById(Integer.parseInt(request.getParameter("no_categorie")));
+        //Création des listes "ArticlesVendus et Utilisateurs" pour affichage
+        ArrayList<ArticlesVendus> articlesVenduses = articlesVendusSQL.selectAll();
+        ArrayList<Utilisateurs> utilisateurses = utilisateursSQL.selectAll();
 
         //Requête d'envoie
-        request.setAttribute("articlesVendus", articlesVendus);
-        request.setAttribute("utilisateurs", utilisateurs);
-        request.setAttribute("utilisateursBis", utilisateursBis);
-        request.setAttribute("categories", categories);
+        request.setAttribute("articlesVenduses", articlesVenduses);
+        request.setAttribute("utilisateurses", utilisateurses);
 
-        //Requête d'envoie a la JSP*/
+        //Requête d'envoie a la JSP
         request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
     }
 
