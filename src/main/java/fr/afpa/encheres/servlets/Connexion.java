@@ -25,9 +25,11 @@ public class Connexion extends HttpServlet {
             request.setAttribute("articlesVenduses", articlesVenduses );
             int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
             request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
-            request.getRequestDispatcher("WEB-INF/Accueil.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
         }
-        request.getRequestDispatcher("WEB-INF/connexion.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/connexion.jsp").forward(request, response);
+
+
     }
 
     @Override
