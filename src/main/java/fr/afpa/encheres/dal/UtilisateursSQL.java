@@ -31,27 +31,100 @@ public class UtilisateursSQL {
         return utilisateurses;
     }
 
-    public void insert(Utilisateurs utilisateurs) {
+    public Utilisateurs selectByPseudo(String pseudo) {
+        Utilisateurs utilisateurs = null;
         try {
             Connection connection = ConnectionProvider.getConnection();
             PreparedStatement pstmt = connection.prepareStatement(
-                    "INSERT INTO utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?)"
+                    "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE pseudo = ?"
             );
-            pstmt.setString(1, utilisateurs.getPseudo());
-            pstmt.setString(2, utilisateurs.getNom());
-            pstmt.setString(3, utilisateurs.getPrenom());
-            pstmt.setString(4, utilisateurs.getEmail());
-            pstmt.setString(5, utilisateurs.getTelephone());
-            pstmt.setString(6, utilisateurs.getRue());
-            pstmt.setString(7, utilisateurs.getCode_postal());
-            pstmt.setString(8, utilisateurs.getVille());
-            pstmt.setString(9, utilisateurs.getMot_de_passe());
-            pstmt.setInt(10, utilisateurs.getCredit());
-            pstmt.setBoolean(11, utilisateurs.isAdministrateur());
-            pstmt.executeUpdate();
+            pstmt.setString(1, pseudo);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                utilisateurs = new Utilisateurs(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getBoolean("administrateur"));
+            }
+
             connection.close();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
+        }
+        return utilisateurs;
+    }
+
+    public Utilisateurs selectByEmail(String email) {
+        Utilisateurs utilisateurs = null;
+        try {
+            Connection connection = ConnectionProvider.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE email = ?"
+            );
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                utilisateurs = new Utilisateurs(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getBoolean("administrateur"));
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return utilisateurs;
+    }
+
+    public void insert(Utilisateurs utilisateurs) {
+        Utilisateurs testPseudo = null;
+
+        if (testPseudo != null) {
+            try {
+                Connection connection = ConnectionProvider.getConnection();
+                PreparedStatement pstmt = connection.prepareStatement(
+                        "INSERT INTO utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?,?,?,?,?,?,?,?,?,?,?)"
+                );
+                pstmt.setString(1, utilisateurs.getPseudo());
+                pstmt.setString(2, utilisateurs.getNom());
+                pstmt.setString(3, utilisateurs.getPrenom());
+                pstmt.setString(4, utilisateurs.getEmail());
+                pstmt.setString(5, utilisateurs.getTelephone());
+                pstmt.setString(6, utilisateurs.getRue());
+                pstmt.setString(7, utilisateurs.getCode_postal());
+                pstmt.setString(8, utilisateurs.getVille());
+                pstmt.setString(9, utilisateurs.getMot_de_passe());
+                pstmt.setInt(10, utilisateurs.getCredit());
+                pstmt.setBoolean(11, utilisateurs.isAdministrateur());
+                pstmt.executeUpdate();
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public void update(int no_utilisateurs, Utilisateurs utilisateurs) {
+        Utilisateurs testPseudo = null;
+
+        if (testPseudo != null) {
+            try {
+                Connection connection = ConnectionProvider.getConnection();
+                PreparedStatement pstmt = connection.prepareStatement(
+                        "UPDATE utilisateurs SET pseudo = ? AND nom = ? AND prenom = ? AND email = ? AND telephone = ? AND rue = ? AND code_postal = ? AND ville = ? AND mot_de_passe = ? AND credit = ? AND administrateur = ? WHERE no_utilisateur = ?"
+                );
+                pstmt.setString(1, utilisateurs.getPseudo());
+                pstmt.setString(2, utilisateurs.getNom());
+                pstmt.setString(3, utilisateurs.getPrenom());
+                pstmt.setString(4, utilisateurs.getEmail());
+                pstmt.setString(5, utilisateurs.getTelephone());
+                pstmt.setString(6, utilisateurs.getRue());
+                pstmt.setString(7, utilisateurs.getCode_postal());
+                pstmt.setString(8, utilisateurs.getVille());
+                pstmt.setString(9, utilisateurs.getMot_de_passe());
+                pstmt.setInt(10, utilisateurs.getCredit());
+                pstmt.setBoolean(11, utilisateurs.isAdministrateur());
+                pstmt.setInt(12, no_utilisateurs);
+                pstmt.executeUpdate();
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -76,7 +149,7 @@ public class UtilisateursSQL {
             PreparedStatement pstmt = connection.prepareStatement(
                     "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE no_utilisateur = ?"
             );
-            pstmt.setInt(1,no_utilisateurs);
+            pstmt.setInt(1, no_utilisateurs);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 utilisateurs = new Utilisateurs(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getBoolean("administrateur"));
@@ -117,8 +190,8 @@ public class UtilisateursSQL {
             PreparedStatement pstmt = connection.prepareStatement(
                     "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs WHERE pseudo = ? AND mot_de_passe = ?"
             );
-            pstmt.setString(1,pseudo);
-            pstmt.setString(2,mot_de_passe);
+            pstmt.setString(1, pseudo);
+            pstmt.setString(2, mot_de_passe);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 utilisateurs = new Utilisateurs(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getBoolean("administrateur"));

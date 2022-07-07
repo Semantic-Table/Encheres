@@ -32,14 +32,17 @@ public class Inscription extends HttpServlet {
 
         }
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
-        utilisateursSQL.insert(new Utilisateurs(request.getParameter("pseudo"), request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("email"), request.getParameter("telephone"), request.getParameter("rue"), request.getParameter("code_postal"), request.getParameter("ville"), request.getParameter("mot_de_passe"), 0, false));
-        ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
-        ArrayList<ArticlesVendus> articlesVenduses = articlesVendusSQL.selectAll();
-        request.setAttribute("articlesVenduses", articlesVenduses);
+        if (utilisateursSQL.selectByPseudo(request.getParameter("pseudo")) != null && utilisateursSQL.selectByEmail( request.getParameter("email")) != null){
+            utilisateursSQL.insert(new Utilisateurs(request.getParameter("pseudo"), request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("email"), request.getParameter("telephone"), request.getParameter("rue"), request.getParameter("code_postal"), request.getParameter("ville"), request.getParameter("mot_de_passe"), 0, false));
+            ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
+            ArrayList<ArticlesVendus> articlesVenduses = articlesVendusSQL.selectAll();
+            request.setAttribute("articlesVenduses", articlesVenduses);
 
-        Utilisateurs utilisateurs = utilisateursSQL.selectByLast();
-        session.setAttribute("no_utilisateur", utilisateurs.getNo_utilisateur());
+            Utilisateurs utilisateurs = utilisateursSQL.selectByLast();
+            session.setAttribute("no_utilisateur", utilisateurs.getNo_utilisateur());
 
-        request.getRequestDispatcher("WEB-INF/profil.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/profil.jsp").forward(request, response);
+        }
+        request.getRequestDispatcher("WEB-INF/echecInscription.jsp").forward(request,response);
     }
 }
