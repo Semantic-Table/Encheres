@@ -24,7 +24,7 @@
             <p>Retraits: ${retraits.rue}</p>
             <p>${retraits.code_postal} ${retraits.ville}</p>
             <p>Vendeur: ${utilisateurs.pseudo}</p>
-            <p>Remporté par: ${gagnant}</p></div>
+            <p>Remporté par: ${utilisateursGagnant.pseudo}</p></div>
     </div>
 </main>
 </body>

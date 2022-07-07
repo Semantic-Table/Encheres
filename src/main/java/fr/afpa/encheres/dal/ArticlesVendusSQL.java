@@ -1,6 +1,8 @@
 package fr.afpa.encheres.dal;
 
 import fr.afpa.encheres.bo.ArticlesVendus;
+import fr.afpa.encheres.bo.Categories;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -116,5 +118,28 @@ public class ArticlesVendusSQL {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public ArrayList<ArticlesVendus> selectByCategorieAndByNom_article(int no_categorie, String nom_article) {
+        ArrayList<ArticlesVendus> articlesVenduses = new ArrayList<>();
+        try {
+            Connection connection = ConnectionProvider.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "SELECT no_article,nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie FROM articles_vendus WHERE nom_article LIKE ? AND no_categorie = ?"
+            );
+            pstmt.setString(1,"%" + nom_article + "%");
+            pstmt.setInt(2,no_categorie);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                articlesVenduses.add(
+                        new ArticlesVendus(
+                                rs.getInt("no_article"),rs.getString("nom_article"),rs.getString("description"),rs.getDate("date_debut_encheres"),rs.getDate("date_fin_encheres"),rs.getInt("prix_initial"),rs.getInt("prix_vente"),rs.getInt("no_utilisateur"),rs.getInt("no_categorie")
+                        )
+                );
+            }
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return articlesVenduses;
     }
 }

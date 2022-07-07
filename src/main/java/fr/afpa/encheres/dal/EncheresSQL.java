@@ -61,4 +61,23 @@ public class EncheresSQL {
             throw new RuntimeException(e);
         }
     }
+    public Encheres selectByNo_articleOrderByMontant_enchere(int no_article){
+        Encheres encheres = null;
+        try {
+            Connection connection = ConnectionProvider.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "SELECT no_encheres,no_utilisateur,no_article,date_enchere,montant_enchere FROM encheres WHERE no_article = ? ORDER BY montant_enchere DESC LIMIT 1"
+            );
+            pstmt.setInt(1, no_article);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                encheres = new Encheres(rs.getInt("no_encheres"),rs.getInt("no_utilisateur"),rs.getInt("no_article"),rs.getDate("date_enchere"),rs.getTime("time_enchere"),rs.getInt("montant_enchere"));
+            }
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return encheres;
+    }
+
 }
