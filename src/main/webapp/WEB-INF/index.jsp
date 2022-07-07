@@ -33,26 +33,28 @@
                 <input type="submit" value="Rechercher">
             </div>
         </form>
-        <main>
 
-            <%-- Affichage des Encheres en cours "articlesVenduses" et "utilisateurses"--%>
-            <c:forEach items="${articlesVenduses}" var="articlesVendus">
-                <div>
+        <main>
+            <div class="display">
+                <%-- Affichage des Encheres en cours "articlesVenduses" et "utilisateurses"--%>
+                <c:forEach items="${articlesVenduses}" var="articlesVendus">
                     <div>
-                        <img src="img/champi.png" alt="photo" id="photoProfil">
+                        <div>
+                            <img src="img/champi.png" alt="photo" id="photoProfil">
+                        </div>
+                        <div>
+                            <p id="soulignage"><a href="AfficherArticle?no_article=${articlesVendus.no_article}">${articlesVendus.nom_article}</a></p>
+                            <p>Prix de vente: ${articlesVendus.prix_vente} €</p>
+                            <p>Fin de l'enchère: ${articlesVendus.date_fin_encheres}</p>
+                            <c:forEach items="${utilisateurses}" var="utilisateurs">
+                                <c:if test="${utilisateurs.no_utilisateur == articlesVendus.no_utilisateur}">
+                                    <p>Vendeur : <a href="AfficherProfil?no_utilisateur=${utilisateurs.no_utilisateur}"> ${utilisateurs.pseudo}</a></p>
+                                </c:if>
+                            </c:forEach>
+                        </div>
                     </div>
-                    <div>
-                        <p id="soulignage"><a href="AfficherArticle?no_article=${articlesVendus.no_article}">${articlesVendus.nom_article}</a></p>
-                        <p>Prix de vente: ${articlesVendus.prix_vente} €</p>
-                        <p>Fin de l'enchère: ${articlesVendus.date_fin_encheres}</p>
-                        <c:forEach items="${utilisateurses}" var="utilisateurs">
-                            <c:if test="${utilisateurs.no_utilisateur == articlesVendus.no_utilisateur}">
-                                <p>Vendeur : <a href="AfficherProfil?no_utilisateur=${utilisateurs.no_utilisateur}"> ${utilisateurs.pseudo}</a></p>
-                             </c:if>
-                        </c:forEach>
-                    </div>
-                </div>
-            </c:forEach>
+                </c:forEach>
+            </div>
         </main>
     </body>
 </html>
