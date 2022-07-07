@@ -60,4 +60,23 @@ public class RetraitsSQL {
             throw new RuntimeException(e);
         }
     }
+
+    public Retraits selectById(int no_article) {
+        Retraits retraits = null;
+        try {
+            Connection connection = ConnectionProvider.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "SELECT no_article, rue, code_postal, ville FROM retraits WHERE no_article = ?"
+            );
+            pstmt.setInt(1,no_article);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                retraits = new Retraits(rs.getInt("no_article"),rs.getString("rue"),rs.getString("code_postal"),rs.getString("ville"));
+            }
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return retraits;
+    }
 }

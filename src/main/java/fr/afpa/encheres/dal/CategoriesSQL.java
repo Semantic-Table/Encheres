@@ -57,4 +57,23 @@ public class CategoriesSQL {
             throw new RuntimeException(e);
         }
     }
+
+    public Categories selectById(int no_categorie) {
+        Categories categories = null;
+        try {
+            Connection connection = ConnectionProvider.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "SELECT no_categorie,libelle FROM categories WHERE no_categorie = ?"
+            );
+            pstmt.setInt(1,no_categorie);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                categories = new Categories(rs.getInt("no_categorie"), rs.getString("libelle"));
+            }
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return categories;
+    }
 }
