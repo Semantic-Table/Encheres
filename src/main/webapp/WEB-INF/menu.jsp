@@ -19,10 +19,10 @@ ${utilisateursCno_utilisateurs}
 <c:if test="${utilisateursCno_utilisateurs != null}">
     <header>
         <ul>
-            <li><a href="#">Enchères</a></li>
-            <li><a href="#">Vendre un article</a></li>
-            <li><a href="#">Mon profil</a></li>
-            <li><a href="#">Déconnexion</a></li>
+            <li><a href="Accueil">Enchères</a></li>
+            <li><a href="NouvelleVente">Vendre un article</a></li>
+            <li><a href="Profil">Mon profil</a></li>
+            <li><a href="Deconnexion">Déconnexion</a></li>
         </ul>
     </header>
 </c:if>

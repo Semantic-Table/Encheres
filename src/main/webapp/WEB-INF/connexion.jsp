@@ -18,9 +18,10 @@
         <input type="password" name="mot_de_passe" id="mot_de_passe">
 
         <input type="submit" value="Connexion">
-        <input type="checkbox" name="" id="">
-        <a href="#">Mot de passe oublié</a>
+
     </form>
+    <input type="checkbox" name="" id="">
+    <a href="#">Mot de passe oublié</a>
 
     <form action="Inscription" method="get">
         <input type="submit" value="Créer un compte">
