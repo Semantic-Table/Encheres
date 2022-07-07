@@ -14,11 +14,7 @@ public class Supprimer extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        if (session.getAttribute("no_utilisateur") != null){
-            int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
-            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
 
-        }
 
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
         utilisateursSQL.delete((Integer) session.getAttribute("no_utilisateur"));

@@ -72,9 +72,7 @@ public class UtilisateursSQL {
     }
 
     public void insert(Utilisateurs utilisateurs) {
-        Utilisateurs testPseudo = null;
 
-        if (testPseudo != null) {
             try {
                 Connection connection = ConnectionProvider.getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(
@@ -96,17 +94,18 @@ public class UtilisateursSQL {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-        }
+
     }
 
     public void update(int no_utilisateurs, Utilisateurs utilisateurs) {
-        Utilisateurs testPseudo = null;
 
-        if (testPseudo != null) {
+        System.out.println(no_utilisateurs);
+        System.out.println(utilisateurs);
+
             try {
                 Connection connection = ConnectionProvider.getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(
-                        "UPDATE utilisateurs SET pseudo = ? AND nom = ? AND prenom = ? AND email = ? AND telephone = ? AND rue = ? AND code_postal = ? AND ville = ? AND mot_de_passe = ? AND credit = ? AND administrateur = ? WHERE no_utilisateur = ?"
+                        "UPDATE utilisateurs SET pseudo = ? , nom = ? , prenom = ? , email = ? , telephone = ? , rue = ? , code_postal = ? , ville = ? , mot_de_passe = ? , credit = ? , administrateur = ? WHERE no_utilisateur = ?"
                 );
                 pstmt.setString(1, utilisateurs.getPseudo());
                 pstmt.setString(2, utilisateurs.getNom());
@@ -125,7 +124,7 @@ public class UtilisateursSQL {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-        }
+        
     }
 
     public void delete(int no_utilisateur) {

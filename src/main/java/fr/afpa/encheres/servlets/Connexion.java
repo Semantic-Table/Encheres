@@ -15,10 +15,15 @@ import java.util.ArrayList;
 public class Connexion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("no_utilisateur") != null){
+            int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
+            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
+        }
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
         Utilisateurs utilisateursC = utilisateursSQL.selectByPseudoAndByMot_de_passe(request.getParameter("pseudo"), request.getParameter("mot_de_passe"));
         if(utilisateursC != null){
-            HttpSession session = request.getSession();
+
             session.setAttribute( "no_utilisateur" ,utilisateursC.getNo_utilisateur());
             ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
             ArrayList<ArticlesVendus> articlesVenduses = articlesVendusSQL.selectAll();

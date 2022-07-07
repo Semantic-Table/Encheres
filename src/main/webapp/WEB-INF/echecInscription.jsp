@@ -18,7 +18,7 @@
 </head>
 <body>
 <jsp:include page="menu.jsp"></jsp:include>
-<p>le mail/pseudo sont deja pris</p>
+<p>Le mail/pseudo sont deja pris ou le pseudo n'est pas valide.</p>
 <a href="Accueil">revenir a l'accueil</a>
 </body>
 </html>

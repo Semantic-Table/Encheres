@@ -11,6 +11,7 @@
     <title>Connexion</title>
 </head>
 <body>
+<jsp:include page="menu.jsp"></jsp:include>
     <form method="get" action="Connexion">
         <label for="pseudo">Identifiant: </label>
         <input type="text" name="pseudo" id="pseudo">

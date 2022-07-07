@@ -2,8 +2,10 @@ package fr.afpa.encheres.dal;
 
 import fr.afpa.encheres.bo.ArticlesVendus;
 import fr.afpa.encheres.bo.Categories;
+import fr.afpa.encheres.bo.Encheres;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ArticlesVendusSQL {
@@ -14,6 +16,29 @@ public class ArticlesVendusSQL {
             PreparedStatement pstmt = connection.prepareStatement(
                     "SELECT no_article,nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie FROM articles_vendus"
             );
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                articlesVenduses.add(
+                        new ArticlesVendus(
+                                rs.getInt("no_article"),rs.getString("nom_article"),rs.getString("description"),rs.getDate("date_debut_encheres"),rs.getDate("date_fin_encheres"),rs.getInt("prix_initial"),rs.getInt("prix_vente"),rs.getInt("no_utilisateur"),rs.getInt("no_categorie")
+                        )
+                );
+            }
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return articlesVenduses;
+    }
+
+    public ArrayList<ArticlesVendus> selectByNo_utilisateur(int no_utilisateur) {
+        ArrayList<ArticlesVendus> articlesVenduses = new ArrayList<>();
+        try {
+            Connection connection = ConnectionProvider.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "SELECT no_article,nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie FROM articles_vendus where no_utilisateur = ?"
+            );
+            pstmt.setInt(1,no_utilisateur);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()){
                 articlesVenduses.add(
@@ -128,6 +153,98 @@ public class ArticlesVendusSQL {
             );
             pstmt.setString(1,"%" + nom_article + "%");
             pstmt.setInt(2,no_categorie);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                articlesVenduses.add(
+                        new ArticlesVendus(
+                                rs.getInt("no_article"),rs.getString("nom_article"),rs.getString("description"),rs.getDate("date_debut_encheres"),rs.getDate("date_fin_encheres"),rs.getInt("prix_initial"),rs.getInt("prix_vente"),rs.getInt("no_utilisateur"),rs.getInt("no_categorie")
+                        )
+                );
+            }
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return articlesVenduses;
+    }
+
+    public ArrayList<ArticlesVendus> selectEnCours() {
+        ArrayList<ArticlesVendus> articlesVenduses = new ArrayList<>();
+        try {
+            Connection connection = ConnectionProvider.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "SELECT no_article,nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie FROM articles_vendus WHERE date_fin_encheres > date_format(?,'%y%m%d') AND date_debut_encheres < date_format(?,'%y%m%d')"
+            );
+            pstmt.setString(1, String.valueOf(Date.valueOf(LocalDate.now())));
+            System.out.println(String.valueOf(Date.valueOf(LocalDate.now())));
+            pstmt.setString(2, String.valueOf(Date.valueOf(LocalDate.now())));
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                articlesVenduses.add(
+                        new ArticlesVendus(
+                                rs.getInt("no_article"),rs.getString("nom_article"),rs.getString("description"),rs.getDate("date_debut_encheres"),rs.getDate("date_fin_encheres"),rs.getInt("prix_initial"),rs.getInt("prix_vente"),rs.getInt("no_utilisateur"),rs.getInt("no_categorie")
+                        )
+                );
+            }
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return articlesVenduses;
+    }
+
+    public ArrayList<ArticlesVendus> selectWin(int no_utilisateur) {
+
+        ArrayList<ArticlesVendus> articlesVenduses = new ArrayList<>();
+        ArrayList<ArticlesVendus> articlesVendusesWin = new ArrayList<>();
+        try {
+            Connection connection = ConnectionProvider.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "SELECT no_article,nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie FROM articles_vendus"
+            );
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                articlesVenduses.add(
+                        new ArticlesVendus(
+                                rs.getInt("no_article"),rs.getString("nom_article"),rs.getString("description"),rs.getDate("date_debut_encheres"),rs.getDate("date_fin_encheres"),rs.getInt("prix_initial"),rs.getInt("prix_vente"),rs.getInt("no_utilisateur"),rs.getInt("no_categorie")
+                        )
+                );
+            }
+            EncheresSQL encheresSQL = new EncheresSQL();
+            ArrayList<Encheres> enchereses = new ArrayList<>();
+            for (ArticlesVendus articlesVendus:articlesVenduses){
+                Encheres encheres = encheresSQL.selectByNo_articleOrderByMontant_enchere(articlesVendus.getNo_article());
+                if (encheres != null){
+                    enchereses.add(encheres);
+                }
+            }
+
+            for (ArticlesVendus articlesVendus:articlesVenduses) {
+
+                for (Encheres encheresWin:enchereses) {
+                    if (no_utilisateur == articlesVendus.getNo_utilisateur() && articlesVendus.getNo_article() == encheresWin.getNo_article()){
+
+                        articlesVendusesWin.add(articlesVendus);
+                    }
+                }
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return articlesVendusesWin;
+    }
+
+    public ArrayList<ArticlesVendus> selectParticipation(int no_utilisateur) {
+        ArrayList<ArticlesVendus> articlesVenduses = new ArrayList<>();
+        try {
+            Connection connection = ConnectionProvider.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "SELECT articles_vendus.no_article,nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,articles_vendus.no_utilisateur,no_categorie FROM articles_vendus inner join encheres on articles_vendus.no_article = encheres.no_article where encheres.no_utilisateur = ? group by articles_vendus.no_article;"
+            );
+            pstmt.setInt(1,no_utilisateur);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()){
                 articlesVenduses.add(

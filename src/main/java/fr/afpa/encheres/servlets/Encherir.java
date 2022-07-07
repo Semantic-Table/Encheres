@@ -23,8 +23,6 @@ public class Encherir extends HttpServlet {
         }
         EncheresSQL encheresSQL = new EncheresSQL();
         ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
-        articlesVendusSQL.updatePrix_vente(
-                Integer.parseInt(request.getParameter("no_article")), Integer.parseInt(request.getParameter("montant_enchere")));
 
 
         int no_utilisateurs = (int) session.getAttribute("no_utilisateur");
@@ -39,18 +37,23 @@ public class Encherir extends HttpServlet {
 
         Categories categories = categoriesSQL.selectById(Integer.parseInt(request.getParameter("no_categorie")));
         ArticlesVendus articlesVendus = articlesVendusSQL.selectById(Integer.parseInt(request.getParameter("no_article")));
-        Utilisateurs utilisateurs = utilisateursSQL.selectById(articlesVendus.getNo_utilisateur());
-        Retraits retraits = retraitsSQL.selectById(articlesVendus.getNo_article());
 
+        Retraits retraits = retraitsSQL.selectById(articlesVendus.getNo_article());
+        if (Integer.parseInt(request.getParameter("montant_enchere")) > articlesVendus.getPrix_vente()) {
+            articlesVendusSQL.updatePrix_vente(Integer.parseInt(request.getParameter("no_article")), Integer.parseInt(request.getParameter("montant_enchere")));
+            System.out.println("hey");
+            encheresSQL.insert(new Encheres((int) session.getAttribute("no_utilisateur"), Integer.parseInt(request.getParameter("no_article")), Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()), Integer.parseInt(request.getParameter("montant_enchere"))));
+
+        }
+        articlesVendus = articlesVendusSQL.selectById(Integer.parseInt(request.getParameter("no_article")));
+        Utilisateurs utilisateurs = utilisateursSQL.selectById(articlesVendus.getNo_utilisateur());
         request.setAttribute("articlesVendus", articlesVendus);
+
         request.setAttribute("utilisateurs", utilisateurs);
         request.setAttribute("utilisateursC", utilisateursC);
         request.setAttribute("retraits", retraits);
         request.setAttribute("categories", categories);
-        if (Integer.parseInt(request.getParameter("montant_enchere")) > articlesVendus.getPrix_vente()) {
-            encheresSQL.insert(new Encheres((int) session.getAttribute("no_utilisateur"), Integer.parseInt(request.getParameter("no_article")), Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()), Integer.parseInt(request.getParameter("montant_enchere"))));
 
-        }
         request.getRequestDispatcher("WEB-INF/detailVente.jsp").forward(request, response);
     }
 

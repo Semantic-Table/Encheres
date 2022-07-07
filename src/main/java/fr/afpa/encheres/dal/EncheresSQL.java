@@ -13,7 +13,7 @@ public class EncheresSQL {
         try {
             Connection connection = ConnectionProvider.getConnection();
             PreparedStatement pstmt = connection.prepareStatement(
-                    "SELECT no_encheres,no_utilisateur,no_article,date_enchere,montant_enchere FROM encheres"
+                    "SELECT no_encheres,no_utilisateur,no_article,date_enchere,time_enchere,montant_enchere FROM encheres"
             );
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()){
@@ -66,7 +66,7 @@ public class EncheresSQL {
         try {
             Connection connection = ConnectionProvider.getConnection();
             PreparedStatement pstmt = connection.prepareStatement(
-                    "SELECT no_encheres,no_utilisateur,no_article,date_enchere,montant_enchere FROM encheres WHERE no_article = ? ORDER BY montant_enchere DESC LIMIT 1"
+                    "SELECT no_encheres,no_utilisateur,no_article,date_enchere,time_enchere,montant_enchere FROM encheres WHERE no_article = ? ORDER BY montant_enchere DESC LIMIT 1"
             );
             pstmt.setInt(1, no_article);
             ResultSet rs = pstmt.executeQuery();

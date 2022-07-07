@@ -19,7 +19,7 @@
 </head>
 <body>
 <jsp:include page="menu.jsp"></jsp:include>
-    <h2>Detail Vente</h2>
+<h2>Detail Vente</h2>
 <main>
     <div>
         <div><img src="" alt=""></div>
@@ -32,8 +32,16 @@
             <p>Retraits: ${retraits.rue}</p>
             <p>${retraits.code_postal} ${retraits.ville}</p>
             <p>Vendeur: ${utilisateurs.pseudo}</p>
-            <form action="Encherir">Ma proposition : <input type="number" id="montant_enchere" name="montant_enchere"><input type="hidden" value="${articlesVendus.no_article}" name="no_article">
-                <input type="hidden" name="no_categorie" value="${categories.no_categorie}"><button type="submit">encherir</button></form></div>
+            <c:if test="${articlesVendus.no_utilisateur != utilisateursCno_utilisateurs}">
+                <form action="Encherir">
+                    <label for="montant_enchere">Ma proposition : </label><input type="number" id="montant_enchere" name="montant_enchere">
+                    <input type="hidden" value="${articlesVendus.no_article}" name="no_article">
+                    <input type="hidden" name="no_categorie" value="${categories.no_categorie}">
+                    <button type="submit">encherir</button>
+                </form>
+            </c:if>
+        </div>
+
     </div>
 </main>
 </body>

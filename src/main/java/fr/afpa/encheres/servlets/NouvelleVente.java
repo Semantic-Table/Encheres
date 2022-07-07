@@ -1,19 +1,16 @@
 package fr.afpa.encheres.servlets;
 
-import fr.afpa.encheres.bo.ArticlesVendus;
-import fr.afpa.encheres.bo.Categories;
-import fr.afpa.encheres.bo.Retraits;
-import fr.afpa.encheres.bo.Utilisateurs;
-import fr.afpa.encheres.dal.ArticlesVendusSQL;
-import fr.afpa.encheres.dal.CategoriesSQL;
-import fr.afpa.encheres.dal.RetraitsSQL;
-import fr.afpa.encheres.dal.UtilisateursSQL;
+import fr.afpa.encheres.bo.*;
+import fr.afpa.encheres.dal.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @WebServlet(name = "NouvelleVente", value = "/NouvelleVente")
 public class NouvelleVente extends HttpServlet {
@@ -36,7 +33,7 @@ public class NouvelleVente extends HttpServlet {
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
         RetraitsSQL retraitsSQL = new RetraitsSQL();
         CategoriesSQL categoriesSQL = new CategoriesSQL();
-
+        EncheresSQL encheresSQL = new EncheresSQL();
 
         Utilisateurs utilisateursC = utilisateursSQL.selectById(no_utilisateurs);
 
@@ -51,6 +48,8 @@ public class NouvelleVente extends HttpServlet {
                 Integer.parseInt(request.getParameter("prix_initial")),
                 no_utilisateurs,
                 Integer.parseInt(request.getParameter("no_categorie"))));
+        encheresSQL.insert(new Encheres((int) session.getAttribute("no_utilisateur"), articlesVendusSQL.selectByLast().getNo_article(), Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()), Integer.parseInt(request.getParameter("prix_initial"))));
+
         ArticlesVendus articlesVendus = articlesVendusSQL.selectByLast();
         Utilisateurs utilisateurs = utilisateursSQL.selectById(articlesVendus.getNo_utilisateur());
         Retraits retraits = retraitsSQL.selectById(articlesVendus.getNo_article());

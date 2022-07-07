@@ -26,7 +26,7 @@
     <input type="tel" name="telephone"  value="${utilisateurs.telephone}">
 
     <label>Code Postal:</label>
-    <input type="number" name="code_postal"  value="${utilisateurs.code_postale}">
+    <input type="number" name="code_postal"  value="${utilisateurs.code_postal}">
 
     <label>Mot de passe actuel:</label>
     <input type="password" name="mot_de_passe" value="${utilisateurs.mot_de_passe}" >

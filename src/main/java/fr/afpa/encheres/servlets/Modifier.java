@@ -18,8 +18,7 @@ public class Modifier extends HttpServlet {
             request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
         }
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
-        Utilisateurs utilisateurs = utilisateursSQL.selectById((int) session.getAttribute("no_utilisateur"));
-        utilisateursSQL.update((int) session.getAttribute("no_utilisateur"), utilisateurs);
+        utilisateursSQL.update((int) session.getAttribute("no_utilisateur"), new Utilisateurs(request.getParameter("pseudo"), request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("email"), request.getParameter("telephone"), request.getParameter("rue"), request.getParameter("code_postal"), request.getParameter("ville"), request.getParameter("mot_de_passe"), 0, false));
         request.getRequestDispatcher("WEB-INF/profil.jsp").forward(request,response);
     }
 

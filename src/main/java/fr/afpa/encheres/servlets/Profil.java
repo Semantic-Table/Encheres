@@ -1,5 +1,8 @@
 package fr.afpa.encheres.servlets;
 
+import fr.afpa.encheres.bo.Utilisateurs;
+import fr.afpa.encheres.dal.UtilisateursSQL;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -14,6 +17,9 @@ public class Profil extends HttpServlet {
             int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
             request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
         }
+        UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
+        Utilisateurs utilisateurs = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
+        request.setAttribute("utilisateurs",utilisateurs);
         request.getRequestDispatcher("WEB-INF/profil.jsp").forward(request, response);
     }
 
