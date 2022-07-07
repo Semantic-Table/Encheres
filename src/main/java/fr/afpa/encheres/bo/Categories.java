@@ -8,4 +8,8 @@ import lombok.Data;
 public class Categories {
     private int no_categorie;
     private String libelle;
+
+    public Categories(String libelle) {
+        this.libelle = libelle;
+    }
 }
