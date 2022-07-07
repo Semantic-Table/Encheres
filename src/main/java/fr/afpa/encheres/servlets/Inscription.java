@@ -32,7 +32,9 @@ public class Inscription extends HttpServlet {
 
         }
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
-        if (utilisateursSQL.selectByPseudo(request.getParameter("pseudo")) != null && utilisateursSQL.selectByEmail( request.getParameter("email")) != null){
+        System.out.println(utilisateursSQL.selectByPseudo(request.getParameter("pseudo")));
+        System.out.println(utilisateursSQL.selectByEmail( request.getParameter("email")));
+        if (utilisateursSQL.selectByPseudo(request.getParameter("pseudo")) == null && utilisateursSQL.selectByEmail( request.getParameter("email")) == null){
             utilisateursSQL.insert(new Utilisateurs(request.getParameter("pseudo"), request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("email"), request.getParameter("telephone"), request.getParameter("rue"), request.getParameter("code_postal"), request.getParameter("ville"), request.getParameter("mot_de_passe"), 0, false));
             ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
             ArrayList<ArticlesVendus> articlesVenduses = articlesVendusSQL.selectAll();
