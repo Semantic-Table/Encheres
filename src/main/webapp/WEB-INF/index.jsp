@@ -47,7 +47,7 @@
                         <p>Fin de l'enchère: ${articlesVendus.date_fin_encheres}</p>
                         <c:forEach items="${utilisateurses}" var="utilisateurs">
                             <c:if test="${utilisateurs.no_utilisateur == articlesVendus.no_utilisateur}">
-                                <p>Vendeur :  ${utilisateurs.pseudo}</p>
+                                <p>Vendeur :  <a href="AfficherProfil?no_utilisateur=${utilisateurs.no_utilisateur}"> ${utilisateurs.pseudo}</a></p>
                              </c:if>
                         </c:forEach>
                     </div>
