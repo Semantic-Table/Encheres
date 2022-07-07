@@ -35,7 +35,12 @@
         </form>
         <main>
             <c:forEach items="${articlesVenduses}" var="articlesVendus">
-                <p>Vendeur :  ${utilisateurs.pseudo}</p>
+                <c:forEach items="${utilisateurses}" var="utilisateurs">
+                    <c:if test="${utilisateurs.no_utilisateur == articlesVendus.no_utilisateur}">
+                        <p>Vendeur :  ${utilisateurs.pseudo}</p>
+                    </c:if>
+                </c:forEach>
+
             </c:forEach>
         </main>
     </body>
