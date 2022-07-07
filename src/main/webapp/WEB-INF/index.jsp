@@ -39,15 +39,15 @@
             <c:forEach items="${articlesVenduses}" var="articlesVendus">
                 <div>
                     <div>
-                        <img src="" alt="">
+                        <img src="https://zupimages.net/viewer.php?id=22/27/12oe.png" alt="">
                     </div>
                     <div>
-                        <p id="soulignage">${articlesVendus.nom_article}</p>
+                        <p id="soulignage"><a href="AfficherArticle?no_article=${articlesVendus.no_article}">${articlesVendus.nom_article}</a></p>
                         <p>Prix de vente: ${articlesVendus.prix_vente} €</p>
                         <p>Fin de l'enchère: ${articlesVendus.date_fin_encheres}</p>
                         <c:forEach items="${utilisateurses}" var="utilisateurs">
                             <c:if test="${utilisateurs.no_utilisateur == articlesVendus.no_utilisateur}">
-                                <p>Vendeur :  <a href="AfficherProfil?no_utilisateur=${utilisateurs.no_utilisateur}"> ${utilisateurs.pseudo}</a></p>
+                                <p>Vendeur : <a href="AfficherProfil?no_utilisateur=${utilisateurs.no_utilisateur}"> ${utilisateurs.pseudo}</a></p>
                              </c:if>
                         </c:forEach>
                     </div>
