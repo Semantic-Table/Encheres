@@ -31,7 +31,7 @@ public class Accueil extends HttpServlet {
         CategoriesSQL categoriesSQL = new CategoriesSQL();
 
         //Récupération des paramètres en insert. de la base SQL
-        articlesVendusSQL.insert(new ArticlesVendus(request.getParameter("nom_article"), request.getParameter("prix_vente"), Date.valueOf(request.getParameter("date_debut_encheres")), request.getParameter("no_utilisateur")));
+        articlesVendusSQL.insert(new ArticlesVendus(request.getParameter("nom_article"), request.getParameter("description"), Date.valueOf(request.getParameter("date_debut_encheres")), Date.valueOf(request.getParameter("date_fin_encheres")), Integer.parseInt(request.getParameter("prix_initial")), Integer.parseInt(request.getParameter("prix_vente")), Integer.parseInt(request.getParameter("no_utilisateur")),Integer.parseInt(request.getParameter("no_categorie"))));
 
         //Insertion des variables à partir des instances
         ArticlesVendus articlesVendus = articlesVendusSQL.selectBylast();
