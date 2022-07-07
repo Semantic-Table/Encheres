@@ -13,6 +13,7 @@
     </head>
 
     <body>
+    <jsp:include page="menu.jsp"></jsp:include>
         <h1>Liste des enchères</h1>
 
         <form action="" method="post">
