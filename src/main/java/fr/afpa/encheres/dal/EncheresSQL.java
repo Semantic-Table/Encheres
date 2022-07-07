@@ -37,7 +37,7 @@ public class EncheresSQL {
                     "INSERT INTO encheres(no_utilisateur, no_article, date_enchere, time_enchere, montant_enchere) VALUES (?,?,?,?,?)"
             );
             pstmt.setInt(1, encheres.getNo_utilisateur());
-            pstmt.setInt(2, encheres.getNo_encheres());
+            pstmt.setInt(2, encheres.getNo_article());
             pstmt.setDate(3, encheres.getDate_enchere());
             pstmt.setTime(4,encheres.getTime_enchere());
             pstmt.setInt(5,encheres.getMontant_enchere());
