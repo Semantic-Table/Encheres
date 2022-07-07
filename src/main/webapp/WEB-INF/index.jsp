@@ -39,7 +39,7 @@
             <c:forEach items="${articlesVenduses}" var="articlesVendus">
                 <div>
                     <div>
-                        <img src="https://zupimages.net/viewer.php?id=22/27/12oe.png" alt="">
+                        <img src="" alt="">
                     </div>
                     <div>
                         <p id="soulignage"><a href="AfficherArticle?no_article=${articlesVendus.no_article}">${articlesVendus.nom_article}</a></p>
