@@ -11,6 +11,7 @@
     <title>Inscription</title>
 </head>
 <body>
+<jsp:include page="menu.jsp"></jsp:include>
   <form action="Inscription" method="post">
     <label>Pseudo:</label>
     <input type="text" name="pseudo">

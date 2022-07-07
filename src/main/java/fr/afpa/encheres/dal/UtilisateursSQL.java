@@ -55,13 +55,13 @@ public class UtilisateursSQL {
         }
     }
 
-    public void delete(Utilisateurs utilisateurs) {
+    public void delete(int no_utilisateur) {
         try {
             Connection connection = ConnectionProvider.getConnection();
             PreparedStatement pstmt = connection.prepareStatement(
                     "DELETE FROM utilisateurs WHERE no_utilisateur = ?"
             );
-            pstmt.setInt(1, utilisateurs.getNo_utilisateur());
+            pstmt.setInt(1, no_utilisateur);
             pstmt.executeUpdate();
             connection.close();
         } catch (SQLException e) {

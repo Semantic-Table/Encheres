@@ -24,7 +24,7 @@ public class Accueil extends HttpServlet {
             int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
             request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
         }
-
+/*
         //Instance de classe (dal) base de données
         ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
@@ -45,7 +45,7 @@ public class Accueil extends HttpServlet {
         request.setAttribute("utilisateursBis", utilisateursBis);
         request.setAttribute("categories", categories);
 
-        //Requête d'envoie a la JSP
+        //Requête d'envoie a la JSP*/
         request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
     }
 

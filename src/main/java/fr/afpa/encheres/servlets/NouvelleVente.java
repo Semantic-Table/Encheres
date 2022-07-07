@@ -25,6 +25,11 @@ public class NouvelleVente extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        if (session.getAttribute("no_utilisateur") != null){
+            int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
+            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
+        }
+
         int no_utilisateurs = (int) session.getAttribute("no_utilisateur");
 
         ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
@@ -32,13 +37,23 @@ public class NouvelleVente extends HttpServlet {
         RetraitsSQL retraitsSQL = new RetraitsSQL();
         CategoriesSQL categoriesSQL = new CategoriesSQL();
 
-        ArticlesVendus articlesVendus = articlesVendusSQL.selectByLast();
-        Utilisateurs utilisateurs = utilisateursSQL.selectById(articlesVendus.getNo_utilisateur());
+
         Utilisateurs utilisateursC = utilisateursSQL.selectById(no_utilisateurs);
-        Retraits retraits = retraitsSQL.selectById(articlesVendus.getNo_article());
+
         Categories categories = categoriesSQL.selectById(Integer.parseInt(request.getParameter("no_categorie")));
 
-        articlesVendusSQL.insert(new ArticlesVendus(request.getParameter("nom_article"),request.getParameter("description"),Date.valueOf(request.getParameter("date_debut_enchere")),Date.valueOf(request.getParameter("date_fin_enchere")),Integer.parseInt(request.getParameter("prix_initial")),Integer.parseInt(request.getParameter("prix_vente")),no_utilisateurs,Integer.parseInt(request.getParameter("no-categorie"))));
+        articlesVendusSQL.insert(new ArticlesVendus(
+                request.getParameter("nom_article"),
+                request.getParameter("description"),
+                Date.valueOf(request.getParameter("date_debut_enchere")),
+                Date.valueOf(request.getParameter("date_fin_enchere")),
+                Integer.parseInt(request.getParameter("prix_initial")),
+                Integer.parseInt(request.getParameter("prix_initial")),
+                no_utilisateurs,
+                Integer.parseInt(request.getParameter("no_categorie"))));
+        ArticlesVendus articlesVendus = articlesVendusSQL.selectByLast();
+        Utilisateurs utilisateurs = utilisateursSQL.selectById(articlesVendus.getNo_utilisateur());
+        Retraits retraits = retraitsSQL.selectById(articlesVendus.getNo_article());
         retraitsSQL.insert(new Retraits(articlesVendus.getNo_article(),request.getParameter("rue"),request.getParameter("code_postal"),request.getParameter("ville")));
 
         request.setAttribute("articlesVendus",articlesVendus);

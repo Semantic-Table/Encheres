@@ -18,20 +18,21 @@
     <title>Detail Vente</title>
 </head>
 <body>
+<jsp:include page="menu.jsp"></jsp:include>
     <h2>Detail Vente</h2>
 <main>
     <div>
         <div><img src="" alt=""></div>
-        <div><p>${articleVendus.nom_article}</p>
-            <p>Description: ${articleVendus.description}</p>
-            <p>${categories.libelle}</p>
-            <p>${articleVendus.prix_vente}</p>
-            <p>${articleVendus.prix_initial}</p>
-            <p>${articleVendus.date_fin_encheres}</p>
-            <p>${retraits.rue}</p>
+        <div><p>${articlesVendus.nom_article}</p>
+            <p>Description: ${articlesVendus.description}</p>
+            <p>Catégorie:${categories.libelle}</p>
+            <p>Meilleur offre:${articlesVendus.prix_vente}</p>
+            <p>Mise a prix: ${articlesVendus.prix_initial}</p>
+            <p>Fin de l'enchere: ${articlesVendus.date_fin_encheres}</p>
+            <p>Retraits: ${retraits.rue}</p>
             <p>${retraits.code_postal} ${retraits.ville}</p>
-            <p>${utilisateurs.pseudo}</p>
-            <form action="Encherir"><input type="range" min="${articleVendus.prix_vente}" max="${utilisateursC.credit}"><button type="submit"></button></form></div>
+            <p>Vendeur: ${utilisateurs.pseudo}</p>
+            <form action="Encherir">Ma proposition : <input type="number" id="montant_enchere" name="montant_enchere"><input type="hidden" value="${articlesVendus.no_article}" name="no_article"><button type="submit">encherir</button></form></div>
     </div>
 </main>
 </body>

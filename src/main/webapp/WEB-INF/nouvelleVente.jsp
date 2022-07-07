@@ -17,8 +17,8 @@
     <title>Nouvelle Vente</title>
 </head>
 <body>
-
-<form action="NouvelleVente">
+<jsp:include page="menu.jsp"></jsp:include>
+<form action="NouvelleVente" method="post">
     <label for="nom_article">Article:</label><input type="text" id="nom_article" name="nom_article">
     <label for="description">Description:</label><input type="text" id="description" name="description">
     <label for="no_categorie">Catégorie</label><select name="no_categorie" id="no_categorie">
@@ -29,8 +29,8 @@
     </select>
     <label for="image">Photo de l'article</label><input type="file" id="image" name="image">
     <label for="prix_initial">Mise a prix:</label><input type="text" id="prix_initial" name="prix_initial">
-    <label for="date_debut_enchere">Début de l'enchère</label><input type="text" id="date_debut_enchere" name="date_debut_enchere">
-    <label for="date_fin_enchere">Fin de l'enchère</label><input type="text" id="date_fin_enchere" name="date_fin_enchere">
+    <label for="date_debut_enchere">Début de l'enchère</label><input type="date" id="date_debut_enchere" name="date_debut_enchere">
+    <label for="date_fin_enchere">Fin de l'enchère</label><input type="date" id="date_fin_enchere" name="date_fin_enchere">
     <fieldset>
         <label for="rue">Rue:</label><input type="text" id="rue" name="rue">
         <label for="code_postal">Code postal:</label><input type="text" id="code_postal" name="code_postal">

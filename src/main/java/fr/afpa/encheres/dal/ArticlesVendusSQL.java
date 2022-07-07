@@ -81,4 +81,40 @@ public class ArticlesVendusSQL {
         }
         return articlesVendus;
     }
+
+    public ArticlesVendus selectById(int no_article) {
+        ArticlesVendus articlesVendus = null;
+        try {
+            Connection connection = ConnectionProvider.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "SELECT no_article,nom_article,description,date_debut_encheres,date_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie FROM articles_vendus WHERE no_article = ?"
+            );
+            pstmt.setInt(1,no_article);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                articlesVendus = new ArticlesVendus(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres"), rs.getDate("date_fin_encheres"), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getInt("no_utilisateur"), rs.getInt("no_categorie"));
+            }
+
+            connection.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return articlesVendus;
+    }
+
+    public void updatePrix_vente(int no_article,int montant){
+        try {
+            Connection connection = ConnectionProvider.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "UPDATE articles_vendus SET prix_vente = ? WHERE no_article = ?"
+            );
+            pstmt.setInt(1,montant);
+            pstmt.setInt(2,no_article);
+            pstmt.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
