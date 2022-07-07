@@ -22,7 +22,7 @@
         <a href="#">Mot de passe oublié</a>
     </form>
 
-    <form>
+    <form action="Inscription" method="get">
         <input type="submit" value="Créer un compte">
     </form>
 </body>

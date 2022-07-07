@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: stagiaire
@@ -9,19 +11,18 @@
 <c:if test="${utilisateursCno_utilisateurs == null}">
     <header>
         <ul>
-            <li><a href="SeConnecter"></a>S'inscrire</li>
-            <li><a href="SeConnecter"></a>Se connecter</li>
+            <li><a href="Connexion">Se connecter-S'inscrire</a></li>
         </ul>
     </header>
 </c:if>
-
+${utilisateursCno_utilisateurs}
 <c:if test="${utilisateursCno_utilisateurs != null}">
     <header>
         <ul>
-            <li><a href="#"></a>Enchères</li>
-            <li><a href="#"></a>Vendre un article</li>
-            <li><a href="#"></a>Mon profil</li>
-            <li><a href="#"></a>Déconnexion</li>
+            <li><a href="#">Enchères</a></li>
+            <li><a href="#">Vendre un article</a></li>
+            <li><a href="#">Mon profil</a></li>
+            <li><a href="#">Déconnexion</a></li>
         </ul>
     </header>
 </c:if>

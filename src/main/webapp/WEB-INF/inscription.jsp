@@ -11,7 +11,7 @@
     <title>Inscription</title>
 </head>
 <body>
-  <form action="Inscription" method="get">
+  <form action="Inscription" method="post">
     <label>Pseudo:</label>
     <input type="text" name="pseudo">
 
@@ -43,7 +43,7 @@
     <input type="password" name="mot_de_passe">
 
     <input type="submit" value="Créer">
-    <input type="submit" value="Annuler">
+    <input type="reset" value="Annuler">
   </form>
 </body>
 </html>
