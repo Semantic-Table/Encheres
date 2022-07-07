@@ -19,16 +19,15 @@
         <form action="" method="post">
             <div>
                 <label>Filtre:</label>
-                <input type="text" id="filtre" name="filtre">
+                <input type="text" id="nom_article" name="nom_article">
             </div>
             <div>
                 <label>Catégorie :</label>
-                <select name="categories" id="categories">
-                    <option value="1">Toutes</option>
-                    <option value="2">Informatique</option>
-                    <option value="3">Ameublement</option>
-                    <option value="4">Vêtement</option>
-                    <option value="5">Sport & Loisirs</option>
+                <select name="no_categorie" id="no_categorie">
+                    <option value="1">Informatique</option>
+                    <option value="2">Ameublement</option>
+                    <option value="3">Vêtement</option>
+                    <option value="4">Sport & Loisirs</option>
                 </select>
                 <input type="submit" value="Rechercher">
             </div>

@@ -43,6 +43,26 @@ public class Accueil extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("no_utilisateur") != null){
+            int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
+            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
+        }
+
+        //Instance de classe (dal) base de données pour les utiliser
+        ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
+        UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
+
+        ArrayList<ArticlesVendus> articlesVenduses = articlesVendusSQL.selectByCategorieAndByNom_article(
+                Integer.parseInt(request.getParameter("no_categorie")),
+                request.getParameter("nom_article"));
+       ArrayList<Utilisateurs> utilisateurses = utilisateursSQL.selectAll();
+
+        //Requête d'envoie
+        request.setAttribute("articlesVenduses", articlesVenduses);
+        request.setAttribute("utilisateurses", utilisateurses);
+
+    request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
 
     }
 }
