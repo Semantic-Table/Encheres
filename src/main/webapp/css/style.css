@@ -1,0 +1,8 @@
+h1{
+    display: flex;
+    justify-content: center;
+}
+#soulignage {
+    text-decoration: underline; /* soulignage */
+    font-weight: bolder; /* gras */
+}
