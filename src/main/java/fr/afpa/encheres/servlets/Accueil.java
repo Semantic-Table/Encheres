@@ -28,10 +28,6 @@ public class Accueil extends HttpServlet {
         //Instance de classe (dal) base de données pour les utiliser
         ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
-        CategoriesSQL categoriesSQL = new CategoriesSQL();
-
-        //Récupération des paramètres en insert. de la base SQL
-        articlesVendusSQL.insert(new ArticlesVendus(request.getParameter("nom_article"), request.getParameter("description"), Date.valueOf(request.getParameter("date_debut_encheres")), Date.valueOf(request.getParameter("date_fin_encheres")), Integer.parseInt(request.getParameter("prix_initial")), Integer.parseInt(request.getParameter("prix_vente")), Integer.parseInt(request.getParameter("no_utilisateur")),Integer.parseInt(request.getParameter("no_categorie"))));
 
         //Création des listes "ArticlesVendus et Utilisateurs" pour affichage
         ArrayList<ArticlesVendus> articlesVenduses = articlesVendusSQL.selectAll();

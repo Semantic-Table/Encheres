@@ -17,9 +17,9 @@ public class Encherir extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        if (session.getAttribute("no_utilisateur") != null) {
+        if (session.getAttribute("no_utilisateur") != null){
             int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
-            request.setAttribute("utilisateursCno_utilisateurs", utilisateursCno_utilisateurs);
+            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
         }
         EncheresSQL encheresSQL = new EncheresSQL();
         ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
