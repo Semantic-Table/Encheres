@@ -32,7 +32,8 @@
             <p>Retraits: ${retraits.rue}</p>
             <p>${retraits.code_postal} ${retraits.ville}</p>
             <p>Vendeur: ${utilisateurs.pseudo}</p>
-            <form action="Encherir">Ma proposition : <input type="number" id="montant_enchere" name="montant_enchere"><input type="hidden" value="${articlesVendus.no_article}" name="no_article"><button type="submit">encherir</button></form></div>
+            <form action="Encherir">Ma proposition : <input type="number" id="montant_enchere" name="montant_enchere"><input type="hidden" value="${articlesVendus.no_article}" name="no_article">
+                <input type="hidden" name="no_categorie" value="${categories.no_categorie}"><button type="submit">encherir</button></form></div>
     </div>
 </main>
 </body>

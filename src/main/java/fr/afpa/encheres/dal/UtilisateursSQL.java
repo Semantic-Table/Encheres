@@ -90,6 +90,26 @@ public class UtilisateursSQL {
         return utilisateurs;
     }
 
+    public Utilisateurs selectByLast() {
+        Utilisateurs utilisateurs = null;
+        try {
+            Connection connection = ConnectionProvider.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur FROM utilisateurs ORDER BY no_utilisateur DESC LIMIT 1"
+            );
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                utilisateurs = new Utilisateurs(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getBoolean("administrateur"));
+            }
+
+            connection.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return utilisateurs;
+    }
+
     public Utilisateurs selectByPseudoAndByMot_de_passe(String pseudo, String mot_de_passe) {
         Utilisateurs utilisateurs = null;
         try {
