@@ -2,10 +2,21 @@ h1{
     display: flex;
     justify-content: center;
 }
+
+a{
+    text-decoration: none;
+}
+
 #soulignage {
     text-decoration: underline; /* soulignage */
     font-weight: bolder; /* gras */
 }
-#photoProfil{
-    width: 3.5%;
+#photoProfil {
+    border: 3px solid #090000;
+    width: 10%;
+}
+
+.display{
+    display: flex;
+    justify-content: center;
 }
