@@ -15,6 +15,10 @@ public class AfficherArticle extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        if (session.getAttribute("no_utilisateur") != null){
+            int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
+            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
+        }
         ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
         ArticlesVendus articlesVendus = articlesVendusSQL.selectById(Integer.parseInt(request.getParameter("no_article")));
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();

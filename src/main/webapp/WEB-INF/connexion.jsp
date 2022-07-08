@@ -12,16 +12,24 @@
 </head>
 <body>
 <jsp:include page="menu.jsp"></jsp:include>
+
     <form method="get" action="Connexion">
         <label for="pseudo">Identifiant: </label>
-        <input type="text" name="pseudo" id="pseudo">
+        <input type="text" name="pseudo" id="pseudo" value="${pseudo}">
         <label for="mot_de_passe">Mot de passe: </label>
         <input type="password" name="mot_de_passe" id="mot_de_passe">
 
         <input type="submit" value="Connexion">
 
+
+            <label for="souvenir">se souvenir de moi</label>
+            <input type="checkbox" name="souvenir" id="souvenir" >
+
+
+
     </form>
-    <input type="checkbox" name="" id="">
+
+
     <a href="#">Mot de passe oublié</a>
 
     <form action="Inscription" method="get">
