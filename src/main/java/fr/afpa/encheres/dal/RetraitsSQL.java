@@ -79,4 +79,21 @@ public class RetraitsSQL {
         }
         return retraits;
     }
+
+    public void update(Retraits retraits) {
+        try {
+            Connection connection = ConnectionProvider.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "UPDATE retraits SET rue = ?, code_postal =  ?, ville = ? WHERE no_article = ?"
+            );
+            pstmt.setString(1, retraits.getRue());
+            pstmt.setString(2, retraits.getCode_postal());
+            pstmt.setString(3,retraits.getVille());
+            pstmt.setInt(4,retraits.getNo_article());
+            pstmt.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

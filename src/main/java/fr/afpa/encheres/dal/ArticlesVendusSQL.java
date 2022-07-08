@@ -75,6 +75,28 @@ public class ArticlesVendusSQL {
         }
     }
 
+    public void update(int no_article,ArticlesVendus articlesVendus){
+        try {
+            Connection connection = ConnectionProvider.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "UPDATE articles_vendus SET nom_article = ?, description = ?, date_debut_encheres = ?, date_fin_encheres = ?, prix_initial = ?, prix_vente = ?, no_utilisateur = ?, no_categorie = ? WHERE no_article = ?"
+            );
+            pstmt.setString(1, articlesVendus.getNom_article());
+            pstmt.setString(2, articlesVendus.getDescription());
+            pstmt.setDate(3, articlesVendus.getDate_debut_encheres());
+            pstmt.setDate(4,articlesVendus.getDate_fin_encheres());
+            pstmt.setInt(5,articlesVendus.getPrix_initial());
+            pstmt.setInt(6,articlesVendus.getPrix_vente());
+            pstmt.setInt(7,articlesVendus.getNo_utilisateur());
+            pstmt.setInt(8,articlesVendus.getNo_categorie());
+            pstmt.setInt(9,no_article);
+            pstmt.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void delete(ArticlesVendus articlesVendus){
         try {
             Connection connection = ConnectionProvider.getConnection();

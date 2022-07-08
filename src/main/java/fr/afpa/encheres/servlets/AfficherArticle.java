@@ -15,6 +15,10 @@ public class AfficherArticle extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        if (session.getAttribute("no_utilisateur") != null){
+            int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
+            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
+        }
         ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
         ArticlesVendus articlesVendus = articlesVendusSQL.selectById(Integer.parseInt(request.getParameter("no_article")));
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
@@ -22,7 +26,8 @@ public class AfficherArticle extends HttpServlet {
         CategoriesSQL categoriesSQL = new CategoriesSQL();
         EncheresSQL encheresSQL = new EncheresSQL();
 
-
+        System.out.println(articlesVendus.getNo_utilisateur());
+        System.out.println(session.getAttribute("no_utilisateur"));
 
         Categories categories = categoriesSQL.selectById(articlesVendus.getNo_categorie());
         Utilisateurs utilisateurs = utilisateursSQL.selectById(articlesVendus.getNo_utilisateur());
@@ -33,13 +38,21 @@ public class AfficherArticle extends HttpServlet {
 
         request.setAttribute("retraits", retraits);
         request.setAttribute("categories", categories);
+        Encheres encheres = encheresSQL.selectByNo_articleOrderByMontant_enchere(Integer.parseInt(request.getParameter("no_article")));
+        System.out.println(request.getParameter("no_article"));
         if(session.getAttribute("no_utilisateur") != null && articlesVendus.getDate_fin_encheres().before(Date.valueOf(LocalDate.now()))) {
-            Encheres encheres = encheresSQL.selectByNo_articleOrderByMontant_enchere(Integer.parseInt(request.getParameter("no_article")));
-
             Utilisateurs utilisateursGagnant = utilisateursSQL.selectById(encheres.getNo_utilisateur());
             request.setAttribute("utilisateursGagnant",utilisateursGagnant);
             request.getRequestDispatcher("WEB-INF/detailVenteTermine.jsp").forward(request, response);
-        } else if (session.getAttribute("no_utilisateur") != null && articlesVendus.getDate_debut_encheres().before(Date.valueOf(LocalDate.now()))) {
+        } else if( (int) session.getAttribute("no_utilisateur") == articlesVendus.getNo_utilisateur() && articlesVendus.getDate_debut_encheres().after(Date.valueOf(LocalDate.now()))) {
+            int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
+            request.setAttribute("utilisateursCno_utilisateurs", utilisateursCno_utilisateurs);
+            Utilisateurs utilisateursC = utilisateursSQL.selectById(utilisateursCno_utilisateurs);
+            request.setAttribute("encheres",encheres);
+            request.setAttribute("utilisateursC", utilisateursC);
+            request.getRequestDispatcher("WEB-INF/DetailVenteModifiable.jsp").forward(request, response);
+        }
+        else if (session.getAttribute("no_utilisateur") != null && articlesVendus.getDate_debut_encheres().before(Date.valueOf(LocalDate.now()))) {
             int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
             request.setAttribute("utilisateursCno_utilisateurs", utilisateursCno_utilisateurs);
             Utilisateurs utilisateursC = utilisateursSQL.selectById(utilisateursCno_utilisateurs);

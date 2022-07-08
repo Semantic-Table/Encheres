@@ -80,4 +80,21 @@ public class EncheresSQL {
         return encheres;
     }
 
+    public void update(int no_encheres, Encheres encheres) {
+        try {
+            Connection connection = ConnectionProvider.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "UPDATE encheres SET date_enchere=?, time_enchere=?, montant_enchere=? WHERE no_encheres = ?"
+            );
+
+            pstmt.setDate(1, encheres.getDate_enchere());
+            pstmt.setTime(2,encheres.getTime_enchere());
+            pstmt.setInt(3,encheres.getMontant_enchere());
+            pstmt.setInt(4,no_encheres);
+            pstmt.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
