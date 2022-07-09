@@ -7,15 +7,17 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Detail Vente</title>
+    <title>Encheres.org</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <jsp:include page="menu.jsp"></jsp:include>
-<h2>Detail Vente</h2>
+
 <main>
-    <div>
-        <div><img src="" alt=""></div>
-        <div><p>${articlesVendus.nom_article}</p>
+    <h1>Detail Vente</h1>
+    <div class="box detailbox">
+        <div class="boxdetailimg"><img src="${articlesVendus.image}" alt="" class="detailimg"></div>
+        <div><p class="bigger">${articlesVendus.nom_article}</p>
             <p>Description: ${articlesVendus.description}</p>
             <p>Catégorie:${categories.libelle}</p>
             <p>Meilleur offre:${articlesVendus.prix_vente}</p>

@@ -14,22 +14,21 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet(name = "FiltreEnCours", value = "/FiltreEnCours")
-public class FiltreEnCours extends HttpServlet {
+@WebServlet(name = "AdminSuppr", value = "/AdminSuppr")
+public class AdminSuppr extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         if (session.getAttribute("no_utilisateur") != null){
             int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
             request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
         }
         ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
-        ArrayList<ArticlesVendus> articlesVenduses = articlesVendusSQL.selectEnCours();
+        ArrayList<ArticlesVendus> articlesVenduses = articlesVendusSQL.selectAll();
+        request.setAttribute("articlesVenduses",articlesVenduses);
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
         ArrayList<Utilisateurs> utilisateurses = utilisateursSQL.selectAll();
-        request.setAttribute("utilisateurses", utilisateurses);
-        request.setAttribute("articlesVenduses",articlesVenduses);
-        request.getRequestDispatcher("WEB-INF/index.jsp").forward(request,response);
+        request.setAttribute("utilisateurses",utilisateurses);
+        utilisateursSQL.delete(Integer.parseInt(request.getParameter("no_utilisateur")));
     }
 }

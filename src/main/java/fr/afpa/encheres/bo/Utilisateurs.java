@@ -18,8 +18,9 @@ public class Utilisateurs {
     private String mot_de_passe;
     private int credit;
     private boolean administrateur;
+    private boolean actif;
 
-    public Utilisateurs(String pseudo, String nom, String prenom, String email, String telephone, String rue, String code_postal, String ville, String mot_de_passe, int credit, boolean administrateur) {
+    public Utilisateurs(String pseudo, String nom, String prenom, String email, String telephone, String rue, String code_postal, String ville, String mot_de_passe, int credit, boolean administrateur, boolean actif) {
         this.pseudo = pseudo;
         this.nom = nom;
         this.prenom = prenom;
@@ -31,5 +32,6 @@ public class Utilisateurs {
         this.mot_de_passe = mot_de_passe;
         this.credit = credit;
         this.administrateur = administrateur;
+        this.actif = actif;
     }
 }

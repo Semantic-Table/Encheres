@@ -7,44 +7,76 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<!doctype html>
+<html lang="fr">
 <head>
-    <title>Inscription</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Encheres.org</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <jsp:include page="menu.jsp"></jsp:include>
-  <form action="Inscription" method="post">
-    <label>Pseudo:</label>
-    <input type="text" name="pseudo">
+<main>
+    <h1>Inscription</h1>
+    <div class="box">
+        <form action="Inscription" method="post">
+            <div class="inscriptionform">
 
-    <label>Prénom:</label>
-    <input type="text" name="prenom" >
 
-    <label>Téléphone:</label>
-    <input type="tel" name="telephone" >
+            <div class="inscriptionbox">
+                <div>
+                    <div>Pseudo:</div>
+                    <input type="text" name="pseudo" required>
+                </div>
+                <div>
+                    <div>Prénom:</div>
+                    <input type="text" name="prenom" required>
+                </div>
+                <div>
+                    <div>Ville:</div>
+                    <input type="text" name="ville" required>
+                </div>
+            </div>
+            <div class="inscriptionbox">
+                <div>
+                    <div>Mot de passe:</div>
+                    <input type="password" name="mot_de_passe" required>
+                </div>
+                <div>
+                    <div>Nom:</div>
+                    <input type="text" name="nom" required>
+                </div>
+                <div>
+                    <div>Code Postal:</div>
+                    <input type="number" name="code_postal" required>
+                </div>
 
-    <label>Code Postal:</label>
-    <input type="number" name="code_postal" >
+            </div>
+            <div class="inscriptionbox">
+                <div>
+                    <div>Email:</div>
+                    <input type="email" name="email" required>
+                </div>
+                <div>
+                    <div>Téléphone:</div>
+                    <input type="tel" name="telephone" required>
+                </div>
+                <div>
+                    <div>Rue:</div>
+                    <input type="text" name="rue" required>
+                </div>
+            </div>
+            </div>
+            <div class="connexionBox">
+                <input type="submit" value="Créer" class="click">
+                <input type="reset" value="Annuler" class="click">
+            </div>
+        </form>
+    </div>
+</main>
 
-    <label>Mot de passe:</label>
-    <input type="password" name="mot_de_passe" >
-
-    <label>Nom:</label>
-    <input type="text" name="nom" >
-
-    <label>Email:</label>
-    <input type="email" name="email" >
-
-    <label>Rue:</label>
-    <input type="text" name="rue" >
-
-    <label>Ville:</label>
-    <input type="text" name="ville">
-
-    <label>Confirmation:</label>
-    <input type="password" name="mot_de_passe">
-
-    <input type="submit" value="Créer">
-    <input type="reset" value="Annuler">
-  </form>
 </body>
 </html>

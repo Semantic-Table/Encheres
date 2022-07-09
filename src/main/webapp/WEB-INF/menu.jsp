@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%--
   Created by IntelliJ IDEA.
   User: stagiaire
@@ -8,24 +8,63 @@
   To change this template use File | Settings | File Templates.
 --%>
 <header>
-    <a href="Accueil">Logo</a>
-<c:if test="${utilisateursCno_utilisateurs == null}">
+    <div class="parentMenu">
+        <a href="Accueil" class="lienMenu">Logo</a>
+        <div class="menu">
 
-        <ul>
-            <li><a href="Connexion">Se connecter-S'inscrire</a></li>
-        </ul>
 
-</c:if>
-${utilisateursCno_utilisateurs}
-<c:if test="${utilisateursCno_utilisateurs != null}">
+            <c:if test="${utilisateursCno_utilisateurs == null}">
 
-        <ul>
-            <li><a href="Accueil">Enchères</a></li>
-            <li><a href="NouvelleVente">Vendre un article</a></li>
-            <li><a href="Profil">Mon profil</a></li>
-            <li><a href="Deconnexion">Déconnexion</a></li>
-        </ul>
 
-</c:if>
+                <a href="Connexion" class="lienMenu">
+                    <div class="liendivMenu">
+                        Se connecter-S'inscrire
+                    </div>
+                </a>
+
+
+            </c:if>
+            <c:if test="${utilisateursCno_utilisateurs != null}">
+
+                <a href="Accueil" class="lienMenu">
+                    <div class="liendivMenu">Enchères</div>
+                </a>
+                <a href="NouvelleVente" class="lienMenu">
+                    <div class="liendivMenu">Vendre un article</div>
+                </a>
+                <a href="Profil" class="lienMenu">
+                    <div class="liendivMenu">Mon profil</div>
+                </a>
+                <a href="Deconnexion" class="lienMenu">
+                    <div class="liendivMenu">Déconnexion</div>
+                </a>
+
+            </c:if>
+        </div>
+
+    </div>
+    <div>
+        <a href="#" class="lienMenu">
+            <img src="img/twitter-brands.svg"
+                 width="40"
+                 height="40"
+                 class="svg"
+                 type="image/svg+xml">
+        </a>
+        <a href="#" class="lienMenu">
+            <img src="img/facebook-brands.svg"
+                 width="40"
+                 height="40"
+                 class="svg"
+                 type="image/svg+xml">
+        </a>
+        <a href="#" class="lienMenu">
+            <img src="img/instagram-brands.svg"
+                 width="40"
+                 height="40"
+                 class="svg"
+                 type="image/svg+xml"/>
+        </a>
+    </div>
 </header>
 

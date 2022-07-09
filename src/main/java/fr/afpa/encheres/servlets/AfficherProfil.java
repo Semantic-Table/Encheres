@@ -15,14 +15,16 @@ import java.io.IOException;
 public class AfficherProfil extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
         HttpSession session = request.getSession();
         if (session.getAttribute("no_utilisateur") != null){
             int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
+            Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
+            request.setAttribute("utilisateursC",utilisateursC);
             request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
         }
 
-        UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
+
         Utilisateurs utilisateurs = utilisateursSQL.selectById(Integer.parseInt(request.getParameter("no_utilisateur")));
 
         request.setAttribute("utilisateurs",utilisateurs);

@@ -2,6 +2,7 @@ package fr.afpa.encheres.servlets;
 
 import fr.afpa.encheres.bo.Utilisateurs;
 import fr.afpa.encheres.dal.UtilisateursSQL;
+import fr.afpa.encheres.exceptions.ChampVideException;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -12,18 +13,24 @@ import java.io.IOException;
 public class Modifier extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         if (session.getAttribute("no_utilisateur") != null){
             int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
             request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
         }
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
-        utilisateursSQL.update((int) session.getAttribute("no_utilisateur"), new Utilisateurs(request.getParameter("pseudo"), request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("email"), request.getParameter("telephone"), request.getParameter("rue"), request.getParameter("code_postal"), request.getParameter("ville"), request.getParameter("mot_de_passe"), 0, false));
+        try {
+            utilisateursSQL.update((int) session.getAttribute("no_utilisateur"), new Utilisateurs(request.getParameter("pseudo"), request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("email"), request.getParameter("telephone"), request.getParameter("rue"), request.getParameter("code_postal"), request.getParameter("ville"), request.getParameter("mot_de_passe"), 0, false,true));
+        } catch (ChampVideException e) {
+            System.out.println(e.getMessage());
+        }
+        Utilisateurs utilisateurs = utilisateursSQL.selectById((int) session.getAttribute("no_utilisateur"));
+        request.setAttribute("utilisateurs",utilisateurs);
         request.getRequestDispatcher("WEB-INF/profil.jsp").forward(request,response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }

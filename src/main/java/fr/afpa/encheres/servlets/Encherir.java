@@ -2,6 +2,7 @@ package fr.afpa.encheres.servlets;
 
 import fr.afpa.encheres.bo.*;
 import fr.afpa.encheres.dal.*;
+import fr.afpa.encheres.exceptions.ChampVideException;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -16,6 +17,12 @@ import java.time.LocalTime;
 public class Encherir extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         HttpSession session = request.getSession();
         if (session.getAttribute("no_utilisateur") != null) {
             int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
@@ -39,11 +46,36 @@ public class Encherir extends HttpServlet {
         ArticlesVendus articlesVendus = articlesVendusSQL.selectById(Integer.parseInt(request.getParameter("no_article")));
 
         Retraits retraits = retraitsSQL.selectById(articlesVendus.getNo_article());
-        if (Integer.parseInt(request.getParameter("montant_enchere")) > articlesVendus.getPrix_vente()) {
-            articlesVendusSQL.updatePrix_vente(Integer.parseInt(request.getParameter("no_article")), Integer.parseInt(request.getParameter("montant_enchere")));
-            System.out.println("hey");
-            encheresSQL.insert(new Encheres((int) session.getAttribute("no_utilisateur"), Integer.parseInt(request.getParameter("no_article")), Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()), Integer.parseInt(request.getParameter("montant_enchere"))));
+        try {
 
+
+            if (Integer.parseInt(request.getParameter("montant_enchere")) > articlesVendus.getPrix_vente() && utilisateursC.getCredit() > Integer.parseInt(request.getParameter("montant_enchere"))) {
+                if (encheresSQL.selectByNo_articleOrderByMontant_enchere(Integer.parseInt(request.getParameter("no_article"))) != null) {
+                    Encheres encheres = encheresSQL.selectByNo_articleOrderByMontant_enchere(Integer.parseInt(request.getParameter("no_article")));
+                    System.out.println(encheres);
+
+                    Utilisateurs utilisateurs = utilisateursSQL.selectById(encheres.getNo_utilisateur());
+
+                    System.out.println(utilisateurs.getCredit());
+                    System.out.println(encheres.getMontant_enchere());
+                    System.out.println(utilisateurs.getCredit() + encheres.getMontant_enchere());
+                    utilisateurs.setCredit(utilisateurs.getCredit() + encheres.getMontant_enchere());
+                    System.out.println(utilisateurs.getCredit());
+                    utilisateursSQL.update(utilisateurs.getNo_utilisateur(), utilisateurs);
+
+                }
+                utilisateursC = utilisateursSQL.selectById(no_utilisateurs);
+                articlesVendusSQL.updatePrix_vente(Integer.parseInt(request.getParameter("no_article")), Integer.parseInt(request.getParameter("montant_enchere")));
+                System.out.println("hey");
+                utilisateursC.setCredit(utilisateursC.getCredit() - Integer.parseInt(request.getParameter("montant_enchere")));
+                utilisateursSQL.update(utilisateursC.getNo_utilisateur(), utilisateursC);
+                encheresSQL.insert(new Encheres((int) session.getAttribute("no_utilisateur"), Integer.parseInt(request.getParameter("no_article")), Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()), Integer.parseInt(request.getParameter("montant_enchere"))));
+
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
+        } catch (ChampVideException e) {
+            throw new RuntimeException(e);
         }
         articlesVendus = articlesVendusSQL.selectById(Integer.parseInt(request.getParameter("no_article")));
         Utilisateurs utilisateurs = utilisateursSQL.selectById(articlesVendus.getNo_utilisateur());
@@ -55,14 +87,5 @@ public class Encherir extends HttpServlet {
         request.setAttribute("categories", categories);
 
         request.getRequestDispatcher("WEB-INF/detailVente.jsp").forward(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session.getAttribute("no_utilisateur") != null) {
-            int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
-            request.setAttribute("utilisateursCno_utilisateurs", utilisateursCno_utilisateurs);
-        }
     }
 }

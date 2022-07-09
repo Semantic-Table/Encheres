@@ -1,22 +1,176 @@
-h1{
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Kanit:wght@300&display=swap');
+
+:root{
+    --light-violet : #391e6c;
+    --dark-violet : #2f1960;
+}
+
+*{
+
+    font-family: 'Kanit', sans-serif;
+}
+div {
+    font-weight: lighter;
+}
+body{
     display: flex;
-    justify-content: center;
-}
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
 
-a{
-    text-decoration: none;
-}
+    background: #f1f1f1;
 
-#soulignage {
-    text-decoration: underline; /* soulignage */
-    font-weight: bolder; /* gras */
+}
+header {
+    width: 20%;
+    background: var(--light-violet);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    height:100vh;
+}
+main {
+    margin-left: 20%;
+    padding-left: 5%;
+    padding-top: 3%;
+    width: 80%;
+    background: #f5f5f5;
+    min-height: 100vh;
+}
+h1 {
+    color: var(--dark-violet);
+    font-family: 'Bungee', cursive;
 }
 #photoProfil {
-    border: 3px solid #090000;
-    width: 10%;
+
+    width: 100%;
+
+
+}
+.menu {
+
+
+    width: 100%;
+}
+.lienMenu {
+    font-family: 'Bungee', cursive;
+    font-size: 15px;
+    text-decoration: none;
+    color: white;
+}
+h1 {
+    font-weight: bolder;
+}
+.parentMenu {
+    width: 100%;
+}
+.liendivMenu {
+    padding-left: 5%;
+    font-family: 'Bungee', cursive;
+}
+.box {
+    padding: 1em;
+    margin: 2em 10% 2em 2em;
+    border-radius: 15px;
+    background: white;
+    border: 1px solid #dedede;
+}
+.card {
+    width:27%;
+
+    margin: 3%;
+    border: 1px solid #dcdcdc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
 }
 
-.display{
+.cardbox {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.cardtxt {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+
+}
+
+.cardimg {
     display: flex;
     justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 50%;
+    border-bottom: 1px solid whitesmoke;
+    overflow: hidden;
 }
+.boxFiltre {
+    width: fit-content;
+}
+.divFiltre {
+    padding: 1em 0;
+}
+.lienFiltre,.click {
+    border: 1px solid var(--light-violet);
+    padding: 0.2em 0.5em;
+    text-decoration: none;
+    color: white;
+    background: var(--light-violet);
+    transition: color 0.5s,background-color 0.5s;
+}
+.lienFiltre:hover,.click:hover {
+    border: 1px solid var(--light-violet);
+    padding: 0.2em 0.5em;
+    text-decoration: none;
+    color: var(--light-violet);
+    background: white;
+}
+.profilLink{
+    text-decoration: none;
+    color: var(--dark-violet);
+
+}
+.profilLink:hover{
+    color: darkred;
+}
+.connexionBox {
+    padding: 1em 0;
+}
+.boxdetailimg {
+    align-self: flex-start;
+    display: flex;
+    justify-content: center;
+    width: 30%;
+}
+.detailimg {
+    width: 100%;
+}
+.detailbox {
+    display: flex;
+    justify-content: space-around;
+}
+.bigger {
+    font-size: 1.3em;
+}
+.inscriptionform{
+    display: flex;
+}
+.inscriptionbox{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 33%;
+    height: 10em;
+}
+
