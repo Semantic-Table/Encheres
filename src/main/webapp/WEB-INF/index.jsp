@@ -10,11 +10,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Encheres.org</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/breakpoints.css">
 
 </head>
 
 <body>
-<jsp:include page="WEB-INF/menu.jsp"></jsp:include>
+<jsp:include page="menu.jsp"></jsp:include>
 <main>
     <h1>Liste des enchères</h1>
     <div class="box boxFiltre">

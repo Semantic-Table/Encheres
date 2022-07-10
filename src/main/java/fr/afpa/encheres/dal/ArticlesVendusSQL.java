@@ -130,6 +130,20 @@ public class ArticlesVendusSQL {
         }
     }
 
+    public void deleteByNo_utilisateur(int no_utilisateur) {
+        try {
+            Connection connection = ConnectionProvider.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "DELETE FROM articles_vendus WHERE no_utilisateur = ? "
+            );
+            pstmt.setInt(1, no_utilisateur);
+            pstmt.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public ArticlesVendus selectByLast() {
         ArticlesVendus articlesVendus = null;
         try {

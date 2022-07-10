@@ -24,9 +24,12 @@ public class Encherir extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        if (session.getAttribute("no_utilisateur") != null) {
+        UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
+        if (session.getAttribute("no_utilisateur") != null){
             int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
-            request.setAttribute("utilisateursCno_utilisateurs", utilisateursCno_utilisateurs);
+            Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
+            request.setAttribute("utilisateursC",utilisateursC);
+            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
         }
         EncheresSQL encheresSQL = new EncheresSQL();
         ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
@@ -34,8 +37,6 @@ public class Encherir extends HttpServlet {
 
         int no_utilisateurs = (int) session.getAttribute("no_utilisateur");
 
-
-        UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
         RetraitsSQL retraitsSQL = new RetraitsSQL();
         CategoriesSQL categoriesSQL = new CategoriesSQL();
 

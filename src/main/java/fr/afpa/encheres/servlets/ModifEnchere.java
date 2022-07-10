@@ -36,9 +36,12 @@ public class ModifEnchere extends HttpServlet {
 
 
         HttpSession session = request.getSession();
-        if (session.getAttribute("no_utilisateur") != null) {
+        UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
+        if (session.getAttribute("no_utilisateur") != null){
             int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
-            request.setAttribute("utilisateursCno_utilisateurs", utilisateursCno_utilisateurs);
+            Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
+            request.setAttribute("utilisateursC",utilisateursC);
+            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
         }
         // Create a factory for disk-based file items
         DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -96,13 +99,14 @@ public class ModifEnchere extends HttpServlet {
 //fin du reve
 
         ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
-        UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
         RetraitsSQL retraitsSQL = new RetraitsSQL();
         CategoriesSQL categoriesSQL = new CategoriesSQL();
         EncheresSQL encheresSQL = new EncheresSQL();
-        if (session.getAttribute("no_utilisateur") != null) {
+        if (session.getAttribute("no_utilisateur") != null){
             int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
-            request.setAttribute("utilisateursCno_utilisateurs", utilisateursCno_utilisateurs);
+            Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
+            request.setAttribute("utilisateursC",utilisateursC);
+            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
         }
         int no_utilisateurs = (int) session.getAttribute("no_utilisateur");
         Utilisateurs utilisateursC = utilisateursSQL.selectById(no_utilisateurs);

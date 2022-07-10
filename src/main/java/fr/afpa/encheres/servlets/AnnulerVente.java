@@ -19,8 +19,11 @@ public class AnnulerVente extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
         if (session.getAttribute("no_utilisateur") != null){
             int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
+            Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
+            request.setAttribute("utilisateursC",utilisateursC);
             request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
         }
         ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
@@ -28,7 +31,7 @@ public class AnnulerVente extends HttpServlet {
         articlesVendusSQL.delete(articlesVendus);
         ArrayList<ArticlesVendus> articlesVenduses = articlesVendusSQL.selectAll();
         request.setAttribute("articlesVenduses", articlesVenduses);
-        UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
+
         ArrayList<Utilisateurs> utilisateurses = utilisateursSQL.selectAll();
         request.setAttribute("utilisateurses", utilisateurses);
         request.getRequestDispatcher("WEB-INF/index.jsp").forward(request,response);

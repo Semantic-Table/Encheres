@@ -18,7 +18,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Encheres.org</title>
     <link rel="stylesheet" href="css/style.css">
-</head>
+    <link rel="stylesheet" href="css/breakpoints.css"></head>
 <body>
 <jsp:include page="menu.jsp"></jsp:include>
 
@@ -36,7 +36,7 @@
             <p>Retraits: ${retraits.rue}</p>
             <p>${retraits.code_postal} ${retraits.ville}</p>
             <p>Vendeur: ${utilisateurs.pseudo}</p>
-            <c:if test="${articlesVendus.no_utilisateur != utilisateursCno_utilisateurs}">
+            <c:if test="${articlesVendus.no_utilisateur != utilisateursCno_utilisateurs && utilisateursC.actif}">
                 <form action="Encherir" method="post">
                     <label for="montant_enchere">Ma proposition : </label><input type="number" id="montant_enchere" name="montant_enchere" required>
                     <input type="hidden" value="${articlesVendus.no_article}" name="no_article">

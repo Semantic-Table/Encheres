@@ -18,7 +18,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Encheres.org</title>
     <link rel="stylesheet" href="css/style.css">
-</head>
+    <link rel="stylesheet" href="css/breakpoints.css"></head>
 <body>
 <jsp:include page="menu.jsp"></jsp:include>
 <main>

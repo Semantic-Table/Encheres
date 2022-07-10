@@ -30,6 +30,51 @@ public class EncheresSQL {
         return enchereses;
     }
 
+    public ArrayList<Encheres> selectByNo_utilisateur(int no_utilisateur) {
+        ArrayList<Encheres> enchereses = new ArrayList<>();
+        try {
+            Connection connection = ConnectionProvider.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "SELECT no_encheres,no_utilisateur,no_article,date_enchere,time_enchere,montant_enchere FROM encheres WHERE no_utilisateur = ?"
+            );
+            pstmt.setInt(1,no_utilisateur);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                enchereses.add(
+                        new Encheres(
+                                rs.getInt("no_encheres"),rs.getInt("no_utilisateur"),rs.getInt("no_article"),rs.getDate("date_enchere"),rs.getTime("time_enchere"),rs.getInt("montant_enchere")
+                        )
+                );
+            }
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return enchereses;
+    }
+
+    public int rendezLargent(int no_utilisateur){
+        int argent = 0;
+        try {
+            Connection connection = ConnectionProvider.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "SELECT no_encheres,no_utilisateur,no_article,date_enchere,time_enchere,MAX(montant_enchere) as montant_enchere FROM encheres group by no_article;"
+            );
+
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                if (rs.getInt("no_utilisateur") == no_utilisateur){
+                    argent+= rs.getInt("montant_enchere");
+                }
+                System.out.println(argent + "argent a rendre");
+            }
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return argent;
+    }
+
     public void insert(Encheres encheres){
         try {
             Connection connection = ConnectionProvider.getConnection();
@@ -61,6 +106,21 @@ public class EncheresSQL {
             throw new RuntimeException(e);
         }
     }
+
+    public void deleteByNo_utilisateur(int no_utilisateur){
+        try {
+            Connection connection = ConnectionProvider.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "DELETE FROM encheres WHERE no_utilisateur = ?"
+            );
+            pstmt.setInt(1, no_utilisateur);
+            pstmt.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Encheres selectByNo_articleOrderByMontant_enchere(int no_article){
         Encheres encheres = null;
         try {

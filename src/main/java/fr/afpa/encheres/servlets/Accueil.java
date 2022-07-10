@@ -20,14 +20,17 @@ public class Accueil extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
         if (session.getAttribute("no_utilisateur") != null){
             int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
+            Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
+            request.setAttribute("utilisateursC",utilisateursC);
             request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
         }
 
         //Instance de classe (dal) base de données pour les utiliser
         ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
-        UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
+
 
         //Création des listes "ArticlesVendus et Utilisateurs" pour affichage
         ArrayList<ArticlesVendus> articlesVenduses = articlesVendusSQL.selectAll();
@@ -45,25 +48,28 @@ public class Accueil extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        if (session.getAttribute("no_utilisateur") != null){
+        UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
+
+        if (session.getAttribute("no_utilisateur") != null) {
             int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
-            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
+            Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
+            request.setAttribute("utilisateursC", utilisateursC);
+            request.setAttribute("utilisateursCno_utilisateurs", utilisateursCno_utilisateurs);
         }
 
         //Instance de classe (dal) base de données pour les utiliser
         ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
-        UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
 
         ArrayList<ArticlesVendus> articlesVenduses = articlesVendusSQL.selectByCategorieAndByNom_article(
                 Integer.parseInt(request.getParameter("no_categorie")),
                 request.getParameter("nom_article"));
-       ArrayList<Utilisateurs> utilisateurses = utilisateursSQL.selectAll();
+        ArrayList<Utilisateurs> utilisateurses = utilisateursSQL.selectAll();
 
         //Requête d'envoie
         request.setAttribute("articlesVenduses", articlesVenduses);
         request.setAttribute("utilisateurses", utilisateurses);
 
-    request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
 
     }
 

@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: stagiaire
-  Date: 07/07/2022
-  Time: 09:06
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <!doctype html>
@@ -20,38 +14,21 @@
 <body>
 <jsp:include page="menu.jsp"></jsp:include>
 <main>
-    <h1>Connection</h1>
+    <h1>Réinitialisation du mot de passe</h1>
     <div class="box">
-
-
-        <form method="post" action="Connexion">
+        <form method="post" action="Reinitialisation">
             <div class="connexionBox">
-
-
                 <label for="pseudo">Identifiant: </label>
                 <input type="text" name="pseudo" id="pseudo" value="${pseudo}">
             </div>
             <div class="connexionBox">
-                <label for="mot_de_passe">Mot de passe: </label>
+                <label for="mot_de_passe">Nouveau mot de passe :</label>
                 <input type="password" name="mot_de_passe" id="mot_de_passe">
             </div>
             <div class="connexionBox">
-                <input type="submit" value="Connexion" class="click">
-
-
-                <label for="souvenir">se souvenir de moi</label>
-                <input type="checkbox" name="souvenir" id="souvenir">
+                <input type="submit" value="Changer le mot de passe" class="click">
             </div>
-            <div>
-                <a href="Reinitialisation">Mot de passe oublié</a>
-            </div>
-
         </form>
-        <form action="Inscription" method="get">
-            <input type="submit" value="Créer un compte" class="click">
-        </form>
-
-
     </div>
 </main>
 

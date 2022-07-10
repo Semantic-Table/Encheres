@@ -1,0 +1,31 @@
+@media (max-width: 1000px) {
+    header {
+        width: 100vw;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 15vh;
+    }
+
+    main {
+
+        width: 100vw;
+        min-height: 85vh;
+        margin: 15vh 0 0 0;
+        padding-left: 5%;
+    }
+
+    .card {
+        width: 43%;
+    }
+
+    .menu {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .lienMenu {
+        width: 30%;
+    }
+
+}

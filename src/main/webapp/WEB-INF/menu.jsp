@@ -29,9 +29,11 @@
                 <a href="Accueil" class="lienMenu">
                     <div class="liendivMenu">Enchères</div>
                 </a>
-                <a href="NouvelleVente" class="lienMenu">
-                    <div class="liendivMenu">Vendre un article</div>
-                </a>
+                <c:if test="${utilisateursC.actif}">
+                    <a href="NouvelleVente" class="lienMenu">
+                        <div class="liendivMenu">Vendre un article</div>
+                    </a>
+                </c:if>
                 <a href="Profil" class="lienMenu">
                     <div class="liendivMenu">Mon profil</div>
                 </a>

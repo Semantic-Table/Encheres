@@ -16,7 +16,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Encheres.org</title>
     <link rel="stylesheet" href="css/style.css">
-</head>
+    <link rel="stylesheet" href="css/breakpoints.css"></head>
 <body>
 <jsp:include page="menu.jsp"></jsp:include>
 <main>
@@ -56,6 +56,7 @@
             <h3>tableau administrateur</h3>
             <form action="AdminSuppr" method="post"><input type="hidden" name="no_utilisateur" value="${utilisateurs.no_utilisateur}"> <input type="submit" value="supprimer le compte"></form>
             <form action="AdminDesac" method="post"><input type="hidden" name="no_utilisateur" value="${utilisateurs.no_utilisateur}"> <input type="submit" value="desactiver le compte"></form>
+            ${utilisateurs.actif}
         </div>
     </c:if>
 
