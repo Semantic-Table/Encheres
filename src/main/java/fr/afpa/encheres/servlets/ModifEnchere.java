@@ -96,6 +96,7 @@ public class ModifEnchere extends HttpServlet {
             }
         }
         System.out.println(formValue);
+
 //fin du reve
 
         ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
@@ -114,9 +115,9 @@ public class ModifEnchere extends HttpServlet {
                 formValue.get(0),
                 formValue.get(1),
                 Date.valueOf(formValue.get(5)),
-                Time.valueOf(formValue.get(6) + ":00"),
+                Time.valueOf(formValue.get(6)),
                 Date.valueOf(formValue.get(7)),
-                Time.valueOf(formValue.get(8) + ":00"),
+                Time.valueOf(formValue.get(8)),
                 Integer.parseInt(formValue.get(4)),
                 Integer.parseInt(formValue.get(4)),
                 no_utilisateurs,
@@ -127,13 +128,7 @@ public class ModifEnchere extends HttpServlet {
 
         retraitsSQL.update(new Retraits(articlesVendus.getNo_article(), formValue.get(9), formValue.get(10), formValue.get(11)));
         Retraits retraits = retraitsSQL.selectById(articlesVendus.getNo_article());
-        encheresSQL.update(
-                Integer.parseInt(formValue.get(13)),
-                new Encheres(
-                        (int) session.getAttribute("no_utilisateur"),
-                        articlesVendusSQL.selectByLast().getNo_article(),
-                        Date.valueOf(LocalDate.now()), Time.valueOf(LocalTime.now()),
-                        Integer.parseInt(formValue.get(4))));
+
         Categories categories = categoriesSQL.selectById(articlesVendus.getNo_categorie());
         Encheres encheres = encheresSQL.selectByNo_articleOrderByMontant_enchere(articlesVendus.getNo_article());
         request.setAttribute("articlesVendus", articlesVendus);

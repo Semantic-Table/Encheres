@@ -27,10 +27,11 @@
             <div class="divFiltre">
                 <label>Catégorie :</label>
                 <select name="no_categorie" id="no_categorie">
-                    <option value="1">Informatique</option>
-                    <option value="2">Ameublement</option>
-                    <option value="3">Vêtement</option>
-                    <option value="4">Sport & Loisirs</option>
+
+                    <c:forEach items="${categorieses}" var="categorie">
+                        <option value="${categorie.no_categorie}">${categorie.libelle}</option>
+                    </c:forEach>
+
                 </select>
                 <input type="submit" value="Rechercher" class="click">
             </div>
@@ -39,15 +40,16 @@
 
 
         <c:if test="${utilisateursCno_utilisateurs != null}">
-            <a href="FiltreGagne" class="lienFiltre">enchereWin</a>
+
+            <a href="FiltreGagne"><div class="lienFiltre">Gagné</div></a>
         </c:if>
         <c:if test="${utilisateursCno_utilisateurs != null}">
-            <a href="FiltreParticipation" class="lienFiltre">enchereParticipe</a>
+            <a href="FiltreParticipation"><div class="lienFiltre">Je participe</div></a>
         </c:if>
         <c:if test="${utilisateursCno_utilisateurs != null}">
-            <a href="FiltreProprietaire" class="lienFiltre">enchereProprietaire</a>
+            <a href="FiltreProprietaire"><div class="lienFiltre">Mes enchères</div></a>
         </c:if>
-        <a href="FiltreEnCours" class="lienFiltre">enCours</a>
+        <a href="FiltreEnCours"><div class="lienFiltre">Enchères en cours</div></a>
         </div>
     </div>
 
@@ -76,8 +78,14 @@
                 </div>
             </div>
         </c:forEach>
-    </div>
 
+    </div>
+    <div>
+
+        <c:forEach var="i" begin="1" end="${nbPages}" step="1">
+            <a href="Accueil?pages=${i-1}">${i}</a>
+        </c:forEach>
+    </div>
 </main>
 
 </body>

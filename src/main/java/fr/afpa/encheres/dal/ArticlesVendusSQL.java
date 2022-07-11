@@ -32,6 +32,21 @@ public class ArticlesVendusSQL {
         return articlesVenduses;
     }
 
+    public ArrayList<ArticlesVendus> selectBySix(int offset,ArrayList<ArticlesVendus> articlesVenduses) {
+        ArrayList<ArticlesVendus> articlesVendusesFiltre = new ArrayList<>();
+
+        for (int i = offset; i < offset+6; i++) {
+            try{
+                articlesVendusesFiltre.add(articlesVenduses.get(i));
+            } catch (IndexOutOfBoundsException e) {
+
+            }
+
+        }
+
+        return articlesVendusesFiltre;
+    }
+
     public ArrayList<ArticlesVendus> selectByNo_utilisateur(int no_utilisateur) {
         ArrayList<ArticlesVendus> articlesVenduses = new ArrayList<>();
         try {
@@ -314,5 +329,13 @@ public class ArticlesVendusSQL {
             throw new RuntimeException(e);
         }
         return articlesVenduses;
+    }
+
+    public int nombreArticle(ArrayList<ArticlesVendus> articlesVenduses){
+        int nbArticle =0;
+        for (ArticlesVendus articlesvendus:articlesVenduses) {
+            nbArticle++;
+        }
+        return nbArticle;
     }
 }

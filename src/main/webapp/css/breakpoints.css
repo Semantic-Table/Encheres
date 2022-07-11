@@ -1,31 +1,44 @@
 @media (max-width: 1000px) {
-    header {
-        width: 100vw;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        height: 15vh;
-    }
-
-    main {
-
-        width: 100vw;
-        min-height: 85vh;
-        margin: 15vh 0 0 0;
-        padding-left: 5%;
-    }
 
     .card {
         width: 43%;
     }
 
-    .menu {
-        display: flex;
-        flex-direction: row;
+
+}
+
+@media (max-width: 702px) {
+    header {
+        width: 70vw;
+        left: -65vw;
+        justify-content: space-between;
+        align-items: center;
+        height: 100vh;
+        transition: left 1s;
     }
 
-    .lienMenu {
-        width: 30%;
+    header:hover {
+        left: 0;
+    }
+
+    main {
+        width: 100vw;
+        min-height: 85vh;
+        margin: 0;
+    }
+    .divFiltre {
+        flex-direction: column;
+    }
+    .lienFiltre {
+        width: 80%;
+    }
+
+
+}
+@media (max-width: 650px) {
+
+    .card {
+        width: 90%;
     }
 
 }

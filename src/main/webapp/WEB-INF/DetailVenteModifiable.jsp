@@ -38,10 +38,9 @@
                 <div class="connexionBox">
                     <label for="no_categorie">Catégorie</label><select name="no_categorie" id="no_categorie"
                                                                        value="${articlesVendus.no_categorie}" required>
-                    <option value="1">informatique</option>
-                    <option value="2">ameublement</option>
-                    <option value="3">vetement</option>
-                    <option value="4">sport&loisirs</option>
+                    <c:forEach items="${categorieses}" var="categorie">
+                        <option value="${categorie.no_categorie}">${categorie.libelle}</option>
+                    </c:forEach>
                 </select>
                 </div>
                 <div class="connexionBox">

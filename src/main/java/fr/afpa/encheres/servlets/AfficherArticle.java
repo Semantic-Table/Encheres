@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -60,14 +61,20 @@ public class AfficherArticle extends HttpServlet {
             int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
             request.setAttribute("utilisateursCno_utilisateurs", utilisateursCno_utilisateurs);
             Utilisateurs utilisateursC = utilisateursSQL.selectById(utilisateursCno_utilisateurs);
+            ArrayList<Categories> categorieses = categoriesSQL.selectAll();
+            request.setAttribute("categorieses",categorieses);
             request.setAttribute("encheres",encheres);
             request.setAttribute("utilisateursC", utilisateursC);
             request.getRequestDispatcher("WEB-INF/DetailVenteModifiable.jsp").forward(request, response);
         }
-        else if (session.getAttribute("no_utilisateur") != null && articlesVendus.getDate_debut_encheres().before(Date.valueOf(LocalDate.now().plusDays(1))) && articlesVendus.getHeure_debut_encheres().before(Time.valueOf(LocalTime.now()))) {
+        else if (session.getAttribute("no_utilisateur") != null && LocalDateTime.now().isAfter(LocalDateTime.of(articlesVendus.getDate_debut_encheres().toLocalDate(),articlesVendus.getHeure_debut_encheres().toLocalTime()))) {
             int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
             request.setAttribute("utilisateursCno_utilisateurs", utilisateursCno_utilisateurs);
             Utilisateurs utilisateursC = utilisateursSQL.selectById(utilisateursCno_utilisateurs);
+            ArrayList<Encheres> enchereses = encheresSQL.selectByNo_article(articlesVendus.getNo_article());
+            request.setAttribute("enchereses",enchereses);
+            ArrayList<Utilisateurs> utilisateurses = utilisateursSQL.selectAll();
+            request.setAttribute("utilisateurses",utilisateurses);
             request.setAttribute("utilisateursC", utilisateursC);
             request.getRequestDispatcher("WEB-INF/detailVente.jsp").forward(request, response);
         }

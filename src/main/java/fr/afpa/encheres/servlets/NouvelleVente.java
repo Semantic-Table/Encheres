@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static java.lang.Thread.sleep;
+
 @WebServlet(name = "NouvelleVente", value = "/NouvelleVente")
 public class NouvelleVente extends HttpServlet {
     @Override
@@ -79,11 +81,7 @@ public class NouvelleVente extends HttpServlet {
                 String value = item.getString();
                 formValue.add(value);
             } else {
-                String fieldName = item.getFieldName();
                 String fileName = item.getName();
-                String contentType = item.getContentType();
-                boolean isInMemory = item.isInMemory();
-                long sizeInBytes = item.getSize();
                 System.out.println(fileName);
                 if (fileName != null) {
                     fileName = FilenameUtils.getName(fileName);
@@ -115,6 +113,7 @@ public class NouvelleVente extends HttpServlet {
         Categories categories = categoriesSQL.selectById(Integer.parseInt(formValue.get(2)));
 
         try {
+
             articlesVendusSQL.insert(new ArticlesVendus(
                     formValue.get(0),
                     formValue.get(1),
@@ -131,7 +130,7 @@ public class NouvelleVente extends HttpServlet {
             ArticlesVendus articlesVendus = articlesVendusSQL.selectByLast();
             Utilisateurs utilisateurs = utilisateursSQL.selectById(articlesVendus.getNo_utilisateur());
 
-            retraitsSQL.insert(new Retraits(articlesVendus.getNo_article(), formValue.get(8), formValue.get(9), formValue.get(10)));
+            retraitsSQL.insert(new Retraits(articlesVendus.getNo_article(), formValue.get(9), formValue.get(10), formValue.get(11)));
             Retraits retraits = retraitsSQL.selectById(articlesVendus.getNo_article());
             request.setAttribute("articlesVendus", articlesVendus);
             request.setAttribute("utilisateurs", utilisateurs);

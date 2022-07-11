@@ -9,7 +9,7 @@
 --%>
 <header>
     <div class="parentMenu">
-        <a href="Accueil" class="lienMenu">Logo</a>
+        <a href="Accueil" class="lienLogo"><img id="logo" src="img/juge.png" alt=""></a>
         <div class="menu">
 
 
@@ -45,7 +45,7 @@
         </div>
 
     </div>
-    <div>
+    <div class="reseaux">
         <a href="#" class="lienMenu">
             <img src="img/twitter-brands.svg"
                  width="40"
@@ -62,8 +62,7 @@
         </a>
         <a href="#" class="lienMenu">
             <img src="img/instagram-brands.svg"
-                 width="40"
-                 height="40"
+
                  class="svg"
                  type="image/svg+xml"/>
         </a>

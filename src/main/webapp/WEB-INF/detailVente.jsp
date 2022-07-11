@@ -18,7 +18,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Encheres.org</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/breakpoints.css"></head>
+    <link rel="stylesheet" href="css/breakpoints.css">
+</head>
 <body>
 <jsp:include page="menu.jsp"></jsp:include>
 
@@ -38,14 +39,27 @@
             <p>Vendeur: ${utilisateurs.pseudo}</p>
             <c:if test="${articlesVendus.no_utilisateur != utilisateursCno_utilisateurs && utilisateursC.actif}">
                 <form action="Encherir" method="post">
-                    <label for="montant_enchere">Ma proposition : </label><input type="number" id="montant_enchere" name="montant_enchere" required>
+                    <label for="montant_enchere">Ma proposition : </label><input type="number" id="montant_enchere"
+                                                                                 name="montant_enchere" required>
                     <input type="hidden" value="${articlesVendus.no_article}" name="no_article">
                     <input type="hidden" name="no_categorie" value="${categories.no_categorie}">
                     <button type="submit" class="click">encherir</button>
                 </form>
             </c:if>
         </div>
-
+        <c:if test="${articlesVendus.no_utilisateur == utilisateursCno_utilisateurs}">
+            <div>
+                <c:forEach items="${enchereses}" var="encheres">
+                    <div>
+                        <c:forEach items="${utilisateurses}" var="utilisateurs">
+                            <c:if test="${utilisateurs.no_utilisateur == encheres.no_utilisateur}">
+                                <p>${utilisateurs.pseudo}
+                            </c:if>
+                        </c:forEach>
+                        ${encheres.montant_enchere}</p></div>
+                </c:forEach>
+            </div>
+        </c:if>
     </div>
 </main>
 </body>

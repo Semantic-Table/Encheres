@@ -1,13 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Kanit:wght@300&display=swap');
 
 :root{
-    --light-violet : #391e6c;
+    --light-violet : #461f8e;
     --dark-violet : #2f1960;
 }
 
 *{
 
     font-family: 'Kanit', sans-serif;
+}
+#logo {
+    width: 150px;
+    height: 150px;
+}
+.lienLogo {
+    align-self: center;
 }
 div {
     font-weight: lighter;
@@ -61,16 +68,23 @@ h1 {
     font-size: 15px;
     text-decoration: none;
     color: white;
+
 }
 h1 {
     font-weight: bolder;
 }
 .parentMenu {
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 .liendivMenu {
     padding-left: 5%;
     font-family: 'Bungee', cursive;
+}
+.svg {
+    width: 40px;
+    height: 40px;
 }
 .box {
     padding: 1em;
@@ -121,6 +135,11 @@ h1 {
 }
 .divFiltre {
     padding: 1em 0;
+    display: flex;
+    flex-direction: row;
+}
+.lienFiltre{
+    width: fit-content;
 }
 .lienFiltre,.click {
     border: 1px solid var(--light-violet);
@@ -129,6 +148,7 @@ h1 {
     color: white;
     background: var(--light-violet);
     transition: color 0.5s,background-color 0.5s;
+    margin: 10px;
 }
 .lienFiltre:hover,.click:hover {
     border: 1px solid var(--light-violet);

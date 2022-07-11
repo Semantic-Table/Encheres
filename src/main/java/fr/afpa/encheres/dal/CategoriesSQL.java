@@ -44,13 +44,13 @@ public class CategoriesSQL {
         }
     }
 
-    public void delete(Categories categories){
+    public void delete(int no_categorie){
         try {
             Connection connection = ConnectionProvider.getConnection();
             PreparedStatement pstmt = connection.prepareStatement(
                     "DELETE FROM categories WHERE no_categorie = ?"
             );
-            pstmt.setInt(1, categories.getNo_categorie());
+            pstmt.setInt(1, no_categorie);
             pstmt.executeUpdate();
             connection.close();
         } catch (SQLException e) {
@@ -75,5 +75,20 @@ public class CategoriesSQL {
             throw new RuntimeException(e);
         }
         return categories;
+    }
+
+    public void update(Categories categories) {
+        try {
+            Connection connection = ConnectionProvider.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(
+                    "UPDATE categories SET libelle = ? WHERE no_categorie = ?"
+            );
+            pstmt.setString(1, categories.getLibelle());
+            pstmt.setInt(2,categories.getNo_categorie());
+            pstmt.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

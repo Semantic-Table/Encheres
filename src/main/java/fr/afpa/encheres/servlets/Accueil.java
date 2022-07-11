@@ -33,7 +33,27 @@ public class Accueil extends HttpServlet {
 
 
         //Création des listes "ArticlesVendus et Utilisateurs" pour affichage
+
         ArrayList<ArticlesVendus> articlesVenduses = articlesVendusSQL.selectAll();
+        int nbPages = 0;
+        int nbArticles = 0;
+        nbArticles = articlesVendusSQL.nombreArticle(articlesVenduses);
+
+        if (nbArticles%6==0){
+            nbPages = nbArticles / 6;
+        } else {
+            nbPages = (nbArticles / 6) + 1;
+        }
+        request.setAttribute("nbPages",nbPages);
+        int pages = 0;
+        if (request.getParameter("pages") != null){
+            pages = Integer.parseInt(request.getParameter("pages"));
+        }
+        System.out.println(pages);
+        articlesVenduses = articlesVendusSQL.selectBySix(pages * 6,articlesVenduses);
+        CategoriesSQL categoriesSQL = new CategoriesSQL();
+        ArrayList<Categories> categorieses = categoriesSQL.selectAll();
+        request.setAttribute("categorieses",categorieses);
         ArrayList<Utilisateurs> utilisateurses = utilisateursSQL.selectAll();
 
         //Requête d'envoie
@@ -64,8 +84,29 @@ public class Accueil extends HttpServlet {
                 Integer.parseInt(request.getParameter("no_categorie")),
                 request.getParameter("nom_article"));
         ArrayList<Utilisateurs> utilisateurses = utilisateursSQL.selectAll();
+        int nbPages = 0;
+        int nbArticles = 0;
+        nbArticles = articlesVendusSQL.nombreArticle(articlesVenduses);
 
+        if (nbArticles%6==0){
+            nbPages = nbArticles / 6;
+        } else {
+            nbPages = (nbArticles / 6) + 1;
+        }
+
+        int pages = 0;
+        if (request.getParameter("pages") != null){
+            pages = Integer.parseInt(request.getParameter("pages"));
+        }
+        System.out.println(pages);
+        System.out.println(nbPages);
+        articlesVenduses = articlesVendusSQL.selectBySix(pages * 6,articlesVenduses);
+
+        CategoriesSQL categoriesSQL = new CategoriesSQL();
+        ArrayList<Categories> categorieses = categoriesSQL.selectAll();
+        request.setAttribute("categorieses",categorieses);
         //Requête d'envoie
+        request.setAttribute("nbPages",nbPages);
         request.setAttribute("articlesVenduses", articlesVenduses);
         request.setAttribute("utilisateurses", utilisateurses);
 

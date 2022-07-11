@@ -11,8 +11,8 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet(name = "Profil", value = "/Profil")
-public class Profil extends HttpServlet {
+@WebServlet(name = "GestionCategorie", value = "/GestionCategorie")
+public class GestionCategorie extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -23,7 +23,9 @@ public class Profil extends HttpServlet {
             request.setAttribute("utilisateursC",utilisateursC);
             request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
         }
+
         CategoriesSQL categoriesSQL = new CategoriesSQL();
+        categoriesSQL.delete(Integer.parseInt(request.getParameter("no_categorie")));
         ArrayList<Categories> categorieses = categoriesSQL.selectAll();
         request.setAttribute("categorieses",categorieses);
         Utilisateurs utilisateurs = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
@@ -33,6 +35,20 @@ public class Profil extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
+        UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
+        if (session.getAttribute("no_utilisateur") != null){
+            int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
+            Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
+            request.setAttribute("utilisateursC",utilisateursC);
+            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
+        }
+        CategoriesSQL categoriesSQL = new CategoriesSQL();
+        categoriesSQL.insert(new Categories(request.getParameter("libelle")));
+        ArrayList<Categories> categorieses = categoriesSQL.selectAll();
+        request.setAttribute("categorieses",categorieses);
+        Utilisateurs utilisateurs = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
+        request.setAttribute("utilisateurs",utilisateurs);
+        request.getRequestDispatcher("WEB-INF/profil.jsp").forward(request, response);
     }
 }
