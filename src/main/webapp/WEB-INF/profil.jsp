@@ -61,6 +61,7 @@
 
     <a href="Supprimer" class="click">Supprimer mon compte</a>
         <a href="AjoutPoint">+100 000</a> <p>${utilisateurs.credit}</p>
+        <a href="AcheterCredits">Acheter des crédits</a>
     </div>
 </main>
 
