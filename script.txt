@@ -1,0 +1,76 @@
+create table categories
+(
+    no_categorie int auto_increment
+        primary key,
+    libelle      varchar(30) not null
+);
+
+create table utilisateurs
+(
+    no_utilisateur int auto_increment
+        primary key,
+    pseudo         varchar(30)  not null,
+    nom            varchar(30)  not null,
+    prenom         varchar(30)  not null,
+    email          varchar(200) not null,
+    telephone      varchar(15)  null,
+    rue            varchar(30)  not null,
+    code_postal    varchar(10)  not null,
+    ville          varchar(30)  not null,
+    mot_de_passe   varchar(30)  not null,
+    credit         int          not null,
+    administrateur bit          not null,
+    actif          bit          not null
+);
+
+create table articles_vendus
+(
+    no_article           int auto_increment
+        primary key,
+    nom_article          varchar(300) not null,
+    description          varchar(300) not null,
+    date_debut_encheres  date         not null,
+    heure_debut_encheres time         null,
+    date_fin_encheres    date         not null,
+    heure_fin_encheres   time         null,
+    prix_vente           int          null,
+    prix_initial         int          null,
+    no_utilisateur       int          not null,
+    no_categorie         int          not null,
+    image                varchar(300) null,
+    constraint articles_vendus_categories_fk
+        foreign key (no_categorie) references categories (no_categorie)
+            on delete cascade,
+    constraint encheres_utilisateur_fk
+        foreign key (no_utilisateur) references utilisateurs (no_utilisateur)
+            on delete cascade,
+    constraint ventes_utilisateur_fk
+        foreign key (no_utilisateur) references utilisateurs (no_utilisateur)
+            on delete cascade
+);
+
+create table encheres
+(
+    no_encheres     int auto_increment
+        primary key,
+    no_utilisateur  int  not null,
+    no_article      int  not null,
+    date_enchere    date not null,
+    time_enchere    time null,
+    montant_enchere int  not null,
+    constraint encheres_articles_vendus_fk
+        foreign key (no_article) references articles_vendus (no_article)
+            on delete cascade
+);
+
+create table retraits
+(
+    no_article  int         not null
+        primary key,
+    rue         varchar(30) not null,
+    code_postal varchar(15) not null,
+    ville       varchar(30) not null,
+    constraint retraits_articles_vendus_fk
+        foreign key (no_article) references articles_vendus (no_article)
+            on delete cascade
+);
