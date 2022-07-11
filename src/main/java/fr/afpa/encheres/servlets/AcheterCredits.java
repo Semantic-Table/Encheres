@@ -17,16 +17,10 @@ public class AcheterCredits extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-
-
         if (session.getAttribute("no_utilisateur") != null){
             int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
             request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
         }
-
-
-
-
         request.getRequestDispatcher("WEB-INF/acheterCredits.jsp").forward(request, response);
     }
 
@@ -46,14 +40,18 @@ public class AcheterCredits extends HttpServlet {
 
         ArrayList<Utilisateurs> utilisateurses = utilisateursSQL.selectAll();
         request.setAttribute("utilisateurses",utilisateurses);
-        int nombrePoint = Integer.parseInt(request.getParameter("nombrePoint"));
+
+        int credits = Integer.parseInt(request.getParameter("credit"));
         Utilisateurs utilisateurs = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
-        utilisateurs.setCredit(utilisateurs.getCredit() + nombrePoint );
+        utilisateurs.setCredit(utilisateurs.getCredit() + credits);
         try {
             utilisateursSQL.update(utilisateurs.getNo_utilisateur(),utilisateurs);
         } catch (ChampVideException e) {
             throw new RuntimeException(e);
         }
+
+
+
         request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
     }
 }
