@@ -73,19 +73,20 @@
         <a href="AcheterCredits">Acheter des crédits</a>
     </div>
     <c:if test="${utilisateurs.administrateur}">
-        <div>
+        <div class="box">
+            <h3>Tableau d'ajout des catégories</h3>
             <form action="GestionCategorie" method="post">
                 Catégorie à ajouter : <input type="text" name="libelle">
-                <input type="submit" value="Ajouter">
+                <input type="submit" value="Ajouter" class="click">
             </form>
             <div>Supprimer/modifier une categorie :</div>
             <c:forEach items="${categorieses}" var="categories">
                 <form action="ModifierCategorie" method="post">
                     <input type="text" name="libelle" value="${categories.libelle}">
                     <input type="hidden" name="no_categorie" value="${categories.no_categorie}">
-                    <input type="submit" value="Modifier">
+                    <input type="submit" value="Modifier" class="click">
                 </form>
-                <div><a href="GestionCategorie?no_categorie=${categories.no_categorie}">supprimer</a></div>
+                <div><a href="GestionCategorie?no_categorie=${categories.no_categorie}" class="click">supprimer</a></div>
             </c:forEach>
         </div>
     </c:if>

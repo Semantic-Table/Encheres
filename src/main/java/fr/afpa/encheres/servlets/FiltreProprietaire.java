@@ -30,8 +30,8 @@ public class FiltreProprietaire extends HttpServlet {
         }
         ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
         ArrayList<ArticlesVendus> articlesVenduses = articlesVendusSQL.selectByNo_utilisateur((int) session.getAttribute("no_utilisateur"));
-        int nbPages = 0;
-        int nbArticles = 0;
+        int nbPages;
+        int nbArticles;
         nbArticles = articlesVendusSQL.nombreArticle(articlesVenduses);
 
         if (nbArticles%6==0){

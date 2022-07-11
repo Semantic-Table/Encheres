@@ -1,8 +1,10 @@
 package fr.afpa.encheres.servlets;
 
 import fr.afpa.encheres.bo.ArticlesVendus;
+import fr.afpa.encheres.bo.Categories;
 import fr.afpa.encheres.bo.Utilisateurs;
 import fr.afpa.encheres.dal.ArticlesVendusSQL;
+import fr.afpa.encheres.dal.CategoriesSQL;
 import fr.afpa.encheres.dal.UtilisateursSQL;
 import fr.afpa.encheres.exceptions.ChampVideException;
 
@@ -34,13 +36,6 @@ public class AcheterCredits extends HttpServlet {
             request.setAttribute("utilisateursC",utilisateursC);
             request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
         }
-        ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
-        ArrayList<ArticlesVendus> articlesVenduses = articlesVendusSQL.selectAll();
-        request.setAttribute("articlesVenduses",articlesVenduses);
-
-        ArrayList<Utilisateurs> utilisateurses = utilisateursSQL.selectAll();
-        request.setAttribute("utilisateurses",utilisateurses);
-
         int credits = Integer.parseInt(request.getParameter("credit"));
         Utilisateurs utilisateurs = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
         utilisateurs.setCredit(utilisateurs.getCredit() + credits);
@@ -49,9 +44,10 @@ public class AcheterCredits extends HttpServlet {
         } catch (ChampVideException e) {
             throw new RuntimeException(e);
         }
-
-
-
-        request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
+        CategoriesSQL categoriesSQL = new CategoriesSQL();
+        ArrayList<Categories> categorieses = categoriesSQL.selectAll();
+        request.setAttribute("categorieses",categorieses);
+        request.setAttribute("utilisateurs",utilisateurs);
+        request.getRequestDispatcher("WEB-INF/profil.jsp").forward(request, response);
     }
 }

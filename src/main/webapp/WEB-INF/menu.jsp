@@ -25,7 +25,7 @@
 
             </c:if>
             <c:if test="${utilisateursCno_utilisateurs != null}">
-
+                <p class="liendivMenu">Vous possedez ${utilisateursC.credit} points</p>
                 <a href="Accueil" class="lienMenu">
                     <div class="liendivMenu">Enchères</div>
                 </a>

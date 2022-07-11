@@ -21,7 +21,6 @@ public class AdminDesac extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-
         ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
         EncheresSQL encheresSQL = new EncheresSQL();
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
@@ -43,7 +42,6 @@ public class AdminDesac extends HttpServlet {
         } catch (ChampVideException e) {
             throw new RuntimeException(e);
         }
-
         request.getRequestDispatcher("WEB-INF/profilUtilisateur.jsp").forward(request,response);
     }
 }

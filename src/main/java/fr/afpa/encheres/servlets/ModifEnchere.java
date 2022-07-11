@@ -83,7 +83,7 @@ public class ModifEnchere extends HttpServlet {
                 if (fileName != null) {
                     fileName = FilenameUtils.getName(fileName);
                 }
-                formValue.add(servletContext.getRealPath("img/" + fileName));
+                formValue.add("img/" + fileName);
                 File uploadedFile = new File(servletContext.getRealPath("img/" + fileName));
                 System.out.println(formValue);
                 try {
@@ -128,7 +128,8 @@ public class ModifEnchere extends HttpServlet {
 
         retraitsSQL.update(new Retraits(articlesVendus.getNo_article(), formValue.get(9), formValue.get(10), formValue.get(11)));
         Retraits retraits = retraitsSQL.selectById(articlesVendus.getNo_article());
-
+        ArrayList<Categories> categorieses = categoriesSQL.selectAll();
+        request.setAttribute("categorieses",categorieses);
         Categories categories = categoriesSQL.selectById(articlesVendus.getNo_categorie());
         Encheres encheres = encheresSQL.selectByNo_articleOrderByMontant_enchere(articlesVendus.getNo_article());
         request.setAttribute("articlesVendus", articlesVendus);

@@ -31,20 +31,19 @@
             </div>
             <div class="connexionBox">
                 <label for="no_categorie">Catégorie</label><select name="no_categorie" id="no_categorie" required>
-                <option value="1">informatique</option>
-                <option value="2">ameublement</option>
-                <option value="3">vetement</option>
-                <option value="4">sport&loisirs</option>
+                <c:forEach items="${categorieses}" var="categorie">
+                    <option value="${categorie.no_categorie}">${categorie.libelle}</option>
+                </c:forEach>
             </select>
             </div>
             <div class="connexionBox">
                 <label for="image">Photo de l'article</label><input type="file" id="image" accept="image/*" name="image" required>
             </div>
             <div class="connexionBox">
-                <label for="prix_initial">Mise a prix:</label><input type="text" id="prix_initial" name="prix_initial">
+                <label for="prix_initial">Mise a prix:</label><input type="number" id="prix_initial" name="prix_initial">
             </div>
             <div class="connexionBox">
-                <label for="date_debut_encheres">Début de l'enchère</label><input type="date" id="date_debut_encheres"
+                <label for="date_debut_encheres">Début de l'enchère</label><input type="date" id="date_debut_encheres" min="${now}"
                                                                                  name="date_debut_encheres" required>
             </div>
             <div class="connexionBox">
@@ -52,7 +51,7 @@
                                                                                  name="heure_debut_encheres" required>
             </div>
             <div class="connexionBox">
-                <label for="date_fin_encheres">Fin de l'enchère</label><input type="date" id="date_fin_encheres"
+                <label for="date_fin_encheres">Fin de l'enchère</label><input type="date" id="date_fin_encheres" min="${nowend}"
                                                                              name="date_fin_encheres" required>
             </div>
             <div class="connexionBox">
@@ -63,7 +62,7 @@
                 <label for="rue">Rue:</label><input type="text" id="rue" name="rue" required>
             </div>
             <div class="connexionBox">
-                <label for="code_postal">Code postal:</label><input type="text" id="code_postal" name="code_postal" required>
+                <label for="code_postal">Code postal:</label><input type="number" id="code_postal" name="code_postal" required>
             </div>
             <div class="connexionBox">
                 <label for="ville">Ville:</label><input type="text" id="ville" name="ville" required>

@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -36,6 +37,11 @@ public class NouvelleVente extends HttpServlet {
             request.setAttribute("utilisateursC",utilisateursC);
             request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
         }
+        CategoriesSQL categoriesSQL = new CategoriesSQL();
+        ArrayList<Categories> categorieses = categoriesSQL.selectAll();
+        request.setAttribute("now", LocalDate.now());
+        request.setAttribute("nowend", LocalDate.now().plusDays(1));
+        request.setAttribute("categorieses",categorieses);
         request.getRequestDispatcher("WEB-INF/nouvelleVente.jsp").forward(request, response);
     }
 
@@ -106,8 +112,8 @@ public class NouvelleVente extends HttpServlet {
         ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
         RetraitsSQL retraitsSQL = new RetraitsSQL();
         CategoriesSQL categoriesSQL = new CategoriesSQL();
-        EncheresSQL encheresSQL = new EncheresSQL();
-
+        ArrayList<Categories> categorieses = categoriesSQL.selectAll();
+        request.setAttribute("categorieses",categorieses);
         Utilisateurs utilisateursC = utilisateursSQL.selectById(no_utilisateurs);
 
         Categories categories = categoriesSQL.selectById(Integer.parseInt(formValue.get(2)));
@@ -138,9 +144,9 @@ public class NouvelleVente extends HttpServlet {
         } catch (Exception e) {
             System.out.println(e.getMessage());
 
-
+            System.out.println(LocalDate.now());
             request.setAttribute("utilisateursC", utilisateursC);
-
+request.setAttribute("now", LocalDate.now());
             request.setAttribute("categories", categories);
             request.getRequestDispatcher("WEB-INF/nouvelleVente.jsp").forward(request, response);
 

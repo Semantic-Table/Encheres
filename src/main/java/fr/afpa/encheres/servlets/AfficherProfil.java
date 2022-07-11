@@ -23,10 +23,7 @@ public class AfficherProfil extends HttpServlet {
             request.setAttribute("utilisateursC",utilisateursC);
             request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
         }
-
-
         Utilisateurs utilisateurs = utilisateursSQL.selectById(Integer.parseInt(request.getParameter("no_utilisateur")));
-
         request.setAttribute("utilisateurs",utilisateurs);
         request.getRequestDispatcher("WEB-INF/profilUtilisateur.jsp").forward(request,response);
     }
