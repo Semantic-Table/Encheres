@@ -5,6 +5,7 @@ import fr.afpa.encheres.bo.Utilisateurs;
 import fr.afpa.encheres.dal.ArticlesVendusSQL;
 import fr.afpa.encheres.dal.UtilisateursSQL;
 import fr.afpa.encheres.exceptions.ChampVideException;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -37,7 +38,9 @@ public class Inscription extends HttpServlet {
         if (utilisateursSQL.selectByPseudo(request.getParameter("pseudo")) == null && utilisateursSQL.selectByEmail(request.getParameter("email")) == null && request.getParameter("pseudo").matches("^\\p{Alnum}*$")) {
 
             try {
-                utilisateursSQL.insert(new Utilisateurs(request.getParameter("pseudo"), request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("email"), request.getParameter("telephone"), request.getParameter("rue"), request.getParameter("code_postal"), request.getParameter("ville"), request.getParameter("mot_de_passe"), 0, false,true));
+                String sha256hex = DigestUtils.sha256Hex(request.getParameter("mot_de_passe"));
+                System.out.println(sha256hex);
+                utilisateursSQL.insert(new Utilisateurs(request.getParameter("pseudo"), request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("email"), request.getParameter("telephone"), request.getParameter("rue"), request.getParameter("code_postal"), request.getParameter("ville"), sha256hex, 0, false,true));
             } catch (ChampVideException e) {
                 request.getRequestDispatcher("WEB-INF/echecInscription.jsp").forward(request, response);
             }

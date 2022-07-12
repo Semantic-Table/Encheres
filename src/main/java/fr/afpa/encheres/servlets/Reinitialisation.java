@@ -3,6 +3,7 @@ package fr.afpa.encheres.servlets;
 import fr.afpa.encheres.bo.Utilisateurs;
 import fr.afpa.encheres.dal.UtilisateursSQL;
 import fr.afpa.encheres.exceptions.ChampVideException;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,7 +40,7 @@ public class Reinitialisation extends HttpServlet {
         }
 
         Utilisateurs utilisateurs = utilisateursSQL.selectByPseudo(request.getParameter("pseudo"));
-        utilisateurs.setMot_de_passe(request.getParameter("mot_de_passe"));
+        utilisateurs.setMot_de_passe(DigestUtils.sha256Hex(request.getParameter("mot_de_passe")));
 
         try {
             utilisateursSQL.update(utilisateurs.getNo_utilisateur(),utilisateurs);

@@ -25,7 +25,7 @@
     <h1>Modifier une vente</h1>
     <div class="box detailbox">
         <div class="boxdetailimg"><img src="${articlesVendus.image}" alt="" class="detailimg"></div>
-        <div>
+        <div class="detailTxt">
 
             <form action="ModifEnchere" method="post" enctype="multipart/form-data">
                 <div class="connexionBox">

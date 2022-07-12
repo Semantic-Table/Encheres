@@ -6,6 +6,7 @@ import fr.afpa.encheres.bo.Utilisateurs;
 import fr.afpa.encheres.dal.ArticlesVendusSQL;
 import fr.afpa.encheres.dal.CategoriesSQL;
 import fr.afpa.encheres.dal.UtilisateursSQL;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -51,8 +52,9 @@ public class Connexion extends HttpServlet {
             Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
             request.setAttribute("utilisateursC", utilisateursC);
         }
-
-        Utilisateurs utilisateursC = utilisateursSQL.selectByPseudoAndByMot_de_passe(request.getParameter("pseudo"), request.getParameter("mot_de_passe"));
+        String sha256hex = DigestUtils.sha256Hex(request.getParameter("mot_de_passe"));
+        System.out.println(sha256hex);
+        Utilisateurs utilisateursC = utilisateursSQL.selectByPseudoAndByMot_de_passe(request.getParameter("pseudo"), sha256hex);
         if (utilisateursC != null) {
 
             //variables de session + tenps d'inactif a 5mn (300S)

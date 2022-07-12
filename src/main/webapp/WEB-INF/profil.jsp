@@ -45,7 +45,7 @@
             </div>
             <div class="connexionBox">
                 <label>Nouveau mot de passe :</label>
-                <input type="password" name="mot_de_passe" value="${utilisateursC.mot_de_passe}">
+                <input type="password" name="mot_de_passe">
             </div>
             <div class="connexionBox">
                 <label>Nom :</label>

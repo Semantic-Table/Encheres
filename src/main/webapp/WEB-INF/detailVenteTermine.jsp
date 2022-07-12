@@ -17,7 +17,7 @@
     <h1>Detail Vente</h1>
     <div class="box detailbox">
         <div class="boxdetailimg"><img src="${articlesVendus.image}" alt="" class="detailimg"></div>
-        <div><p class="bigger">${articlesVendus.nom_article}</p>
+        <div class="detailTxt"><p class="bigger">${articlesVendus.nom_article}</p>
             <p>Description : ${articlesVendus.description}</p>
             <p>Catégorie : ${categories.libelle}</p>
             <p>Meilleur offre : ${articlesVendus.prix_vente}</p>

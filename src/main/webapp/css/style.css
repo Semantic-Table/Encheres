@@ -161,6 +161,9 @@ border-radius: 10px 10px 0 0;
     color: var(--light-violet);
     background: white;
 }
+a:visited{
+    text-decoration: none;
+}
 #search {
     border: 1px solid var(--light-violet);
     padding: 0.2em 0.5em;
@@ -168,8 +171,15 @@ border-radius: 10px 10px 0 0;
     color: white;
     background: var(--light-violet);
     transition: color 0.5s,background-color 0.5s;
-margin-left: 10px;
+    margin-left: 10px;
     font-size: 13px;
+}
+#search:hover {
+    border: 1px solid var(--light-violet);
+    padding: 0.2em 0.5em;
+    text-decoration: none;
+    color: var(--light-violet);
+    background: white;
 }
 .profilLink{
     text-decoration: none;
@@ -183,10 +193,13 @@ margin-left: 10px;
     padding: 1em 0;
 }
 .boxdetailimg {
-    align-self: flex-start;
+    align-self: center;
     display: flex;
     justify-content: center;
     width: 30%;
+}
+.detailTxt {
+    align-self: flex-start;
 }
 .detailimg {
     width: 100%;
@@ -195,7 +208,7 @@ margin-left: 10px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
 }
 .bigger {
     font-size: 1.3em;
