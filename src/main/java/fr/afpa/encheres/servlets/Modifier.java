@@ -18,22 +18,24 @@ public class Modifier extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         HttpSession session = request.getSession();
+
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
+
         if (session.getAttribute("no_utilisateur") != null){
-            int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
             Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
             request.setAttribute("utilisateursC",utilisateursC);
-            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
         }
 
         try {
             utilisateursSQL.update((int) session.getAttribute("no_utilisateur"), new Utilisateurs(request.getParameter("pseudo"), request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("email"), request.getParameter("telephone"), request.getParameter("rue"), request.getParameter("code_postal"), request.getParameter("ville"), request.getParameter("mot_de_passe"), 0, false,true));
-        } catch (ChampVideException e) {
-            System.out.println(e.getMessage());
-        }
+        } catch (ChampVideException e) {}
+
         Utilisateurs utilisateurs = utilisateursSQL.selectById((int) session.getAttribute("no_utilisateur"));
+
         request.setAttribute("utilisateurs",utilisateurs);
+
         request.getRequestDispatcher("WEB-INF/profil.jsp").forward(request,response);
     }
 }

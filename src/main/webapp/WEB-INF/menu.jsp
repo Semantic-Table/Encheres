@@ -13,7 +13,7 @@
         <div class="menu">
 
 
-            <c:if test="${utilisateursCno_utilisateurs == null}">
+            <c:if test="${utilisateursC.no_utilisateur == null}">
 
 
                 <a href="Connexion" class="lienMenu">
@@ -24,7 +24,7 @@
 
 
             </c:if>
-            <c:if test="${utilisateursCno_utilisateurs != null}">
+            <c:if test="${utilisateursC.no_utilisateur != null}">
                 <p class="liendivMenu">Vous possedez ${utilisateursC.credit} points</p>
                 <a href="Accueil" class="lienMenu">
                     <div class="liendivMenu">Enchères</div>

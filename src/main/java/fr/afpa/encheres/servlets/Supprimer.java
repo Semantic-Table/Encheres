@@ -17,12 +17,8 @@ public class Supprimer extends HttpServlet {
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
         utilisateursSQL.delete((Integer) session.getAttribute("no_utilisateur"));
         session.removeAttribute("no_utilisateur");
+
         request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
-
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 }

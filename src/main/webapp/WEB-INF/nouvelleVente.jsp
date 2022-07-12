@@ -59,13 +59,13 @@
                                                                                    name="heure_fin_encheres" required>
             </div>
             <div class="connexionBox">
-                <label for="rue">Rue:</label><input type="text" id="rue" name="rue" required>
+                <label for="rue">Rue:</label><input type="text" id="rue" value="${utilisateursC.rue}" name="rue" required>
             </div>
             <div class="connexionBox">
-                <label for="code_postal">Code postal:</label><input type="number" id="code_postal" name="code_postal" required>
+                <label for="code_postal">Code postal:</label><input type="number" id="code_postal" value="${utilisateursC.code_postal}" name="code_postal" required>
             </div>
             <div class="connexionBox">
-                <label for="ville">Ville:</label><input type="text" id="ville" name="ville" required>
+                <label for="ville">Ville:</label><input type="text" id="ville" value="${utilisateursC.ville}" name="ville" required>
             </div>
             <button type="submit" class="click">Enregistrer</button>
             <button type="reset" class="click">Annuler</button>

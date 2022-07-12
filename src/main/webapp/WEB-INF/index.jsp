@@ -33,7 +33,7 @@
                     </c:forEach>
 
                 </select>
-                <input type="submit" value="Rechercher" class="click">
+                <input type="submit" value="Rechercher" id="search">
             </div>
         </form>
         <div class="divFiltre">

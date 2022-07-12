@@ -27,32 +27,35 @@ public class Inscription extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
+
         HttpSession session = request.getSession();
 
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
-        System.out.println(utilisateursSQL.selectByPseudo(request.getParameter("pseudo")));
-        System.out.println(utilisateursSQL.selectByEmail(request.getParameter("email")));
+        ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
+
+        //si les champs sont rempli correctement
         if (utilisateursSQL.selectByPseudo(request.getParameter("pseudo")) == null && utilisateursSQL.selectByEmail(request.getParameter("email")) == null && request.getParameter("pseudo").matches("^\\p{Alnum}*$")) {
 
             try {
                 utilisateursSQL.insert(new Utilisateurs(request.getParameter("pseudo"), request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("email"), request.getParameter("telephone"), request.getParameter("rue"), request.getParameter("code_postal"), request.getParameter("ville"), request.getParameter("mot_de_passe"), 0, false,true));
             } catch (ChampVideException e) {
-                System.out.println(e.getMessage());
                 request.getRequestDispatcher("WEB-INF/echecInscription.jsp").forward(request, response);
             }
-            ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
-            ArrayList<ArticlesVendus> articlesVenduses = articlesVendusSQL.selectAll();
-            request.setAttribute("articlesVenduses", articlesVenduses);
 
+            ArrayList<ArticlesVendus> articlesVenduses = articlesVendusSQL.selectAll();
             Utilisateurs utilisateurs = utilisateursSQL.selectByLast();
+            //variables de session et on set le temsp d'inactivite a 300s (5mn)
             session.setAttribute("no_utilisateur", utilisateurs.getNo_utilisateur());
             session.setMaxInactiveInterval(300);
+
             if (session.getAttribute("no_utilisateur") != null) {
                 int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
                 request.setAttribute("utilisateursCno_utilisateurs", utilisateursCno_utilisateurs);
 
             }
+
+            request.setAttribute("articlesVenduses", articlesVenduses);
+
             request.getRequestDispatcher("WEB-INF/profil.jsp").forward(request, response);
         }
         request.getRequestDispatcher("WEB-INF/echecInscription.jsp").forward(request, response);

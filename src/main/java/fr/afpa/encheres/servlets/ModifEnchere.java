@@ -30,43 +30,35 @@ public class ModifEnchere extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
         HttpSession session = request.getSession();
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
-        if (session.getAttribute("no_utilisateur") != null){
-            int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
-            Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
-            request.setAttribute("utilisateursC",utilisateursC);
-            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
-        }
-        // Create a factory for disk-based file items
-        DiskFileItemFactory factory = new DiskFileItemFactory();
+        ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
+        RetraitsSQL retraitsSQL = new RetraitsSQL();
+        CategoriesSQL categoriesSQL = new CategoriesSQL();
+        EncheresSQL encheresSQL = new EncheresSQL();
 
-// Configure a repository (to ensure a secure temp location is used)
+        if (session.getAttribute("no_utilisateur") != null) {
+            Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
+            request.setAttribute("utilisateursC", utilisateursC);
+        }
+
+        //gestion du formulaire ou l'on recupere des data et non du txt
+        DiskFileItemFactory factory = new DiskFileItemFactory();
         ServletContext servletContext = this.getServletConfig().getServletContext();
         File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
         factory.setRepository(repository);
-
-// Create a new file upload handler
         ServletFileUpload upload = new ServletFileUpload(factory);
-
-// Parse the request
         ArrayList<String> formValue = new ArrayList<>();
-
         List<FileItem> items = null;
         try {
             items = upload.parseRequest(request);
         } catch (FileUploadException e) {
             throw new RuntimeException(e);
         }
-
-        // Process the uploaded items
         Iterator<FileItem> iter = items.iterator();
         while (iter.hasNext()) {
             FileItem item = iter.next();
-
             if (item.isFormField()) {
-                String name = item.getFieldName();
                 String value = item.getString();
                 formValue.add(value);
             } else {
@@ -80,85 +72,51 @@ public class ModifEnchere extends HttpServlet {
                 System.out.println(formValue);
                 try {
                     item.write(uploadedFile);
-                } catch (FileExistsException e) {
-                    System.out.println(e.getMessage());
-                } catch (Exception e){
-
-                }
+                } catch (Exception e) {}
             }
         }
-        System.out.println(formValue);
 
-//fin du reve
-
-        ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
-        RetraitsSQL retraitsSQL = new RetraitsSQL();
-        CategoriesSQL categoriesSQL = new CategoriesSQL();
-        EncheresSQL encheresSQL = new EncheresSQL();
-        if (session.getAttribute("no_utilisateur") != null){
-            int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
-            Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
-            request.setAttribute("utilisateursC",utilisateursC);
-            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
-        }
         int no_utilisateurs = (int) session.getAttribute("no_utilisateur");
         Utilisateurs utilisateursC = utilisateursSQL.selectById(no_utilisateurs);
-
-        System.out.println(formValue.get(12));
-
         ArticlesVendus articlesVendus = articlesVendusSQL.selectById(Integer.parseInt(formValue.get(12)));
-        System.out.println(articlesVendus.getImage());
         retraitsSQL.update(new Retraits(articlesVendus.getNo_article(), formValue.get(9), formValue.get(10), formValue.get(11)));
         Retraits retraits = retraitsSQL.selectById(articlesVendus.getNo_article());
-        request.setAttribute("retraits", retraits);
-        if (formValue.get(3).equals("img/")){
-            formValue.set(3,articlesVendus.getImage());
+
+        if (formValue.get(3).equals("img/")) {
+            formValue.set(3, articlesVendus.getImage());
         }
-        System.out.println(formValue.get(3));
+        //update si tout est ok
         try {
-            articlesVendusSQL.update(Integer.parseInt(formValue.get(12)), new ArticlesVendus(
-                    formValue.get(0),
-                    formValue.get(1),
-                    Date.valueOf(formValue.get(5)),
-                    Time.valueOf(formValue.get(6)),
-                    Date.valueOf(formValue.get(7)),
-                    Time.valueOf(formValue.get(8)),
-                    Integer.parseInt(formValue.get(4)),
-                    Integer.parseInt(formValue.get(4)),
-                    no_utilisateurs,
-                    Integer.parseInt(formValue.get(2)),
-                    formValue.get(3)));
+            articlesVendusSQL.update(Integer.parseInt(formValue.get(12)), new ArticlesVendus(formValue.get(0), formValue.get(1), Date.valueOf(formValue.get(5)), Time.valueOf(formValue.get(6)), Date.valueOf(formValue.get(7)), Time.valueOf(formValue.get(8)), Integer.parseInt(formValue.get(4)), Integer.parseInt(formValue.get(4)), no_utilisateurs, Integer.parseInt(formValue.get(2)), formValue.get(3)));
 
             articlesVendus = articlesVendusSQL.selectById(Integer.parseInt(formValue.get(12)));
-            request.setAttribute("articlesVendus", articlesVendus);
-        Utilisateurs utilisateurs = utilisateursSQL.selectById(articlesVendus.getNo_utilisateur());
 
-
-        ArrayList<Categories> categorieses = categoriesSQL.selectAll();
-        request.setAttribute("categorieses",categorieses);
-        Categories categories = categoriesSQL.selectById(articlesVendus.getNo_categorie());
-        Encheres encheres = encheresSQL.selectByNo_articleOrderByMontant_enchere(articlesVendus.getNo_article());
-
-        request.setAttribute("encheres", encheres);
-        request.setAttribute("utilisateurs", utilisateurs);
-        request.setAttribute("utilisateursC", utilisateursC);
-
-        request.setAttribute("categories", categories);
-        if (Date.valueOf(LocalDate.now()).before(articlesVendus.getDate_debut_encheres())) {
-            System.out.println("kiki");
-            request.getRequestDispatcher("WEB-INF/DetailVenteModifiable.jsp").forward(request,response);
-        } else {
-            System.out.println("koukou");
-            request.getRequestDispatcher("WEB-INF/detailVente.jsp").forward(request,response);
-        }
-        } catch (ChampVideException e) {
-            articlesVendus = articlesVendusSQL.selectById(Integer.parseInt(formValue.get(12)));
-            request.setAttribute("articlesVendus", articlesVendus);
-            System.out.println("catch");
+            Utilisateurs utilisateurs = utilisateursSQL.selectById(articlesVendus.getNo_utilisateur());
             ArrayList<Categories> categorieses = categoriesSQL.selectAll();
+            Categories categories = categoriesSQL.selectById(articlesVendus.getNo_categorie());
+            Encheres encheres = encheresSQL.selectByNo_articleOrderByMontant_enchere(articlesVendus.getNo_article());
+
+            request.setAttribute("categorieses", categorieses);
+            request.setAttribute("retraits", retraits);
+            request.setAttribute("encheres", encheres);
+            request.setAttribute("utilisateurs", utilisateurs);
+            request.setAttribute("utilisateursC", utilisateursC);
+            request.setAttribute("articlesVendus", articlesVendus);
+            request.setAttribute("categories", categories);
+
+            if (Date.valueOf(LocalDate.now()).before(articlesVendus.getDate_debut_encheres())) {
+                request.getRequestDispatcher("WEB-INF/DetailVenteModifiable.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("WEB-INF/detailVente.jsp").forward(request, response);
+            }
+        } catch (ChampVideException e) {
+
+            articlesVendus = articlesVendusSQL.selectById(Integer.parseInt(formValue.get(12)));
+            ArrayList<Categories> categorieses = categoriesSQL.selectAll();
+            request.setAttribute("articlesVendus", articlesVendus);
             request.setAttribute("now", LocalDate.now());
             request.setAttribute("nowend", LocalDate.now().plusDays(1));
-            request.setAttribute("categorieses",categorieses);
+            request.setAttribute("categorieses", categorieses);
             request.getRequestDispatcher("WEB-INF/DetailVenteModifiable.jsp").forward(request, response);
         }
     }

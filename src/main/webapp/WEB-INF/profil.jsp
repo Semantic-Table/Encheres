@@ -29,50 +29,50 @@
 
 
                 <label>Pseudo:</label>
-                <input type="text" name="pseudo" value="${utilisateurs.pseudo}">
+                <input type="text" name="pseudo" value="${utilisateursC.pseudo}">
             </div>
             <div class="connexionBox">
                 <label>Prénom:</label>
-                <input type="text" name="prenom" value="${utilisateurs.prenom}">
+                <input type="text" name="prenom" value="${utilisateursC.prenom}">
             </div>
             <div class="connexionBox">
                 <label>Téléphone:</label>
-                <input type="tel" name="telephone" value="${utilisateurs.telephone}">
+                <input type="tel" name="telephone" value="${utilisateursC.telephone}">
             </div>
             <div class="connexionBox">
                 <label>Code Postal:</label>
-                <input type="number" name="code_postal" value="${utilisateurs.code_postal}">
+                <input type="number" name="code_postal" value="${utilisateursC.code_postal}">
             </div>
             <div class="connexionBox">
                 <label>Nouveau mot de passe:</label>
-                <input type="password" name="mot_de_passe" value="${utilisateurs.mot_de_passe}">
+                <input type="password" name="mot_de_passe" value="${utilisateursC.mot_de_passe}">
             </div>
             <div class="connexionBox">
                 <label>Nom:</label>
-                <input type="text" name="nom" value="${utilisateurs.nom}">
+                <input type="text" name="nom" value="${utilisateursC.nom}">
             </div>
             <div class="connexionBox">
                 <label>Email:</label>
-                <input type="email" name="email" value="${utilisateurs.email}">
+                <input type="email" name="email" value="${utilisateursC.email}">
             </div>
             <div class="connexionBox">
                 <label>Rue:</label>
-                <input type="text" name="rue" value="${utilisateurs.rue}">
+                <input type="text" name="rue" value="${utilisateursC.rue}">
             </div>
             <div class="connexionBox">
                 <label>Ville:</label>
-                <input type="text" name="ville" value="${utilisateurs.ville}">
+                <input type="text" name="ville" value="${utilisateursC.ville}">
             </div>
             <input type="submit" value="Enregistrer" class="click">
 
         </form>
 
         <a href="Supprimer" class="click">Supprimer mon compte</a>
-        <a href="AjoutPoint">+100 000</a>
-        <p>${utilisateurs.credit}</p>
-        <a href="AcheterCredits">Acheter des crédits</a>
+
+
+        <a href="AcheterCredits" class="click">Acheter des crédits</a>
     </div>
-    <c:if test="${utilisateurs.administrateur}">
+    <c:if test="${utilisateursC.administrateur}">
         <div class="box">
             <h3>Tableau d'ajout des catégories</h3>
             <form action="GestionCategorie" method="post">

@@ -21,14 +21,16 @@ public class AdminSuppr extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+
+        ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
+
         if (session.getAttribute("no_utilisateur") != null){
-            int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
             Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
             request.setAttribute("utilisateursC",utilisateursC);
-            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
         }
-        ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
+
+        //suite d'instruction obligatoire quand tu veux revenir a l'index, gere la pagination
         ArrayList<ArticlesVendus> articlesVenduses = articlesVendusSQL.selectAll();
         int nbPages = 0;
         int nbArticles = 0;
@@ -39,20 +41,24 @@ public class AdminSuppr extends HttpServlet {
         } else {
             nbPages = (nbArticles / 6) + 1;
         }
-        request.setAttribute("nbPages",nbPages);
+
         int pages = 0;
         if (request.getParameter("pages") != null){
             pages = Integer.parseInt(request.getParameter("pages"));
         }
         articlesVenduses = articlesVendusSQL.selectBySix(pages * 6,articlesVenduses);
+
         CategoriesSQL categoriesSQL = new CategoriesSQL();
+        //delete l'utilisateur
+        utilisateursSQL.delete(Integer.parseInt(request.getParameter("no_utilisateur")));
+
         ArrayList<Categories> categorieses = categoriesSQL.selectAll();
+        ArrayList<Utilisateurs> utilisateurses = utilisateursSQL.selectAll();
+
+        request.setAttribute("nbPages",nbPages);
+        request.setAttribute("utilisateurses",utilisateurses);
         request.setAttribute("categorieses",categorieses);
         request.setAttribute("articlesVenduses",articlesVenduses);
-
-        ArrayList<Utilisateurs> utilisateurses = utilisateursSQL.selectAll();
-        request.setAttribute("utilisateurses",utilisateurses);
-        utilisateursSQL.delete(Integer.parseInt(request.getParameter("no_utilisateur")));
         request.getRequestDispatcher("WEB-INF/index.jsp").forward(request,response);
     }
 }

@@ -17,38 +17,40 @@ import java.util.ArrayList;
 public class Deconnexion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
+        CategoriesSQL categoriesSQL = new CategoriesSQL();
+
+        //pagination
         ArrayList<ArticlesVendus> articlesVenduses = articlesVendusSQL.selectAll();
         int nbPages = 0;
         int nbArticles = 0;
         nbArticles = articlesVendusSQL.nombreArticle(articlesVenduses);
-
         if (nbArticles%6==0){
             nbPages = nbArticles / 6;
         } else {
             nbPages = (nbArticles / 6) + 1;
         }
-        request.setAttribute("nbPages",nbPages);
+
         int pages = 0;
         if (request.getParameter("pages") != null){
             pages = Integer.parseInt(request.getParameter("pages"));
         }
         articlesVenduses = articlesVendusSQL.selectBySix(pages * 6,articlesVenduses);
-        CategoriesSQL categoriesSQL = new CategoriesSQL();
-        ArrayList<Categories> categorieses = categoriesSQL.selectAll();
-        request.setAttribute("categorieses",categorieses);
-        request.setAttribute("articlesVenduses",articlesVenduses);
-        UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
-        ArrayList<Utilisateurs> utilisateurses = utilisateursSQL.selectAll();
 
-        request.setAttribute("utilisateurses",utilisateurses);
+        //supprime la variable de session/deconnecte
         HttpSession session = request.getSession();
         session.removeAttribute("no_utilisateur");
+
+        UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
+        ArrayList<Utilisateurs> utilisateurses = utilisateursSQL.selectAll();
+        ArrayList<Categories> categorieses = categoriesSQL.selectAll();
+
+        request.setAttribute("categorieses",categorieses);
+        request.setAttribute("articlesVenduses",articlesVenduses);
+        request.setAttribute("nbPages",nbPages);
+        request.setAttribute("utilisateurses",utilisateurses);
+
         request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }
