@@ -29,15 +29,15 @@
 
             <form action="ModifEnchere" method="post" enctype="multipart/form-data">
                 <div class="connexionBox">
-                    <label for="nom_article">Article:</label><input type="text" id="nom_article" name="nom_article"
+                    <label for="nom_article">Article :</label><input type="text" id="nom_article" name="nom_article"
                                                                     value="${articlesVendus.nom_article}" required>
                 </div>
                 <div class="connexionBox">
-                    <label for="description">Description:</label><input type="text" id="description" name="description"
+                    <label for="description">Description :</label><input type="text" id="description" name="description"
                                                                         value="${articlesVendus.description}" required>
                 </div>
                 <div class="connexionBox">
-                    <label for="no_categorie">Catégorie</label><select name="no_categorie" id="no_categorie"
+                    <label for="no_categorie">Catégorie :</label><select name="no_categorie" id="no_categorie"
                                                                        value="${articlesVendus.no_categorie}" required>
                     <c:forEach items="${categorieses}" var="categorie">
                         <option value="${categorie.no_categorie}">${categorie.libelle}</option>
@@ -45,15 +45,15 @@
                 </select>
                 </div>
                 <div class="connexionBox">
-                    <label for="image">Photo de l'article:</label><input type="file" id="image" name="image">
+                    <label for="image">Photo de l'article :</label><input type="file" id="image" name="image">
                 </div>
                 <div class="connexionBox">
-                    <label for="prix_initial">Mise a prix:</label><input type="text" id="prix_initial"
+                    <label for="prix_initial">Mise a prix :</label><input type="text" id="prix_initial"
                                                                          name="prix_initial"
                                                                          value="${articlesVendus.prix_vente}" required>
                 </div>
                 <div class="connexionBox">
-                    <label for="date_debut_encheres">Début de l'enchère: </label><input type="date"
+                    <label for="date_debut_encheres">Début de l'enchère :</label><input type="date"
                                                                                       id="date_debut_encheres"
                                                                                       min="${now}"
                                                                                       name="date_debut_encheres"
@@ -66,22 +66,22 @@
                 </div>
 
                 <div class="connexionBox">
-                    <label for="date_fin_encheres">Fin de l'enchère: </label>
+                    <label for="date_fin_encheres">Fin de l'enchère :</label>
                     <input type="date" id="date_fin_encheres" min="${nowend}" name="date_fin_encheres" value="${articlesVendus.date_fin_encheres}" required>
                     à
                     <input type="time" id="heure_fin_encheres" name="heure_fin_encheres" value="${articlesVendus.heure_fin_encheres}" required>
 
                 </div>
                 <div class="connexionBox">
-                    <label for="rue">Rue:</label><input type="text" id="rue" name="rue" value="${retraits.rue}"
+                    <label for="rue">Rue :</label><input type="text" id="rue" name="rue" value="${retraits.rue}"
                                                         required>
                 </div>
                 <div class="connexionBox">
-                    <label for="code_postal">Code postal:</label><input type="text" id="code_postal" name="code_postal"
+                    <label for="code_postal">Code postal :</label><input type="text" id="code_postal" name="code_postal"
                                                                         value="${retraits.code_postal}" required>
                 </div>
                 <div class="connexionBox">
-                    <label for="ville">Ville:</label><input type="text" id="ville" name="ville"
+                    <label for="ville">Ville :</label><input type="text" id="ville" name="ville"
                                                             value="${retraits.ville}" required>
                 </div>
                 <div class="connexionBox">

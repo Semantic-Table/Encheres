@@ -28,39 +28,39 @@
             <div class="connexionBox">
 
 
-                <label>Pseudo:</label>
+                <label>Pseudo :</label>
                 <input type="text" name="pseudo" value="${utilisateursC.pseudo}">
             </div>
             <div class="connexionBox">
-                <label>Prénom:</label>
+                <label>Prénom :</label>
                 <input type="text" name="prenom" value="${utilisateursC.prenom}">
             </div>
             <div class="connexionBox">
-                <label>Téléphone:</label>
-                <input type="tel" name="telephone" value="${utilisateursC.telephone}">
+                <label>Téléphone :</label>
+                <input type="number" name="telephone" value="${utilisateursC.telephone}">
             </div>
             <div class="connexionBox">
-                <label>Code Postal:</label>
+                <label>Code Postal :</label>
                 <input type="number" name="code_postal" value="${utilisateursC.code_postal}">
             </div>
             <div class="connexionBox">
-                <label>Nouveau mot de passe:</label>
+                <label>Nouveau mot de passe :</label>
                 <input type="password" name="mot_de_passe" value="${utilisateursC.mot_de_passe}">
             </div>
             <div class="connexionBox">
-                <label>Nom:</label>
+                <label>Nom :</label>
                 <input type="text" name="nom" value="${utilisateursC.nom}">
             </div>
             <div class="connexionBox">
-                <label>Email:</label>
+                <label>Email :</label>
                 <input type="email" name="email" value="${utilisateursC.email}">
             </div>
             <div class="connexionBox">
-                <label>Rue:</label>
+                <label>Rue :</label>
                 <input type="text" name="rue" value="${utilisateursC.rue}">
             </div>
             <div class="connexionBox">
-                <label>Ville:</label>
+                <label>Ville :</label>
                 <input type="text" name="ville" value="${utilisateursC.ville}">
             </div>
             <input type="submit" value="Enregistrer" class="click">

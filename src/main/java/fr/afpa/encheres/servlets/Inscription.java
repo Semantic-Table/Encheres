@@ -48,6 +48,9 @@ public class Inscription extends HttpServlet {
             session.setAttribute("no_utilisateur", utilisateurs.getNo_utilisateur());
             session.setMaxInactiveInterval(300);
 
+            Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
+            request.setAttribute("utilisateursC",utilisateursC);
+
             if (session.getAttribute("no_utilisateur") != null) {
                 int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
                 request.setAttribute("utilisateursCno_utilisateurs", utilisateursCno_utilisateurs);

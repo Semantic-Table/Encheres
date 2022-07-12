@@ -37,35 +37,35 @@
             </select>
             </div>
             <div class="connexionBox">
-                <label for="image">Photo de l'article</label><input type="file" id="image" accept="image/*" name="image" required>
+                <label for="image">Photo de l'article :</label><input type="file" id="image" accept="image/*" name="image" required>
             </div>
             <div class="connexionBox">
-                <label for="prix_initial">Mise a prix:</label><input type="number" id="prix_initial" name="prix_initial">
+                <label for="prix_initial">Mise a prix :</label><input type="number" id="prix_initial" name="prix_initial">
             </div>
             <div class="connexionBox">
-                <label for="date_debut_encheres">Début de l'enchère</label><input type="date" id="date_debut_encheres" min="${now}"
+                <label for="date_debut_encheres">Début de l'enchère :</label><input type="date" id="date_debut_encheres" min="${now}"
                                                                                  name="date_debut_encheres" required>
             </div>
             <div class="connexionBox">
-                <label for="heure_debut_encheres">Début de l'enchère</label><input type="time" id="heure_debut_encheres"
+                <label for="heure_debut_encheres">Début de l'enchère :</label><input type="time" id="heure_debut_encheres"
                                                                                  name="heure_debut_encheres" required>
             </div>
             <div class="connexionBox">
-                <label for="date_fin_encheres">Fin de l'enchère</label><input type="date" id="date_fin_encheres" min="${nowend}"
+                <label for="date_fin_encheres">Fin de l'enchère :</label><input type="date" id="date_fin_encheres" min="${nowend}"
                                                                              name="date_fin_encheres" required>
             </div>
             <div class="connexionBox">
-                <label for="heure_fin_encheres">Début de l'enchère</label><input type="time" id="heure_fin_encheres"
+                <label for="heure_fin_encheres">Fin de l'enchère :</label><input type="time" id="heure_fin_encheres"
                                                                                    name="heure_fin_encheres" required>
             </div>
             <div class="connexionBox">
-                <label for="rue">Rue:</label><input type="text" id="rue" value="${utilisateursC.rue}" name="rue" required>
+                <label for="rue">Rue :</label><input type="text" id="rue" value="${utilisateursC.rue}" name="rue" required>
             </div>
             <div class="connexionBox">
-                <label for="code_postal">Code postal:</label><input type="number" id="code_postal" value="${utilisateursC.code_postal}" name="code_postal" required>
+                <label for="code_postal">Code postal :</label><input type="number" id="code_postal" value="${utilisateursC.code_postal}" name="code_postal" required>
             </div>
             <div class="connexionBox">
-                <label for="ville">Ville:</label><input type="text" id="ville" value="${utilisateursC.ville}" name="ville" required>
+                <label for="ville">Ville :</label><input type="text" id="ville" value="${utilisateursC.ville}" name="ville" required>
             </div>
             <button type="submit" class="click">Enregistrer</button>
             <button type="reset" class="click">Annuler</button>

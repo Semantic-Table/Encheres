@@ -27,18 +27,18 @@
             <c:if test="${utilisateursC.no_utilisateur != null}">
                 <p class="liendivMenu">Vous possedez ${utilisateursC.credit} points</p>
                 <a href="Accueil" class="lienMenu">
-                    <div class="liendivMenu">Enchères</div>
+                    <div class="liendivMenu"><img src="img/magnifying-glass-solid.svg" width="20" height="20" alt="" class="iconMenu">Enchères</div>
                 </a>
                 <c:if test="${utilisateursC.actif}">
                     <a href="NouvelleVente" class="lienMenu">
-                        <div class="liendivMenu">Vendre un article</div>
+                        <div class="liendivMenu"><img src="img/sack-dollar-solid.svg" width="20" height="20" alt="" class="iconMenu">Vendre un article</div>
                     </a>
                 </c:if>
                 <a href="Profil" class="lienMenu">
-                    <div class="liendivMenu">Mon profil</div>
+                    <div class="liendivMenu"><img src="img/user-solid.svg" width="20" height="20" alt="" class="iconMenu">Mon profil</div>
                 </a>
                 <a href="Deconnexion" class="lienMenu">
-                    <div class="liendivMenu">Déconnexion</div>
+                    <div class="liendivMenu"><img src="img/arrow-right-from-bracket-solid.svg" width="20" height="20" alt="" class="iconMenu">Déconnexion</div>
                 </a>
 
             </c:if>

@@ -29,17 +29,17 @@
     <div class="box detailbox">
         <div class="boxdetailimg"><img src="${articlesVendus.image}" alt="" class="detailimg"></div>
         <div><p class="bigger">${articlesVendus.nom_article}</p>
-            <p>Description: ${articlesVendus.description}</p>
-            <p>Catégorie:${categories.libelle}</p>
-            <p>Meilleur offre:${articlesVendus.prix_vente}</p>
-            <p>Mise a prix: ${articlesVendus.prix_initial}</p>
-            <p>Fin de l'enchere: ${articlesVendus.date_fin_encheres} à ${articlesVendus.heure_fin_encheres}</p>
-            <p>Retraits: ${retraits.rue}</p>
+            <p>Description : ${articlesVendus.description}</p>
+            <p>Catégorie : ${categories.libelle}</p>
+            <p>Meilleur offre : ${articlesVendus.prix_vente}</p>
+            <p>Mise a prix : ${articlesVendus.prix_initial}</p>
+            <p>Fin de l'enchere : ${articlesVendus.date_fin_encheres} à ${articlesVendus.heure_fin_encheres}</p>
+            <p>Retraits : ${retraits.rue}</p>
             <p>${retraits.code_postal} ${retraits.ville}</p>
-            <p>Vendeur: ${utilisateurs.pseudo}</p>
+            <p>Vendeur : ${utilisateurs.pseudo}</p>
             <c:if test="${articlesVendus.no_utilisateur != utilisateursCno_utilisateurs && utilisateursC.actif}">
                 <form action="Encherir" method="post">
-                    <label for="montant_enchere">Ma proposition : </label><input type="number" id="montant_enchere"
+                    <label for="montant_enchere">Ma proposition :</label><input type="number" id="montant_enchere"
                                                                                  name="montant_enchere" required>
                     <input type="hidden" value="${articlesVendus.no_article}" name="no_article">
                     <input type="hidden" name="no_categorie" value="${categories.no_categorie}">

@@ -45,17 +45,13 @@ public class AfficherArticle extends HttpServlet {
         request.setAttribute("retraits", retraits);
         request.setAttribute("categories", categories);
 
-        if(session.getAttribute("no_utilisateur") != null && articlesVendus.getDate_fin_encheres().before(Date.valueOf(LocalDate.now().plusDays(1))) && articlesVendus.getHeure_fin_encheres().before(Time.valueOf(LocalTime.now()))) {
+        if(session.getAttribute("no_utilisateur") != null && LocalDateTime.now().isAfter(LocalDateTime.of(articlesVendus.getDate_fin_encheres().toLocalDate(),articlesVendus.getHeure_fin_encheres().toLocalTime()))) {
 
             Utilisateurs utilisateursGagnant = utilisateursSQL.selectById(encheres.getNo_utilisateur());
-
             request.setAttribute("utilisateursGagnant",utilisateursGagnant);
-
             request.getRequestDispatcher("WEB-INF/detailVenteTermine.jsp").forward(request, response);
         } else if(
-                (int) session.getAttribute("no_utilisateur") ==
-                        articlesVendus.getNo_utilisateur() &&
-                        articlesVendus.getDate_debut_encheres().after(Date.valueOf(LocalDate.now()))) {
+                (int) session.getAttribute("no_utilisateur") == articlesVendus.getNo_utilisateur() && LocalDateTime.now().isBefore(LocalDateTime.of(articlesVendus.getDate_debut_encheres().toLocalDate(),articlesVendus.getHeure_debut_encheres().toLocalTime()))) {
             int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
             request.setAttribute("utilisateursCno_utilisateurs", utilisateursCno_utilisateurs);
             Utilisateurs utilisateursC = utilisateursSQL.selectById(utilisateursCno_utilisateurs);

@@ -18,7 +18,7 @@
     <div class="box">
         <form method="post" action="Reinitialisation">
             <div class="connexionBox">
-                <label for="pseudo">Identifiant: </label>
+                <label for="pseudo">Identifiant :</label>
                 <input type="text" name="pseudo" id="pseudo" value="${pseudo}">
             </div>
             <div class="connexionBox">
