@@ -10,11 +10,7 @@ import java.util.ArrayList;
 public class RetraitsSQL {
     public ArrayList<Retraits> selectAll() {
         ArrayList<Retraits> retraitses = new ArrayList<>();
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "SELECT no_article, rue, code_postal, ville FROM retraits"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("SELECT no_article, rue, code_postal, ville FROM retraits");){
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()){
                 retraitses.add(
@@ -31,11 +27,7 @@ public class RetraitsSQL {
     }
 
     public void insert(Retraits retraits){
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "INSERT INTO retraits(no_article, rue, code_postal, ville) VALUES (?,?,?,?)"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("INSERT INTO retraits(no_article, rue, code_postal, ville) VALUES (?,?,?,?)");){
             pstmt.setInt(1, retraits.getNo_article());
             pstmt.setString(2, retraits.getRue());
             pstmt.setString(3, retraits.getCode_postal());
@@ -48,11 +40,7 @@ public class RetraitsSQL {
     }
 
     public void delete(Retraits retraits){
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "DELETE FROM retraits WHERE no_article = ?"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("DELETE FROM retraits WHERE no_article = ?");){
             pstmt.setInt(1, retraits.getNo_article());
             pstmt.executeUpdate();
             connection.close();
@@ -63,11 +51,7 @@ public class RetraitsSQL {
 
     public Retraits selectById(int no_article) {
         Retraits retraits = null;
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "SELECT no_article, rue, code_postal, ville FROM retraits WHERE no_article = ?"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("SELECT no_article, rue, code_postal, ville FROM retraits WHERE no_article = ?");){
             pstmt.setInt(1,no_article);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()){
@@ -81,11 +65,7 @@ public class RetraitsSQL {
     }
 
     public void update(Retraits retraits) {
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "UPDATE retraits SET rue = ?, code_postal =  ?, ville = ? WHERE no_article = ?"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("UPDATE retraits SET rue = ?, code_postal =  ?, ville = ? WHERE no_article = ?");){
             pstmt.setString(1, retraits.getRue());
             pstmt.setString(2, retraits.getCode_postal());
             pstmt.setString(3,retraits.getVille());

@@ -183,7 +183,7 @@ margin-left: 10px;
     padding: 1em 0;
 }
 .boxdetailimg {
-    align-self: center;
+    align-self: flex-start;
     display: flex;
     justify-content: center;
     width: 30%;
@@ -195,7 +195,7 @@ margin-left: 10px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
 }
 .bigger {
     font-size: 1.3em;

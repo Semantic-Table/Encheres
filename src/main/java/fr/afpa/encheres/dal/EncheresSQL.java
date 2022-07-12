@@ -10,11 +10,7 @@ import java.util.ArrayList;
 public class EncheresSQL {
     public ArrayList<Encheres> selectAll() {
         ArrayList<Encheres> enchereses = new ArrayList<>();
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "SELECT no_encheres,no_utilisateur,no_article,date_enchere,time_enchere,montant_enchere FROM encheres"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("SELECT no_encheres,no_utilisateur,no_article,date_enchere,time_enchere,montant_enchere FROM encheres");){
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()){
                 enchereses.add(
@@ -32,11 +28,7 @@ public class EncheresSQL {
 
     public ArrayList<Encheres> selectByNo_utilisateur(int no_utilisateur) {
         ArrayList<Encheres> enchereses = new ArrayList<>();
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "SELECT no_encheres,no_utilisateur,no_article,date_enchere,time_enchere,montant_enchere FROM encheres WHERE no_utilisateur = ?"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("SELECT no_encheres,no_utilisateur,no_article,date_enchere,time_enchere,montant_enchere FROM encheres WHERE no_utilisateur = ?");){
             pstmt.setInt(1,no_utilisateur);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()){
@@ -55,11 +47,7 @@ public class EncheresSQL {
 
     public ArrayList<Encheres> selectByNo_article(int no_article) {
         ArrayList<Encheres> enchereses = new ArrayList<>();
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "SELECT no_encheres,no_utilisateur,no_article,date_enchere,time_enchere,montant_enchere from encheres where no_article = ? order by montant_enchere desc;"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("SELECT no_encheres,no_utilisateur,no_article,date_enchere,time_enchere,montant_enchere from encheres where no_article = ? order by montant_enchere desc;");){
             pstmt.setInt(1,no_article);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()){
@@ -78,12 +66,7 @@ public class EncheresSQL {
 
     public int rendezLargent(int no_utilisateur){
         int argent = 0;
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "SELECT no_encheres,no_utilisateur,no_article,date_enchere,time_enchere,MAX(montant_enchere) as montant_enchere FROM encheres group by no_article;"
-            );
-
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("SELECT no_encheres,no_utilisateur,no_article,date_enchere,time_enchere,MAX(montant_enchere) as montant_enchere FROM encheres group by no_article;");){
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()){
                 if (rs.getInt("no_utilisateur") == no_utilisateur){
@@ -99,11 +82,7 @@ public class EncheresSQL {
     }
 
     public void insert(Encheres encheres){
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "INSERT INTO encheres(no_utilisateur, no_article, date_enchere, time_enchere, montant_enchere) VALUES (?,?,?,?,?)"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("INSERT INTO encheres(no_utilisateur, no_article, date_enchere, time_enchere, montant_enchere) VALUES (?,?,?,?,?)");){
             pstmt.setInt(1, encheres.getNo_utilisateur());
             pstmt.setInt(2, encheres.getNo_article());
             pstmt.setDate(3, encheres.getDate_enchere());
@@ -117,11 +96,7 @@ public class EncheresSQL {
     }
 
     public void delete(Encheres encheres){
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "DELETE FROM encheres WHERE no_encheres = ?"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("DELETE FROM encheres WHERE no_encheres = ?");){
             pstmt.setInt(1, encheres.getNo_encheres());
             pstmt.executeUpdate();
             connection.close();
@@ -131,11 +106,7 @@ public class EncheresSQL {
     }
 
     public void deleteByNo_utilisateur(int no_utilisateur){
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "DELETE FROM encheres WHERE no_utilisateur = ?"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("DELETE FROM encheres WHERE no_utilisateur = ?");){
             pstmt.setInt(1, no_utilisateur);
             pstmt.executeUpdate();
             connection.close();
@@ -146,11 +117,7 @@ public class EncheresSQL {
 
     public Encheres selectByNo_articleOrderByMontant_enchere(int no_article){
         Encheres encheres = null;
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "SELECT no_encheres,no_utilisateur,no_article,date_enchere,time_enchere,montant_enchere FROM encheres WHERE no_article = ? ORDER BY montant_enchere DESC LIMIT 1"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("SELECT no_encheres,no_utilisateur,no_article,date_enchere,time_enchere,montant_enchere FROM encheres WHERE no_article = ? ORDER BY montant_enchere DESC LIMIT 1");){
             pstmt.setInt(1, no_article);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()){
@@ -164,12 +131,7 @@ public class EncheresSQL {
     }
 
     public void update(int no_encheres, Encheres encheres) {
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "UPDATE encheres SET date_enchere=?, time_enchere=?, montant_enchere=? WHERE no_encheres = ?"
-            );
-
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("UPDATE encheres SET date_enchere=?, time_enchere=?, montant_enchere=? WHERE no_encheres = ?");){
             pstmt.setDate(1, encheres.getDate_enchere());
             pstmt.setTime(2,encheres.getTime_enchere());
             pstmt.setInt(3,encheres.getMontant_enchere());

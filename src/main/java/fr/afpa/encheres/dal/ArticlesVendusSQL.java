@@ -12,11 +12,7 @@ import java.util.ArrayList;
 public class ArticlesVendusSQL {
     public ArrayList<ArticlesVendus> selectAll() {
         ArrayList<ArticlesVendus> articlesVenduses = new ArrayList<>();
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "SELECT no_article,nom_article,description,date_debut_encheres,heure_debut_encheres,date_fin_encheres,heure_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie,image FROM articles_vendus"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("SELECT no_article,nom_article,description,date_debut_encheres,heure_debut_encheres,date_fin_encheres,heure_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie,image FROM articles_vendus");){
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 articlesVenduses.add(
@@ -25,7 +21,6 @@ public class ArticlesVendusSQL {
                         )
                 );
             }
-            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -49,11 +44,7 @@ public class ArticlesVendusSQL {
 
     public ArrayList<ArticlesVendus> selectByNo_utilisateur(int no_utilisateur) {
         ArrayList<ArticlesVendus> articlesVenduses = new ArrayList<>();
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "SELECT no_article,nom_article,description,date_debut_encheres,heure_debut_encheres,date_fin_encheres,heure_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie,image FROM articles_vendus where no_utilisateur = ?"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("SELECT no_article,nom_article,description,date_debut_encheres,heure_debut_encheres,date_fin_encheres,heure_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie,image FROM articles_vendus where no_utilisateur = ?");){
             pstmt.setInt(1, no_utilisateur);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -63,7 +54,6 @@ public class ArticlesVendusSQL {
                         )
                 );
             }
-            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -83,11 +73,8 @@ public class ArticlesVendusSQL {
                 articlesVendus.getDate_debut_encheres().after(articlesVendus.getDate_fin_encheres())) {
             throw new ChampVideException("champ mal rempli");
         }
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "INSERT INTO articles_vendus(nom_article, description, date_debut_encheres,heure_debut_encheres, date_fin_encheres,heure_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie,image) VALUES (?,?,?,?,?,?,?,?,?,?,?)"
-            );
+        try (Connection connection = ConnectionProvider.getConnection();PreparedStatement pstmt = connection.prepareStatement("INSERT INTO articles_vendus(nom_article, description, date_debut_encheres,heure_debut_encheres, date_fin_encheres,heure_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie,image) VALUES (?,?,?,?,?,?,?,?,?,?,?)");){
+
             pstmt.setString(1, articlesVendus.getNom_article());
             pstmt.setString(2, articlesVendus.getDescription());
             pstmt.setDate(3, articlesVendus.getDate_debut_encheres());
@@ -100,7 +87,7 @@ public class ArticlesVendusSQL {
             pstmt.setInt(10, articlesVendus.getNo_categorie());
             pstmt.setString(11, articlesVendus.getImage());
             pstmt.executeUpdate();
-            connection.close();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -119,11 +106,8 @@ public class ArticlesVendusSQL {
                 articlesVendus.getDate_debut_encheres().after(articlesVendus.getDate_fin_encheres())) {
             throw new ChampVideException("champ mal rempli");
         }
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "UPDATE articles_vendus SET nom_article = ?, description = ?, date_debut_encheres = ?,heure_debut_encheres = ?, date_fin_encheres = ?,heure_fin_encheres = ?, prix_initial = ?, prix_vente = ?, no_utilisateur = ?, no_categorie = ?,image = ? WHERE no_article = ?"
-            );
+        try (Connection connection = ConnectionProvider.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement("UPDATE articles_vendus SET nom_article = ?, description = ?, date_debut_encheres = ?,heure_debut_encheres = ?, date_fin_encheres = ?,heure_fin_encheres = ?, prix_initial = ?, prix_vente = ?, no_utilisateur = ?, no_categorie = ?,image = ? WHERE no_article = ?");){
             pstmt.setString(1, articlesVendus.getNom_article());
             pstmt.setString(2, articlesVendus.getDescription());
             pstmt.setDate(3, articlesVendus.getDate_debut_encheres());
@@ -137,35 +121,24 @@ public class ArticlesVendusSQL {
             pstmt.setString(11, articlesVendus.getImage());
             pstmt.setInt(12, no_article);
             pstmt.executeUpdate();
-            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     public void delete(ArticlesVendus articlesVendus) {
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "DELETE FROM articles_vendus WHERE no_article = ? "
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("DELETE FROM articles_vendus WHERE no_article = ? ");){
             pstmt.setInt(1, articlesVendus.getNo_article());
             pstmt.executeUpdate();
-            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     public void deleteByNo_utilisateur(int no_utilisateur) {
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "DELETE FROM articles_vendus WHERE no_utilisateur = ? "
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("DELETE FROM articles_vendus WHERE no_utilisateur = ? ");){
             pstmt.setInt(1, no_utilisateur);
             pstmt.executeUpdate();
-            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -173,18 +146,11 @@ public class ArticlesVendusSQL {
 
     public ArticlesVendus selectByLast() {
         ArticlesVendus articlesVendus = null;
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "SELECT no_article,nom_article,description,date_debut_encheres,heure_debut_encheres,date_fin_encheres,heure_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie,image FROM articles_vendus ORDER BY no_article DESC LIMIT 1"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("SELECT no_article,nom_article,description,date_debut_encheres,heure_debut_encheres,date_fin_encheres,heure_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie,image FROM articles_vendus ORDER BY no_article DESC LIMIT 1");){
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 articlesVendus = new ArticlesVendus(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres"), rs.getTime("heure_debut_encheres"), rs.getDate("date_fin_encheres"), rs.getTime("heure_fin_encheres"), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getInt("no_utilisateur"), rs.getInt("no_categorie"), rs.getString("image"));
             }
-
-            connection.close();
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -193,19 +159,12 @@ public class ArticlesVendusSQL {
 
     public ArticlesVendus selectById(int no_article) {
         ArticlesVendus articlesVendus = null;
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "SELECT no_article,nom_article,description,date_debut_encheres,heure_debut_encheres,date_fin_encheres,heure_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie,image FROM articles_vendus WHERE no_article = ?"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("SELECT no_article,nom_article,description,date_debut_encheres,heure_debut_encheres,date_fin_encheres,heure_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie,image FROM articles_vendus WHERE no_article = ?");){
             pstmt.setInt(1, no_article);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 articlesVendus = new ArticlesVendus(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres"), rs.getTime("heure_debut_encheres"), rs.getDate("date_fin_encheres"), rs.getTime("heure_fin_encheres"), rs.getInt("prix_initial"), rs.getInt("prix_vente"), rs.getInt("no_utilisateur"), rs.getInt("no_categorie"), rs.getString("image"));
             }
-
-            connection.close();
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -213,15 +172,10 @@ public class ArticlesVendusSQL {
     }
 
     public void updatePrix_vente(int no_article, int montant) {
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "UPDATE articles_vendus SET prix_vente = ? WHERE no_article = ?"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("UPDATE articles_vendus SET prix_vente = ? WHERE no_article = ?");){
             pstmt.setInt(1, montant);
             pstmt.setInt(2, no_article);
             pstmt.executeUpdate();
-            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -229,11 +183,7 @@ public class ArticlesVendusSQL {
 
     public ArrayList<ArticlesVendus> selectByCategorieAndByNom_article(int no_categorie, String nom_article) {
         ArrayList<ArticlesVendus> articlesVenduses = new ArrayList<>();
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "SELECT no_article,nom_article,description,date_debut_encheres,heure_debut_encheres,date_fin_encheres,heure_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie,image FROM articles_vendus WHERE nom_article LIKE ? AND no_categorie = ?"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("SELECT no_article,nom_article,description,date_debut_encheres,heure_debut_encheres,date_fin_encheres,heure_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie,image FROM articles_vendus WHERE nom_article LIKE ? AND no_categorie = ?");){
             pstmt.setString(1, "%" + nom_article + "%");
             pstmt.setInt(2, no_categorie);
             ResultSet rs = pstmt.executeQuery();
@@ -244,7 +194,6 @@ public class ArticlesVendusSQL {
                         )
                 );
             }
-            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -253,11 +202,7 @@ public class ArticlesVendusSQL {
 
     public ArrayList<ArticlesVendus> selectEnCours() {
         ArrayList<ArticlesVendus> articlesVenduses = new ArrayList<>();
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "SELECT no_article,nom_article,description,date_debut_encheres,heure_debut_encheres,date_fin_encheres,heure_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie,image FROM articles_vendus WHERE date_fin_encheres > date_format(?,'%y%m%d') AND date_debut_encheres < date_format(?,'%y%m%d')"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("SELECT no_article,nom_article,description,date_debut_encheres,heure_debut_encheres,date_fin_encheres,heure_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie,image FROM articles_vendus WHERE date_fin_encheres > date_format(?,'%y%m%d') AND date_debut_encheres < date_format(?,'%y%m%d')");){
             pstmt.setString(1, String.valueOf(Date.valueOf(LocalDate.now())));
             System.out.println(String.valueOf(Date.valueOf(LocalDate.now())));
             pstmt.setString(2, String.valueOf(Date.valueOf(LocalDate.now())));
@@ -269,7 +214,6 @@ public class ArticlesVendusSQL {
                         )
                 );
             }
-            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -280,11 +224,7 @@ public class ArticlesVendusSQL {
 
         ArrayList<ArticlesVendus> articlesVenduses = new ArrayList<>();
         ArrayList<ArticlesVendus> articlesVendusesWin = new ArrayList<>();
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "SELECT no_article,nom_article,description,date_debut_encheres,heure_debut_encheres,date_fin_encheres,heure_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie,image FROM articles_vendus"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("SELECT no_article,nom_article,description,date_debut_encheres,heure_debut_encheres,date_fin_encheres,heure_fin_encheres,prix_initial,prix_vente,no_utilisateur,no_categorie,image FROM articles_vendus");){
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 articlesVenduses.add(
@@ -311,8 +251,6 @@ public class ArticlesVendusSQL {
                     }
                 }
             }
-
-            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -322,11 +260,7 @@ public class ArticlesVendusSQL {
 
     public ArrayList<ArticlesVendus> selectParticipation(int no_utilisateur) {
         ArrayList<ArticlesVendus> articlesVenduses = new ArrayList<>();
-        try {
-            Connection connection = ConnectionProvider.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement(
-                    "SELECT articles_vendus.no_article,nom_article,description,date_debut_encheres,heure_debut_encheres,date_fin_encheres,heure_fin_encheres,prix_initial,prix_vente,articles_vendus.no_utilisateur,no_categorie,image FROM articles_vendus inner join encheres on articles_vendus.no_article = encheres.no_article where encheres.no_utilisateur = ? group by articles_vendus.no_article;"
-            );
+        try (Connection connection = ConnectionProvider.getConnection(); PreparedStatement pstmt = connection.prepareStatement("SELECT articles_vendus.no_article,nom_article,description,date_debut_encheres,heure_debut_encheres,date_fin_encheres,heure_fin_encheres,prix_initial,prix_vente,articles_vendus.no_utilisateur,no_categorie,image FROM articles_vendus inner join encheres on articles_vendus.no_article = encheres.no_article where encheres.no_utilisateur = ? group by articles_vendus.no_article;");){
             pstmt.setInt(1, no_utilisateur);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -336,7 +270,6 @@ public class ArticlesVendusSQL {
                         )
                 );
             }
-            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -2,10 +2,7 @@
     .card {
         width: 43%;
     }
-    .detailbox {
-        display: flex;
-        flex-direction: column;
-    }
+
 }
 
 @media (max-width: 702px) {
