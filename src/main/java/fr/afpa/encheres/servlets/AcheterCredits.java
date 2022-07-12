@@ -33,12 +33,6 @@ public class AcheterCredits extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
-        if (session.getAttribute("no_utilisateur") != null){
-            int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
-            Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
-            request.setAttribute("utilisateursC",utilisateursC);
-            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
-        }
         int credits = Integer.parseInt(request.getParameter("credit"));
         Utilisateurs utilisateurs = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
         utilisateurs.setCredit(utilisateurs.getCredit() + credits);
@@ -47,6 +41,14 @@ public class AcheterCredits extends HttpServlet {
         } catch (ChampVideException e) {
             throw new RuntimeException(e);
         }
+
+        if (session.getAttribute("no_utilisateur") != null){
+            int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
+            Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
+            request.setAttribute("utilisateursC",utilisateursC);
+            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
+        }
+
         CategoriesSQL categoriesSQL = new CategoriesSQL();
         ArrayList<Categories> categorieses = categoriesSQL.selectAll();
         request.setAttribute("categorieses",categorieses);

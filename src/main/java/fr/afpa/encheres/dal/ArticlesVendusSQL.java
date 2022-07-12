@@ -106,7 +106,19 @@ public class ArticlesVendusSQL {
         }
     }
 
-    public void update(int no_article, ArticlesVendus articlesVendus) {
+    public void update(int no_article, ArticlesVendus articlesVendus) throws ChampVideException {
+        if (articlesVendus.getNom_article().equals("") || articlesVendus.getNom_article() == null ||
+                articlesVendus.getDescription().equals("") || articlesVendus.getDescription() == null ||
+                articlesVendus.getDate_debut_encheres().equals("") || articlesVendus.getDate_debut_encheres() == null ||
+                articlesVendus.getDate_fin_encheres().equals("") || articlesVendus.getDate_fin_encheres() == null ||
+                articlesVendus.getPrix_initial() == 0 ||
+                articlesVendus.getPrix_vente() == 0 ||
+                articlesVendus.getNo_utilisateur() == 0 ||
+                articlesVendus.getNo_categorie() == 0 ||
+                articlesVendus.getDate_fin_encheres().before(Date.valueOf(LocalDate.now())) ||
+                articlesVendus.getDate_debut_encheres().after(articlesVendus.getDate_fin_encheres())) {
+            throw new ChampVideException("champ mal rempli");
+        }
         try {
             Connection connection = ConnectionProvider.getConnection();
             PreparedStatement pstmt = connection.prepareStatement(

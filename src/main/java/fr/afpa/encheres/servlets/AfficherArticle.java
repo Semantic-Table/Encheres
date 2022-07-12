@@ -65,6 +65,8 @@ public class AfficherArticle extends HttpServlet {
             request.setAttribute("categorieses",categorieses);
             request.setAttribute("encheres",encheres);
             request.setAttribute("utilisateursC", utilisateursC);
+            request.setAttribute("now", LocalDate.now());
+            request.setAttribute("nowend", LocalDate.now().plusDays(1));
             request.getRequestDispatcher("WEB-INF/DetailVenteModifiable.jsp").forward(request, response);
         }
         else if (session.getAttribute("no_utilisateur") != null && LocalDateTime.now().isAfter(LocalDateTime.of(articlesVendus.getDate_debut_encheres().toLocalDate(),articlesVendus.getHeure_debut_encheres().toLocalTime()))) {

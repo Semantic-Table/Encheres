@@ -22,15 +22,8 @@ public class Encherir extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         HttpSession session = request.getSession();
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
-        if (session.getAttribute("no_utilisateur") != null){
-            int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
-            Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
-            request.setAttribute("utilisateursC",utilisateursC);
-            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
-        }
         EncheresSQL encheresSQL = new EncheresSQL();
         ArticlesVendusSQL articlesVendusSQL = new ArticlesVendusSQL();
 
@@ -39,14 +32,10 @@ public class Encherir extends HttpServlet {
 
         RetraitsSQL retraitsSQL = new RetraitsSQL();
         CategoriesSQL categoriesSQL = new CategoriesSQL();
-
+        ArticlesVendus articlesVendus = articlesVendusSQL.selectById(Integer.parseInt(request.getParameter("no_article")));
 
         Utilisateurs utilisateursC = utilisateursSQL.selectById(no_utilisateurs);
 
-        Categories categories = categoriesSQL.selectById(Integer.parseInt(request.getParameter("no_categorie")));
-        ArticlesVendus articlesVendus = articlesVendusSQL.selectById(Integer.parseInt(request.getParameter("no_article")));
-
-        Retraits retraits = retraitsSQL.selectById(articlesVendus.getNo_article());
         try {
 
 
@@ -78,6 +67,20 @@ public class Encherir extends HttpServlet {
         } catch (ChampVideException e) {
             throw new RuntimeException(e);
         }
+
+        if (session.getAttribute("no_utilisateur") != null){
+            int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
+
+            request.setAttribute("utilisateursC",utilisateursC);
+            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
+        }
+
+
+        Categories categories = categoriesSQL.selectById(Integer.parseInt(request.getParameter("no_categorie")));
+
+
+        Retraits retraits = retraitsSQL.selectById(articlesVendus.getNo_article());
+
         articlesVendus = articlesVendusSQL.selectById(Integer.parseInt(request.getParameter("no_article")));
         Utilisateurs utilisateurs = utilisateursSQL.selectById(articlesVendus.getNo_utilisateur());
         request.setAttribute("articlesVendus", articlesVendus);
