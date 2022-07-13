@@ -66,11 +66,11 @@
             <input type="submit" value="Enregistrer" class="click">
 
         </form>
+        <div class="margetop"><a href="Supprimer" class="click">Supprimer mon compte</a></div>
 
-        <a href="Supprimer" class="click">Supprimer mon compte</a>
+        <div class="margetop"><a href="AcheterCredits" class="click">Acheter des crédits</a></div>
 
 
-        <a href="AcheterCredits" class="click">Acheter des crédits</a>
     </div>
     <c:if test="${utilisateursC.administrateur}">
         <div class="box">
@@ -86,7 +86,8 @@
                     <input type="hidden" name="no_categorie" value="${categories.no_categorie}">
                     <input type="submit" value="Modifier" class="click">
                 </form>
-                <div><a href="GestionCategorie?no_categorie=${categories.no_categorie}" class="click">supprimer</a></div>
+                <div><a href="GestionCategorie?no_categorie=${categories.no_categorie}" class="click">supprimer</a>
+                </div>
             </c:forEach>
         </div>
     </c:if>

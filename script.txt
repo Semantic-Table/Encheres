@@ -1,3 +1,5 @@
+create database encheres;
+
 create table categories
 (
     no_categorie int auto_increment
@@ -17,7 +19,7 @@ create table utilisateurs
     rue            varchar(30)  not null,
     code_postal    varchar(10)  not null,
     ville          varchar(30)  not null,
-    mot_de_passe   varchar(30)  not null,
+    mot_de_passe   varchar(255) not null,
     credit         int          not null,
     administrateur bit          not null,
     actif          bit          not null
@@ -36,11 +38,11 @@ create table articles_vendus
     prix_vente           int          null,
     prix_initial         int          null,
     no_utilisateur       int          not null,
-    no_categorie         int          not null,
+    no_categorie         int          null,
     image                varchar(300) null,
     constraint articles_vendus_categories_fk
         foreign key (no_categorie) references categories (no_categorie)
-            on delete cascade,
+            on delete set null,
     constraint encheres_utilisateur_fk
         foreign key (no_utilisateur) references utilisateurs (no_utilisateur)
             on delete cascade,

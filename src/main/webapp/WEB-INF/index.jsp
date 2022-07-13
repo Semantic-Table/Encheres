@@ -17,6 +17,7 @@
 <body>
 <jsp:include page="menu.jsp"></jsp:include>
 <main>
+
     <h1>Liste des enchères</h1>
     <div class="box boxFiltre">
         <form action="Accueil" method="post">
@@ -27,13 +28,13 @@
             <div class="divFiltre">
                 <label>Catégorie :</label>
                 <select name="no_categorie" id="no_categorie">
-
+                    <option value="0">Toutes</option>
                     <c:forEach items="${categorieses}" var="categorie">
                         <option value="${categorie.no_categorie}">${categorie.libelle}</option>
                     </c:forEach>
 
                 </select>
-                <input type="submit" value="Rechercher" id="search">
+                <input type="submit" value="Rechercher" id="search" class="margetop">
             </div>
         </form>
         <div class="divFiltre">

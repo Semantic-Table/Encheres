@@ -1,15 +1,42 @@
 @media (max-width: 1100px) {
     header {
         width: 40vw;
-        left: -35vw;
+        left: -40vw;
         justify-content: space-between;
         align-items: center;
         height: 100vh;
         transition: left 1s;
     }
-
-    header:hover {
+    .hamburger {
+        transition: left 1s;
+    }
+    .hamburger:hover ~ header{
         left: 0;
+    }
+    .hamburger:hover{
+        left: 40vw;
+        transition: left 1s;
+    }
+    .hamburger:hover .div1{
+        transform: rotate(45deg) translateY(10px) translateX(12px);
+
+    }
+
+    .hamburger:hover .div3{
+        transform: rotate(-45deg) translateY(-10px) translateX(12px);
+
+    }
+    /*
+    .hamburger:hover .div2{
+
+        transform: rotate(-45deg) translateY(1px) translateX(1px);
+
+    }*/
+
+    .hamburger:hover .div2{
+
+        transform: translateX(1200px);
+
     }
 
     main {
@@ -21,6 +48,7 @@
     .lienFiltre {
         width: fit-content;
     }
+
     .boxFiltre {
         width: 50%;
     }
@@ -32,6 +60,7 @@
     .card {
         width: 43%;
     }
+
     .boxdetailimg {
         width: 50%;
     }
@@ -43,14 +72,25 @@
         width: 70%;
     }
 }
+
 @media (max-width: 650px) {
     header {
         width: 70vw;
-        left: -65vw;
+        left: -70vw;
         justify-content: space-between;
         align-items: center;
         height: 100vh;
         transition: left 1s;
+    }
+
+    .hamburger:hover{
+        left: 70vw;
+        transition: left 1s;
+    }
+    .hamburger:hover .div2{
+
+        transform: translateX(675px);
+
     }
     .card {
         width: 90%;
@@ -60,11 +100,15 @@
         width: auto;
         margin: 2em 10% 2em 2em;
     }
+
     .divFiltre {
         flex-direction: column;
     }
 }
 
 @media (max-width: 420px) {
-
+    .box {
+        width: 80%;
+        margin: 3vw;
+    }
 }

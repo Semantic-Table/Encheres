@@ -7,6 +7,11 @@
   Time: 08:37
   To change this template use File | Settings | File Templates.
 --%>
+<div class="hamburger">
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <div class="div3"></div>
+</div>
 <header>
     <div class="parentMenu">
         <a href="Accueil" class="lienLogo"><img id="logo" src="img/juge.png" alt=""></a>
@@ -68,4 +73,5 @@
         </a>
     </div>
 </header>
+
 
