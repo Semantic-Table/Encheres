@@ -7,11 +7,14 @@
   Time: 08:37
   To change this template use File | Settings | File Templates.
 --%>
-<div class="hamburger">
+<input class="hamburger">
+<div class="logoHamburger">
     <div class="div1"></div>
     <div class="div2"></div>
     <div class="div3"></div>
 </div>
+
+
 <header>
     <div class="parentMenu">
         <a href="Accueil" class="lienLogo"><img id="logo" src="img/juge.png" alt=""></a>
@@ -30,7 +33,7 @@
 
             </c:if>
             <c:if test="${utilisateursC.no_utilisateur != null}">
-                <p class="liendivMenu">Vous possedez ${utilisateursC.credit} points</p>
+                <p class="divMenu">Vous possedez ${utilisateursC.credit} points</p>
                 <a href="Accueil" class="lienMenu">
                     <div class="liendivMenu"><img src="img/magnifying-glass-solid.svg" width="20" height="20" alt="" class="iconMenu">Enchères</div>
                 </a>

@@ -37,7 +37,7 @@
             <p>Retraits : ${retraits.rue}</p>
             <p>${retraits.code_postal} ${retraits.ville}</p>
             <p>Vendeur : ${utilisateurs.pseudo}</p>
-            <c:if test="${articlesVendus.no_utilisateur != utilisateursCno_utilisateurs && utilisateursC.actif}">
+            <c:if test="${articlesVendus.no_utilisateur != utilisateursC.no_utilisateur && utilisateursC.actif}">
                 <form action="Encherir" method="post">
                     <label for="montant_enchere">Ma proposition :</label><input type="number" id="montant_enchere"
                                                                                  name="montant_enchere" required>
@@ -47,7 +47,7 @@
                 </form>
             </c:if>
         </div>
-        <c:if test="${articlesVendus.no_utilisateur == utilisateursCno_utilisateurs}">
+        <c:if test="${articlesVendus.no_utilisateur == utilisateursC.no_utilisateur}">
             <div>
                 <c:forEach items="${enchereses}" var="encheres">
                     <div>

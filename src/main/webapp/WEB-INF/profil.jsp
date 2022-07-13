@@ -81,12 +81,14 @@
             </form>
             <div>Supprimer/modifier une categorie :</div>
             <c:forEach items="${categorieses}" var="categories">
-                <form action="ModifierCategorie" method="post">
-                    <input type="text" name="libelle" value="${categories.libelle}">
-                    <input type="hidden" name="no_categorie" value="${categories.no_categorie}">
-                    <input type="submit" value="Modifier" class="click">
-                </form>
-                <div><a href="GestionCategorie?no_categorie=${categories.no_categorie}" class="click">supprimer</a>
+                <div class="box boxFiltre">
+                    <form action="ModifierCategorie" method="post">
+                        <input type="text" name="libelle" value="${categories.libelle}">
+                        <input type="hidden" name="no_categorie" value="${categories.no_categorie}">
+                        <input type="submit" value="Modifier" class="click">
+                    </form>
+                    <div><a href="GestionCategorie?no_categorie=${categories.no_categorie}" class="click">supprimer</a>
+                    </div>
                 </div>
             </c:forEach>
         </div>

@@ -35,18 +35,21 @@ public class NouvelleVente extends HttpServlet {
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
         CategoriesSQL categoriesSQL = new CategoriesSQL();
 
-        if (session.getAttribute("no_utilisateur") != null){
+        if (session.getAttribute("no_utilisateur") != null) {
             Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
-            request.setAttribute("utilisateursC",utilisateursC);
+            request.setAttribute("utilisateursC", utilisateursC);
+
+
+            ArrayList<Categories> categorieses = categoriesSQL.selectAll();
+
+            request.setAttribute("now", LocalDate.now());
+            request.setAttribute("nowend", LocalDate.now().plusDays(1));
+            request.setAttribute("categorieses", categorieses);
+
+            request.getRequestDispatcher("WEB-INF/nouvelleVente.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("WEB-INF/connexion.jsp").forward(request, response);
         }
-
-        ArrayList<Categories> categorieses = categoriesSQL.selectAll();
-
-        request.setAttribute("now", LocalDate.now());
-        request.setAttribute("nowend", LocalDate.now().plusDays(1));
-        request.setAttribute("categorieses",categorieses);
-
-        request.getRequestDispatcher("WEB-INF/nouvelleVente.jsp").forward(request, response);
     }
 
     @Override
@@ -59,12 +62,10 @@ public class NouvelleVente extends HttpServlet {
         RetraitsSQL retraitsSQL = new RetraitsSQL();
         CategoriesSQL categoriesSQL = new CategoriesSQL();
 
-        if (session.getAttribute("no_utilisateur") != null){
-            int utilisateursCno_utilisateurs = (int) session.getAttribute("no_utilisateur");
-            Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
-            request.setAttribute("utilisateursC",utilisateursC);
-            request.setAttribute("utilisateursCno_utilisateurs",utilisateursCno_utilisateurs);
-        }
+
+        Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
+        request.setAttribute("utilisateursC", utilisateursC);
+
 
         //gestion du formulaire ou l'on recupere des data et non du txt
         DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -91,24 +92,25 @@ public class NouvelleVente extends HttpServlet {
                     fileName = FilenameUtils.getName(fileName);
                 }
                 formValue.add("img/" + fileName);
-                    File uploadedFile = new File(servletContext.getRealPath("img/" + fileName));
+                File uploadedFile = new File(servletContext.getRealPath("img/" + fileName));
                 try {
                     item.write(uploadedFile);
-                }  catch (Exception e){}
+                } catch (Exception e) {
+                }
             }
         }
 
         int no_utilisateurs = (int) session.getAttribute("no_utilisateur");
         ArrayList<Categories> categorieses = categoriesSQL.selectAll();
-        Utilisateurs utilisateursC = utilisateursSQL.selectById(no_utilisateurs);
+
         Categories categories = categoriesSQL.selectById(Integer.parseInt(formValue.get(2)));
 
-        request.setAttribute("categorieses",categorieses);
+        request.setAttribute("categorieses", categorieses);
 
         try {
 
             articlesVendusSQL.insert(new ArticlesVendus(formValue.get(0), formValue.get(1), Date.valueOf(formValue.get(5)), Time.valueOf(formValue.get(6) + ":00"), Date.valueOf(formValue.get(7)), Time.valueOf(formValue.get(8) + ":00"), Integer.parseInt(formValue.get(4)), Integer.parseInt(formValue.get(4)), no_utilisateurs, Integer.parseInt(formValue.get(2)), formValue.get(3)));
-
+            utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
             ArticlesVendus articlesVendus = articlesVendusSQL.selectByLast();
             Utilisateurs utilisateurs = utilisateursSQL.selectById(articlesVendus.getNo_utilisateur());
             retraitsSQL.insert(new Retraits(articlesVendus.getNo_article(), formValue.get(9), formValue.get(10), formValue.get(11)));
@@ -130,5 +132,6 @@ public class NouvelleVente extends HttpServlet {
 
             request.getRequestDispatcher("WEB-INF/nouvelleVente.jsp").forward(request, response);
         }
+
     }
 }

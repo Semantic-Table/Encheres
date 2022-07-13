@@ -22,9 +22,15 @@ public class AfficherProfil extends HttpServlet {
 
         if (session.getAttribute("no_utilisateur") != null){
             Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
+            Utilisateurs utilisateurs = utilisateursSQL.selectById(Integer.parseInt(request.getParameter("no_utilisateur")));
+
+            request.setAttribute("utilisateurs",utilisateurs);
             request.setAttribute("utilisateursC",utilisateursC);
+
+            request.getRequestDispatcher("WEB-INF/profilUtilisateur.jsp").forward(request,response);
+        } else {
+            request.getRequestDispatcher("WEB-INF/connexion.jsp").forward(request,response);
         }
 
-        request.getRequestDispatcher("WEB-INF/profilUtilisateur.jsp").forward(request,response);
     }
 }

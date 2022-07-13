@@ -34,7 +34,7 @@
                     </c:forEach>
 
                 </select>
-                <input type="submit" value="Rechercher" id="search" class="margetop">
+                <input type="submit" value="Rechercher" id="search">
             </div>
         </form>
         <div class="divFiltre">
@@ -42,13 +42,13 @@
 
         <c:if test="${utilisateursC.no_utilisateur != null}">
 
-            <a href="FiltreGagne"><div class="lienFiltre">Gagné</div></a>
+            <a href="FiltreGagne" class="aFiltre"><div class="lienFiltre">Gagné</div></a>
 
-            <a href="FiltreParticipation"><div class="lienFiltre">Je participe</div></a>
+            <a href="FiltreParticipation" class="aFiltre"><div class="lienFiltre">Je participe</div></a>
 
-            <a href="FiltreProprietaire"><div class="lienFiltre">Mes enchères</div></a>
+            <a href="FiltreProprietaire" class="aFiltre"><div class="lienFiltre">Mes enchères</div></a>
         </c:if>
-        <a href="FiltreEnCours"><div class="lienFiltre">Enchères en cours</div></a>
+        <a href="FiltreEnCours" class="aFiltre"><div class="lienFiltre">Enchères en cours</div></a>
         </div>
     </div>
 
@@ -62,10 +62,10 @@
                        href="AfficherArticle?no_article=${articlesVendus.no_article}"><img src="${articlesVendus.image}" alt="photo" id="photoProfil"></a>
                 </div>
                 <div class="cardtxt">
-                    <div><a class="profilLink bigger"
+                    <div class="titleCard"><a class="profilLink bigger"
                             href="AfficherArticle?no_article=${articlesVendus.no_article}">${articlesVendus.nom_article}</a>
                     </div>
-                    <div>Prix de vente : ${articlesVendus.prix_vente}p</div>
+                    <div>Prix de vente : ${articlesVendus.prix_vente} points</div>
                     <div>Fin de l'enchère : ${articlesVendus.date_fin_encheres}</div>
                     <c:forEach items="${utilisateurses}" var="utilisateurs">
                         <c:if test="${utilisateurs.no_utilisateur == articlesVendus.no_utilisateur}">
@@ -79,10 +79,12 @@
         </c:forEach>
 
     </div>
-    <div class="box boxPage">
 
+    <div class="box boxPage">
         <c:forEach var="i" begin="1" end="${nbPages}" step="1">
+
             <a href="Accueil?pages=${i-1}">${i}</a>
+
         </c:forEach>
     </div>
 </main>

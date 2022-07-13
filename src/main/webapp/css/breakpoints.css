@@ -9,35 +9,43 @@
     }
     .hamburger {
         transition: left 1s;
+        background-color: rgba(0,0,0,0);
+        left: 0px;
     }
-    .hamburger:hover ~ header{
+    .logoHamburger {
+        transition: all 1s;
+    }
+    .hamburger:focus ~ header{
         left: 0;
     }
-    .hamburger:hover{
+    .hamburger:focus{
         left: 40vw;
         transition: left 1s;
     }
-    .hamburger:hover .div1{
+    .hamburger:focus ~ .logoHamburger {
+        left: 40vw;
+    }
+    .hamburger:focus ~ .logoHamburger .div1{
         transform: rotate(45deg) translateY(10px) translateX(12px);
 
     }
 
-    .hamburger:hover .div3{
+    .hamburger:focus ~ .logoHamburger .div3{
         transform: rotate(-45deg) translateY(-10px) translateX(12px);
 
     }
-    /*
-    .hamburger:hover .div2{
+
+    .hamburger:focus ~ .logoHamburger .div2 {
 
         transform: rotate(-45deg) translateY(1px) translateX(1px);
+    }
 
-    }*/
-
-    .hamburger:hover .div2{
+/*
+    .hamburger:focus ~ .logoHamburger .div2{
 
         transform: translateX(1200px);
 
-    }
+    }*/
 
     main {
         width: 100vw;
@@ -82,15 +90,21 @@
         height: 100vh;
         transition: left 1s;
     }
-
-    .hamburger:hover{
-        left: 70vw;
+    .hamburger {
         transition: left 1s;
+        background-color: rgba(0,0,0,0);
+        left: 0px;
     }
-    .hamburger:hover .div2{
+    .logoHamburger {
+        transition: all 1s;
+    }
 
-        transform: translateX(675px);
+    .hamburger:focus{
+        left: 70vw;
 
+    }
+    .hamburger:focus ~ .logoHamburger {
+        left: 70vw;
     }
     .card {
         width: 90%;

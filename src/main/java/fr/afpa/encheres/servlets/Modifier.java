@@ -37,8 +37,7 @@ public class Modifier extends HttpServlet {
 
         try {
             utilisateursSQL.update((int) session.getAttribute("no_utilisateur"), new Utilisateurs(request.getParameter("pseudo"), request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("email"), request.getParameter("telephone"), request.getParameter("rue"), request.getParameter("code_postal"), request.getParameter("ville"), sha256Hex, 0, false, true));
-        } catch (ChampVideException e) {
-        }
+        } catch (Exception e) {}
 
         Utilisateurs utilisateurs = utilisateursSQL.selectById((int) session.getAttribute("no_utilisateur"));
 

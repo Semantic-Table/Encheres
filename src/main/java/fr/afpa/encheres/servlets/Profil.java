@@ -21,17 +21,20 @@ public class Profil extends HttpServlet {
         UtilisateursSQL utilisateursSQL = new UtilisateursSQL();
         CategoriesSQL categoriesSQL = new CategoriesSQL();
 
-        if (session.getAttribute("no_utilisateur") != null){
+        if (session.getAttribute("no_utilisateur") != null) {
             Utilisateurs utilisateursC = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
-            request.setAttribute("utilisateursC",utilisateursC);
+            request.setAttribute("utilisateursC", utilisateursC);
+
+
+            ArrayList<Categories> categorieses = categoriesSQL.selectAll();
+            Utilisateurs utilisateurs = utilisateursSQL.selectById(utilisateursC.getNo_utilisateur());
+
+            request.setAttribute("categorieses", categorieses);
+            request.setAttribute("utilisateurs", utilisateurs);
+
+            request.getRequestDispatcher("WEB-INF/profil.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("WEB-INF/connexion.jsp").forward(request, response);
         }
-
-        ArrayList<Categories> categorieses = categoriesSQL.selectAll();
-        Utilisateurs utilisateurs = utilisateursSQL.selectById((Integer) session.getAttribute("no_utilisateur"));
-
-        request.setAttribute("categorieses",categorieses);
-        request.setAttribute("utilisateurs",utilisateurs);
-
-        request.getRequestDispatcher("WEB-INF/profil.jsp").forward(request, response);
     }
 }

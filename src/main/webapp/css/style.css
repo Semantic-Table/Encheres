@@ -1,25 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Kanit:wght@300&display=swap');
 
-:root{
-    --light-violet : #461f8e;
-    --dark-violet : #2f1960;
+:root {
+    --light-violet: #461f8e;
+    --dark-violet: #2f1960;
 }
 
-*{
+* {
 
     font-family: 'Kanit', sans-serif;
+
 }
+
 #logo {
     width: 150px;
     height: 150px;
 }
+
 .lienLogo {
     align-self: center;
 }
+
 div {
     font-weight: lighter;
 }
-body{
+
+body {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -29,6 +34,7 @@ body{
     background: #f1f1f1;
 
 }
+
 header {
     width: 20%;
     background: var(--light-violet);
@@ -38,8 +44,10 @@ header {
     justify-content: space-between;
     align-items: center;
     position: fixed;
-    height:100vh;
+    height: 100vh;
+    z-index: 1;
 }
+
 main {
     margin-left: 20%;
     padding-left: 5%;
@@ -53,41 +61,62 @@ h1 {
     color: var(--dark-violet);
     font-family: 'Bungee', cursive;
 }
+
 #photoProfil {
-
     width: 100%;
-
-
 }
+
 .menu {
-
-
     width: 100%;
 }
+
 .lienMenu {
     font-family: 'Bungee', cursive;
     font-size: 15px;
     text-decoration: none;
     color: white;
-
+    background-color: var(--light-violet);
+    transition: all 1s;
 }
+
+
+
 h1 {
     font-weight: bolder;
 }
+
 .parentMenu {
     width: 100%;
     display: flex;
     flex-direction: column;
 }
-.liendivMenu {
-    padding-left:10%;
+
+.divMenu {
+    padding-left: 10%;
     font-family: 'Bungee', cursive;
     line-height: 4em;
+    transition: all 1s;
+    border-radius: 10px;
 }
+
+.liendivMenu {
+    padding-left: 10%;
+    font-family: 'Bungee', cursive;
+    line-height: 4em;
+    transition: all 1s;
+    border-radius: 10px;
+    margin: 1em;
+}
+.liendivMenu:hover {
+    color: var(--light-violet);
+    background-color: white;
+}
+
 .svg {
     width: 40px;
     height: 40px;
 }
+
 .box {
     padding: 1em;
     margin: 2em 10% 2em 2em;
@@ -95,16 +124,23 @@ h1 {
     background: white;
     border: 1px solid #dedede;
 }
+
 .card {
-    width:27%;
+    width: 27%;
 
     margin: 3%;
     border: 1px solid #dcdcdc;
+    border-top-color: #2f1960;
+    border-top-width: 3px;
+    border-bottom-color: #2f1960;
+    border-bottom-width: 3px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     border-radius: 10px;
+
+
 }
 
 .cardbox {
@@ -119,41 +155,54 @@ h1 {
     display: flex;
     justify-content: space-around;
     flex-direction: column;
-padding: 0 3%;
+    padding: 0 3%;
+    background: rgb(53, 20, 70);
+    background: linear-gradient(90deg, rgba(70, 31, 142, 0.03) 50%, rgba(255, 255, 255, 100) 50%);
+    text-align: center;
 }
 
 .cardimg {
     display: flex;
     justify-content: center;
     align-items: center;
-border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px 0 0;
     width: 100%;
     height: 50%;
     border-bottom: 1px solid whitesmoke;
     overflow: hidden;
 }
+
 .boxFiltre {
     width: fit-content;
 }
+
 .divFiltre {
     padding: 1em 0;
     display: flex;
     flex-direction: row;
 }
-.lienFiltre{
+
+.lienFiltre {
     width: fit-content;
+    text-decoration: none;
 }
-.lienFiltre,.click {
+
+.aFiltre {
+    text-decoration: none;
+}
+
+.lienFiltre, .click {
     border: 1px solid var(--light-violet);
     padding: 0.2em 0.5em;
     text-decoration: none;
     color: white;
     background: var(--light-violet);
-    transition: color 0.5s,background-color 0.5s;
+    transition: color 0.5s, background-color 0.5s;
     margin: 10px;
     font-size: 13px;
 }
-.lienFiltre:hover,.click:hover {
+
+.lienFiltre:hover, .click:hover {
     border: 1px solid var(--light-violet);
 
     padding: 0.2em 0.5em;
@@ -161,19 +210,18 @@ border-radius: 10px 10px 0 0;
     color: var(--light-violet);
     background: white;
 }
-a:visited{
-    text-decoration: none;
-}
+
 #search {
     border: 1px solid var(--light-violet);
     padding: 0.2em 0.5em;
     text-decoration: none;
     color: white;
     background: var(--light-violet);
-    transition: color 0.5s,background-color 0.5s;
+    transition: color 0.5s, background-color 0.5s;
     margin-left: 10px;
     font-size: 13px;
 }
+
 #search:hover {
     border: 1px solid var(--light-violet);
     padding: 0.2em 0.5em;
@@ -181,80 +229,118 @@ a:visited{
     color: var(--light-violet);
     background: white;
 }
-.profilLink{
-    text-decoration: none;
+
+.profilLink {
+    text-decoration: underline;
     color: var(--dark-violet);
 
 }
-.profilLink:hover{
+
+.titleCard {
+    text-align: center;
+}
+
+.profilLink:hover {
     color: darkred;
 }
+
 .connexionBox {
     padding: 1em 0;
 }
+
 .boxdetailimg {
     align-self: center;
     display: flex;
     justify-content: center;
     width: 30%;
 }
+
 .detailTxt {
     align-self: flex-start;
 }
+
 .detailimg {
     width: 100%;
 }
+
 .detailbox {
     display: flex;
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
 }
+
 .bigger {
     font-size: 1.3em;
 }
-.inscriptionform{
+
+.inscriptionform {
     display: flex;
 }
-.inscriptionbox{
+
+.inscriptionbox {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     width: 33%;
     height: 10em;
 }
-input,select {
+
+input, select {
     border-bottom: 1px var(--light-violet);
     border-style: none none solid none;
-margin-left: 7px;
+    margin-left: 7px;
 }
-input:active{
+
+input:active {
     outline: none;
     border-bottom: 1px var(--light-violet);
     border-style: none none solid none;
 }
+
 input:focus {
     outline: none;
 }
-#no_categorie{
+
+#no_categorie {
     height: 2em;
 }
+
 .boxPage {
     text-align: center;
 }
+
 .iconMenu {
     margin-right: 3%;
 }
+
 .margetop {
     margin-top: 1em;
 }
+
 .hamburger {
     position: fixed;
     width: 50px;
     height: 50px;
-    left: 0;
+    left: -600px;
+    z-index: 3;
+    border-style: none;
+    caret-color: rgba(0,0,0,0);
 }
-.hamburger div {
+.hamburger:active {
+
+    border-style: none;
+}
+.logoHamburger {
+    background-color: rgba(0,0,0,0);
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    left: 0;
+    z-index: 2;
+}
+
+.logoHamburger div {
     background: var(--light-violet);
     width: 40px;
     height: 8px;
@@ -262,18 +348,21 @@ input:focus {
     border-radius: 5px;
     transition: transform 1s;
 }
-.hamburger .div1{
+
+.logoHamburger .div1 {
 
     left: 5px;
     top: 5px;
 }
-.hamburger .div2{
+
+.logoHamburger .div2 {
 
     left: 5px;
     top: 21px;
 
 }
-.hamburger .div3{
+
+.logoHamburger .div3 {
 
     left: 5px;
     top: 37px;

@@ -41,7 +41,7 @@ public class Inscription extends HttpServlet {
                 String sha256hex = DigestUtils.sha256Hex(request.getParameter("mot_de_passe"));
                 System.out.println(sha256hex);
                 utilisateursSQL.insert(new Utilisateurs(request.getParameter("pseudo"), request.getParameter("nom"), request.getParameter("prenom"), request.getParameter("email"), request.getParameter("telephone"), request.getParameter("rue"), request.getParameter("code_postal"), request.getParameter("ville"), sha256hex, 0, false,true));
-            } catch (ChampVideException e) {
+            } catch (Exception e) {
                 request.getRequestDispatcher("WEB-INF/echecInscription.jsp").forward(request, response);
             }
 
